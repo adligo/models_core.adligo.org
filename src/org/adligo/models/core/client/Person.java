@@ -1,4 +1,4 @@
-package org.adligo.models.core;
+package org.adligo.models.core.client;
 
 public class Person implements I_NamedId {
 	protected Integer id;

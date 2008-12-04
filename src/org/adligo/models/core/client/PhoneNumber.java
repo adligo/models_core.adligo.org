@@ -1,4 +1,4 @@
-package org.adligo.models.core;
+package org.adligo.models.core.client;
 
 public class PhoneNumber {
 	protected Integer id;

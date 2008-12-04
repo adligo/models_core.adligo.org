@@ -1,4 +1,4 @@
-package org.adligo.models.core;
+package org.adligo.models.core.client;
 
 public class NamedIdMutant extends NamedId {
 	public void setId(Integer p) {
