@@ -1,10 +1,13 @@
 package org.adligo.models.core.client;
 
+import org.adligo.i.util.client.StringUtils;
+
 public class User implements I_NamedId {
 	/**
-	 * if stored in a rdbms the table id
+	 * the unique storage identifier
 	 */
-	protected Integer id;
+	private StorageIdentifier id;
+	
 	/**
 	 * usually a email address
 	 * used as reciever in MessageDestination to identify the session of the user
@@ -14,7 +17,8 @@ public class User implements I_NamedId {
 	 * for instance if the dn is uid=scott,dc=adligo,dc=com
 	 * it is just the value 'scott'
 	 */
-	protected String name;
+	private String name;
+	
 	/**
 	 * used to keep users in different organizations apart
 	 * 
@@ -28,15 +32,20 @@ public class User implements I_NamedId {
 	 * 
 	 * adligo.com
 	 */
-	protected String domain;
-	protected String password;
+	private String domain;
+	private String password;
 	
 	protected User() {}
 	
-	public User(User p) {
-		name = p.name;
-		domain = p.domain;
-		password = p.password;
+	public User(User p) throws InvalidParameterException {
+		
+		//allow a null id for items that arn't yet stored
+		if (p.id != null) {
+			id = new StorageIdentifier(p.id);
+		}
+		setDomainP(p.domain);
+		setPasswordP(p.password);
+		setNameP(p.name);
 	}
 	
 	public String getName() {
@@ -51,7 +60,7 @@ public class User implements I_NamedId {
 		return password;
 	}
 
-	public Integer getId() {
+	public StorageIdentifier getId() {
 		return id;
 	}
 
@@ -63,6 +72,7 @@ public class User implements I_NamedId {
 		if (domain == null) {
 			return null;
 		}
+		
 		if (name == null) {
 			return null;
 		}
@@ -109,4 +119,35 @@ public class User implements I_NamedId {
 		}
 		return sb.toString();
 	}
+	
+	protected void setNameP(String name) throws InvalidParameterException {
+		if (StringUtils.isEmpty(name)) {
+			throw new InvalidParameterException("User name can't be set to empty!", "setName");
+		}
+		this.name = name;
+	}
+	
+	protected void setDomainP(String domain) throws InvalidParameterException {
+		if (StringUtils.isEmpty(domain)) {
+			throw new InvalidParameterException("User domain can't be set to empty!", "setDomain");
+		}
+		this.domain = domain;
+	}
+	protected void setPasswordP(String password) throws InvalidParameterException {
+		if (StringUtils.isEmpty(password)) {
+			throw new InvalidParameterException("User password can't be set to empty!", "setPassword");
+		}
+		this.password = password;
+	}
+	
+	protected void setIdP(StorageIdentifier p_id) throws InvalidParameterException {
+		if (p_id == null) {
+			throw new InvalidParameterException("User id can't be set to null!", "setId");
+		}
+		if (!p_id.hasValue()) {
+			throw new InvalidParameterException("User id can't be set to a StorageIdentifier with out a value " + p_id, "setId");
+		}
+		id = new StorageIdentifier(p_id);
+	}
+	
 }

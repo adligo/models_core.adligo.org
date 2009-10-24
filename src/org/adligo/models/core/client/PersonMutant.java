@@ -4,7 +4,7 @@ package org.adligo.models.core.client;
 public class PersonMutant extends Person  {
 	
 
-	public void setId(Integer id) {
+	public void setId(StorageIdentifier id) {
 		this.id = id;
 	}
 

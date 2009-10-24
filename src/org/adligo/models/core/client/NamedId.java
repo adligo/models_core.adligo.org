@@ -3,7 +3,7 @@ package org.adligo.models.core.client;
 
 public class NamedId implements I_NamedId {
 	
-	protected Integer id;
+	protected StorageIdentifier id;
 	protected String name;
 	private int hash_code;
 	
@@ -15,7 +15,7 @@ public class NamedId implements I_NamedId {
 	
 	protected NamedId() {}
 	
-	public Integer getId() {
+	public StorageIdentifier getId() {
 		return id;
 	}
 	public String getName() {

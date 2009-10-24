@@ -3,7 +3,7 @@ package org.adligo.models.core.client;
 
 public class OrganizationMutant extends Organization  {
 	
-	public void setId(Integer p) {
+	public void setId(StorageIdentifier p) {
 		id = p;
 	}
 	public void setName(String p) {

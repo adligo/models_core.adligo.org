@@ -2,7 +2,7 @@ package org.adligo.models.core.client;
 
 
 public class Address {
-	protected Integer id;
+	protected StorageIdentifier id;
 	protected String street_address;
 	protected String city;
 	/** this is the 2 letter ISO country code */
@@ -27,7 +27,7 @@ public class Address {
 	
 	protected Address() {}
 	
-	public Integer getId() {
+	public StorageIdentifier getId() {
 		return id;
 	}
 	

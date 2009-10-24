@@ -3,7 +3,7 @@ package org.adligo.models.core.client;
 
 public class Organization implements I_NamedId {
 	
-	protected Integer id;
+	protected StorageIdentifier id;
 	protected String name;
 	/**
 	 * the type pertains to something like a School, Band, Company
@@ -21,7 +21,7 @@ public class Organization implements I_NamedId {
 	
 	protected Organization() {}
 	
-	public Integer getId() {
+	public StorageIdentifier getId() {
 		return id;
 	}
 	public String getName() {

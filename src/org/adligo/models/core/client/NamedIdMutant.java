@@ -2,7 +2,7 @@ package org.adligo.models.core.client;
 
 public class NamedIdMutant extends NamedId {
 
-	public void setId(Integer p) {
+	public void setId(StorageIdentifier p) {
 		id = p;
 	}
 	public void setName(String p) {
