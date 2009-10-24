@@ -1,9 +1,7 @@
 package org.adligo.models.core.client;
 
-import java.io.Serializable;
 
-public class AddressMutant extends Address implements Serializable  {
-	private static final long serialVersionUID = 1L;
+public class AddressMutant extends Address {
 
 	public void setStreet_address(String p) {
 		street_address = p;

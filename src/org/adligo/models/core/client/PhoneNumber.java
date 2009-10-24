@@ -3,7 +3,6 @@ package org.adligo.models.core.client;
 public class PhoneNumber {
 	protected Integer id;
 	protected String number;
-	private int hash_code;
 	
 	protected PhoneNumber() {}
 	

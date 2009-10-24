@@ -14,5 +14,3 @@ also there should NOT be any collections in this package as the relations should
 PersonRelations(Mutant) for instance in 
 models_core_relations (J2SE, GWT) or 
 models_core_j2me_relations (J2ME) packages
-
-Also these should be Serlizable for RMI, GWT RPC, JDO Storage, exc

@@ -1,0 +1,7 @@
+MIDlet-Jar-URL: models_core.jar
+MIDlet-Name: models_core Midlet Suite
+MIDlet-Vendor: Midlet Suite Vendor
+MIDlet-Version: 1.7.0
+MicroEdition-Configuration: CLDC-1.1
+MicroEdition-Profile: MIDP-2.1
+MIDlet-Jar-Size: 10768

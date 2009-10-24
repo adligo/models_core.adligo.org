@@ -1,6 +1,5 @@
 package org.adligo.models.core.client;
 
-import java.io.Serializable;
 
 /**
  * modeled after the java Jaas Subject
@@ -10,7 +9,7 @@ import java.io.Serializable;
  * @author scott
  *
  */
-public interface I_User extends Serializable {
+public interface I_User {
 	
 	/** 
 	 * @return the users name for things like

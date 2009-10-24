@@ -1,15 +1,8 @@
 package org.adligo.models.core.client;
 
-import java.io.Serializable;
-
 import org.adligo.i.util.client.StringUtils;
 
-public class UserMutant extends User implements Serializable {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class UserMutant extends User {
 	public UserMutant() {}
 	
 	public UserMutant(User p) {

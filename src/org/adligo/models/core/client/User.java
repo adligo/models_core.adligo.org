@@ -1,15 +1,6 @@
 package org.adligo.models.core.client;
 
-import java.io.Serializable;
-
-import org.adligo.i.util.client.StringUtils;
-
-
-public class User implements I_NamedId, Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class User implements I_NamedId {
 	/**
 	 * if stored in a rdbms the table id
 	 */

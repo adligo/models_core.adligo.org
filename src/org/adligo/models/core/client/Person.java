@@ -1,12 +1,7 @@
 package org.adligo.models.core.client;
 
-import java.io.Serializable;
 
-public class Person implements I_NamedId, Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class Person implements I_NamedId {
 	
 	protected Integer id;
 	protected String first_name;

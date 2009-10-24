@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="gwt-jar" name="models_core">
+    <import file="${user.home}/conf/adligo/gwt-build.xml"/>
+</project>
