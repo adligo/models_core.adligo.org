@@ -1,7 +1,14 @@
 package org.adligo.models.core.client;
 
-public class OrganizationMutant extends Organization {
+import java.io.Serializable;
 
+public class OrganizationMutant extends Organization implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	public void setId(Integer p) {
 		id = p;
 	}

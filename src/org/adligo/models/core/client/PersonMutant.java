@@ -1,6 +1,14 @@
 package org.adligo.models.core.client;
 
-public class PersonMutant extends Person {
+import java.io.Serializable;
+
+public class PersonMutant extends Person implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+
 	public void setId(Integer id) {
 		this.id = id;
 	}

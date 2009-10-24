@@ -1,6 +1,9 @@
 package org.adligo.models.core.client;
 
-public class Address {
+import java.io.Serializable;
+
+public class Address implements Serializable {
+	private static final long serialVersionUID = 1L;
 	protected Integer id;
 	protected String street_address;
 	protected String city;
