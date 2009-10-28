@@ -4,7 +4,6 @@ public class StorageIdentifierMutant extends StorageIdentifier {
 
 	public StorageIdentifierMutant() {}
 	
-	@Override
 	public int hashCode() {
 		return super.genHashCode();
 	}

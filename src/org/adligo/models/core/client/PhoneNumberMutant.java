@@ -5,7 +5,7 @@ import org.adligo.i.util.client.StringUtils;
 public class PhoneNumberMutant extends PhoneNumber {
 	private static final String DIGITS = "0123456789";
 	
-	public void setId(Integer p) {
+	public void setId(StorageIdentifier p) {
 		id = p;
 	}
 	public void setNumber(String p) throws InvalidParameterException {

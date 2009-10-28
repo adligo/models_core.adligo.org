@@ -89,12 +89,10 @@ public class StorageIdentifier {
 		return result;
 	}
 	
-	@Override
 	public int hashCode() {
 		return hashCode;
 	}
 
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;

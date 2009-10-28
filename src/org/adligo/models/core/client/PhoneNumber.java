@@ -1,7 +1,7 @@
 package org.adligo.models.core.client;
 
 public class PhoneNumber {
-	protected Integer id;
+	protected StorageIdentifier id;
 	protected String number;
 	
 	protected PhoneNumber() {}
@@ -12,7 +12,7 @@ public class PhoneNumber {
 	}
 	
 	
-	public Integer getId() {
+	public StorageIdentifier getId() {
 		return id;
 	}
 	public String getNumber() {
