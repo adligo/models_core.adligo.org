@@ -1,7 +1,9 @@
 package org.adligo.models.core.client;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
 
-public class AddressMutant extends Address {
+
+public class AddressMutant extends Address implements IsSerializable {
 
 	public void setStreet_address(String p) {
 		street_address = p;

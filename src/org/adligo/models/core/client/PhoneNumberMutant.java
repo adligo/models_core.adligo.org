@@ -2,7 +2,9 @@ package org.adligo.models.core.client;
 
 import org.adligo.i.util.client.StringUtils;
 
-public class PhoneNumberMutant extends PhoneNumber {
+import com.google.gwt.user.client.rpc.IsSerializable;
+
+public class PhoneNumberMutant extends PhoneNumber implements IsSerializable {
 	private static final String DIGITS = "0123456789";
 	
 	public void setId(StorageIdentifier p) {

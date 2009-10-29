@@ -1,6 +1,8 @@
 package org.adligo.models.core.client;
 
-public class StorageIdentifierMutant extends StorageIdentifier {
+import com.google.gwt.user.client.rpc.IsSerializable;
+
+public class StorageIdentifierMutant extends StorageIdentifier implements IsSerializable {
 
 	public StorageIdentifierMutant() {}
 	
