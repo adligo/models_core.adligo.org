@@ -24,15 +24,23 @@ public class CommonTime {
 		if (date == null) {
 			return "null";
 		}
-		I_TextFormatter formatter = TextFormatter.getInstance();
-		return formatter.formatDate(DEFAULT_DATE_TIME_FORMAT, date.getTime());
+		return formatDateTime(date.getTime());
 	}
 	
 	public static String formatDate(Date date) {
 		if (date == null) {
 			return "null";
 		}
+		return formatDate(date.getTime());
+	}
+	
+	public static String formatDateTime(long date) {
 		I_TextFormatter formatter = TextFormatter.getInstance();
-		return formatter.formatDate(DEFAULT_DATE_FORMAT, date.getTime());
+		return formatter.formatDate(DEFAULT_DATE_TIME_FORMAT, date);
+	}
+	
+	public static String formatDate(long date) {
+		I_TextFormatter formatter = TextFormatter.getInstance();
+		return formatter.formatDate(DEFAULT_DATE_FORMAT, date);
 	}
 }
