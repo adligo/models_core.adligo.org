@@ -1,7 +1,13 @@
 package org.adligo.models.core.client;
 
+import java.util.Date;
+
+import org.adligo.i.util.client.I_TextFormatter;
+import org.adligo.i.util.client.TextFormatter;
+
 public class CommonTime {
 	public static final String DEFAULT_TIME_FORMAT = "h:mm a";
+	public static final String DEFAULT_DATE_FORMAT = "MM/dd/yy";
 	public static final String DEFAULT_DATE_TIME_FORMAT = "MM/dd/yy h:mm a SSS";
 	public static final String DEFAULT_DATE_TIME_TIMEZONE_FORMAT = "MM/dd/yy h:mm a SSS Z";
 	
@@ -13,4 +19,20 @@ public class CommonTime {
 	public static final int ONE_DAY = 24 * 60 * 60 * 1000;
 	
 	private CommonTime() {}
+	
+	public static String formatDateTime(Date date) {
+		if (date == null) {
+			return "null";
+		}
+		I_TextFormatter formatter = TextFormatter.getInstance();
+		return formatter.formatDate(DEFAULT_DATE_TIME_FORMAT, date.getTime());
+	}
+	
+	public static String formatDate(Date date) {
+		if (date == null) {
+			return "null";
+		}
+		I_TextFormatter formatter = TextFormatter.getInstance();
+		return formatter.formatDate(DEFAULT_DATE_FORMAT, date.getTime());
+	}
 }
