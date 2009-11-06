@@ -1,8 +1,13 @@
 package org.adligo.models.core.client;
 
+import org.adligo.i.adi.client.I_Invoker;
+import org.adligo.i.adi.client.Registry;
 import org.adligo.i.util.client.StringUtils;
 
 public class User implements I_NamedId {
+	private static final I_Invoker CONSTANTS_FACTORY = 
+		Registry.getInvoker(ModelInvokerNames.CONSTANTS_FACTORY);
+	
 	/**
 	 * the unique storage identifier
 	 */
@@ -34,6 +39,7 @@ public class User implements I_NamedId {
 	 */
 	private String domain;
 	private String password;
+	private String email;
 	
 	protected User() {}
 	
@@ -46,6 +52,7 @@ public class User implements I_NamedId {
 		setDomainP(p.domain);
 		setPasswordP(p.password);
 		setNameP(p.name);
+		setEmailP(p.email);
 	}
 	
 	public String getName() {
@@ -62,6 +69,10 @@ public class User implements I_NamedId {
 
 	public StorageIdentifier getId() {
 		return id;
+	}
+	
+	public String getEmail() {
+		return email;
 	}
 
 	/**
@@ -120,34 +131,69 @@ public class User implements I_NamedId {
 		return sb.toString();
 	}
 	
-	protected void setNameP(String name) throws InvalidParameterException {
-		if (StringUtils.isEmpty(name)) {
-			throw new InvalidParameterException("User name can't be set to empty!", "setName");
+	protected void setNameP(String p_name) throws InvalidParameterException {
+		if (StringUtils.isEmpty(p_name)) {
+			throw new InvalidParameterException(getConstants().getNoUserNameMessage(), "setName");
 		}
-		this.name = name;
+		p_name = p_name.trim();
+		if (p_name.indexOf(" ") != -1) {
+			throw new InvalidParameterException(getConstants().getNoSpaceInNameMessage(), "setName");
+		}
+		if (p_name.indexOf("\t") != -1) {
+			throw new InvalidParameterException(getConstants().getNoTabInNameMessage(), "setName");
+		}
+		this.name = p_name;
+	}
+
+	private I_UserValidationConstants getConstants() {
+		I_UserValidationConstants constants = (I_UserValidationConstants) 
+						CONSTANTS_FACTORY.invoke(I_UserValidationConstants.class);
+		return constants;
 	}
 	
 	protected void setDomainP(String domain) throws InvalidParameterException {
 		if (StringUtils.isEmpty(domain)) {
-			throw new InvalidParameterException("User domain can't be set to empty!", "setDomain");
+			throw new InvalidParameterException(getConstants().getNoEmptyDomainMessage(), "setDomain");
 		}
 		this.domain = domain;
 	}
 	protected void setPasswordP(String password) throws InvalidParameterException {
 		if (StringUtils.isEmpty(password)) {
-			throw new InvalidParameterException("User password can't be set to empty!", "setPassword");
+			throw new InvalidParameterException(getConstants().getNoEmptyPasswordMessage(), "setPassword");
 		}
 		this.password = password;
 	}
 	
 	protected void setIdP(StorageIdentifier p_id) throws InvalidParameterException {
 		if (p_id == null) {
-			throw new InvalidParameterException("User id can't be set to null!", "setId");
+			throw new InvalidParameterException(getConstants().getNullUserIdMessage(), "setId");
 		}
 		if (!p_id.hasValue()) {
-			throw new InvalidParameterException("User id can't be set to a StorageIdentifier with out a value " + p_id, "setId");
+			throw new InvalidParameterException(getConstants().getUserIdWithOutValueMessage() + p_id, "setId");
 		}
 		id = new StorageIdentifier(p_id);
 	}
-	
+
+	/**
+	 * some basic validation,
+	 * should probably also send a email for confirmation
+	 * @param p_email
+	 * @throws InvalidParameterException
+	 */
+	protected void setEmailP(String p_email) throws InvalidParameterException {
+		if (StringUtils.isEmpty(p_email)) {
+			throw new InvalidParameterException(getConstants().getNoEmptyUserEmailMessage(), "setEmail");
+		}
+		p_email = p_email.trim();
+		if (p_email.indexOf("@") == -1) {
+			throw new InvalidParameterException(getConstants().getNoUserEmailWithoutAtMessage(), "setEmail");
+		}
+		if (p_email.indexOf(" ") != -1) {
+			throw new InvalidParameterException(getConstants().getNoUserEmailWithSpaceMessage(), "setName");
+		}
+		if (p_email.indexOf("\t") != -1) {
+			throw new InvalidParameterException(getConstants().getNoUserEmailWithTabMessage(), "setName");
+		}
+		email = p_email;
+	}
 }

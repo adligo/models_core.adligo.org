@@ -23,4 +23,7 @@ public class UserMutant extends User implements IsSerializable {
 	public void setId(StorageIdentifier id) throws InvalidParameterException {
 		super.setIdP(id);
 	}
+	public void setEmail(String email) throws InvalidParameterException {
+		super.setEmailP(email);
+	}
 }

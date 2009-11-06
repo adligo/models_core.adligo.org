@@ -4,5 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="var" path="GWT_HOME/gwt-user.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/i_util"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/adi"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
