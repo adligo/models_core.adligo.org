@@ -1,6 +1,5 @@
 <module>
 	<inherits name="com.google.gwt.user.User"/>
-	<inherits name="com.google.gwt.i18n.I18N"/>
 	
 	<inherits name="org.adligo.i.util.I_Util"/>
 	<inherits name="org.adligo.i.log.I_Log"/>
