@@ -9,14 +9,14 @@ public class ConstantsFactory implements I_Invoker {
 	
 	private I_Map map = MapFactory.create();
 	private ConstantsFactory() {
-		add(I_UserValidationConstants.class, new UserValidationEnglishConstants());
+		put(I_UserValidationConstants.class, new UserValidationEnglishConstants());
 	};
 	
 	public Object invoke(Object valueObject) {
 		return map.get(valueObject);
 	}
 
-	public synchronized void add(Class clazz, Object impl) {
+	public synchronized void put(Class clazz, Object impl) {
 		map.put(clazz, impl);
 	}
 }
