@@ -18,7 +18,7 @@ public class StorageIdentifierMutant extends StorageIdentifier implements IsSeri
 		super.setKeyP(key);
 	}
 
-	public void setId(Integer id) throws InvalidParameterException {
+	public void setId(Long id) throws InvalidParameterException {
 		super.setIdP(id);
 	}
 }

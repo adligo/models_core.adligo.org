@@ -3,6 +3,7 @@ package org.adligo.models.core.client;
 import org.adligo.i.adi.client.I_Invoker;
 import org.adligo.i.adi.client.Registry;
 import org.adligo.i.util.client.StringUtils;
+import org.adligo.models.core.client.i18n.I_UserValidationConstants;
 
 public class User implements I_NamedId {
 	private static final I_Invoker CONSTANTS_FACTORY = 
@@ -79,7 +80,7 @@ public class User implements I_NamedId {
 	 * returns a LDAP dn (for i_netOrgUser entries)
 	 * @return
 	 */
-	public String getDn() {
+	public String getDn() throws InvalidParameterException {
 		if (domain == null) {
 			return null;
 		}
@@ -91,45 +92,11 @@ public class User implements I_NamedId {
 		sb.append("uid=");
 		sb.append(name);
 		sb.append(",");
-		sb.append(toDn(domain));
+		sb.append(Domain.toDn(domain));
 		return sb.toString();
 	}
 	
-	public static String toDn(String domain) {
-		if (domain == null) {
-			return null;
-		}
-		
-		//j2me doesn't have string builder
-		StringBuffer sb = new StringBuffer();
-		
-		boolean first = true;
-		int index = domain.indexOf('.');
-		while (index != -1) {
-			if (index == domain.length()) {
-				index = -1;
-			} else {
-				if (!first) {
-					sb.append(",");
-				}
-				String dc = domain.substring(0, index);
-				sb.append("dc=");
-				sb.append(dc);
-				domain = domain.substring(index + 1, domain.length());
-				index = domain.indexOf('.');
-				first = false;
-			}
-		}
-		if (!first) {
-			sb.append(",");
-			sb.append("dc=");
-			sb.append(domain);
-		} else {
-			sb.append("dc=");
-			sb.append(domain);
-		}
-		return sb.toString();
-	}
+	
 	
 	protected void setNameP(String p_name) throws InvalidParameterException {
 		if (StringUtils.isEmpty(p_name)) {
@@ -185,6 +152,12 @@ public class User implements I_NamedId {
 			throw new InvalidParameterException(getConstants().getNoEmptyUserEmailMessage(), "setEmail");
 		}
 		p_email = p_email.trim();
+		if (p_email.length() < 6) {
+			throw new InvalidParameterException(getConstants().getUserEmailTwoShortMessage(), "setEmail");
+		}
+		if (p_email.indexOf(".") == -1) {
+			throw new InvalidParameterException(getConstants().getUserMustContainDot(), "setEmail");
+		}
 		if (p_email.indexOf("@") == -1) {
 			throw new InvalidParameterException(getConstants().getNoUserEmailWithoutAtMessage(), "setEmail");
 		}

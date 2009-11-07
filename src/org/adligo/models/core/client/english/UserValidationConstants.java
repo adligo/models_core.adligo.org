@@ -1,4 +1,6 @@
-package org.adligo.models.core.client;
+package org.adligo.models.core.client.english;
+
+import org.adligo.models.core.client.i18n.I_UserValidationConstants;
 
 /**
  * for j2se and j2me, and GWT 
@@ -19,7 +21,7 @@ package org.adligo.models.core.client;
  *
  * 
  */
-public class UserValidationEnglishConstants implements I_UserValidationConstants {
+public class UserValidationConstants implements I_UserValidationConstants {
 
 	public String getNoUserNameMessage() {
 		return "User name can't be set to empty!";
@@ -65,4 +67,11 @@ public class UserValidationEnglishConstants implements I_UserValidationConstants
 		return "User email can't contain a tab character!";
 	}
 
+	public String getUserEmailTwoShortMessage() {
+		return "User email is two short to be a email.";
+	}
+
+	public String getUserMustContainDot() {
+		return "User email must contain a dot.";
+	}
 }

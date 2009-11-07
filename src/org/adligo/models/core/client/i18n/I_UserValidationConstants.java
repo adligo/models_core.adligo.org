@@ -1,4 +1,4 @@
-package org.adligo.models.core.client;
+package org.adligo.models.core.client.i18n;
 
 public interface I_UserValidationConstants {
 	public String getNoUserNameMessage();
@@ -12,4 +12,6 @@ public interface I_UserValidationConstants {
 	public String getNoEmptyUserEmailMessage();
 	public String getNoUserEmailWithSpaceMessage();
 	public String getNoUserEmailWithTabMessage();
+	public String getUserEmailTwoShortMessage();
+	public String getUserMustContainDot();
 }

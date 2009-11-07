@@ -5,11 +5,18 @@ import org.adligo.i.util.client.StringUtils;
 
 /**
  * this provides a unique identifier for a stored model
- * 
+ * Storage Identifier 
  * @author scott
  *
  */
 public class StorageIdentifier {
+	public static final String SET_ID = "setId";
+	public static final String SET_KEY = "setKey";
+	public static final String CLAZZ_SIMPLE_NAME = "StorageIdentifier";
+	public static final String ID_CANT_BE_SET_TO_NULL = "StorageIdentifier id can't be set to null!";
+	public static final String KEY_CANT_BE_SET_TO_EMPTY = "StorageIdentifier key can't be set to empty!";
+	public static final String NO_KEY_OR_A_ID = "A StorageIdentifier must have a key or a id!";
+	
 	/**
 	 * 
 	 * used to identify a model in a LDAP server (distinguished name)
@@ -20,28 +27,35 @@ public class StorageIdentifier {
 	/**
 	 * used to identify a model in a RDBMS (Database)
 	 * 
+	 * Long biggest common unit available on j2me, gwt and j2se
 	 */
-	private Integer id;
+	private Long id;
 	private int hashCode;
 	
 	protected StorageIdentifier() {
 	}
 	
-	public StorageIdentifier(StorageIdentifier other) throws InvalidParameterException {
-		if (other.key != null || other.id != null) {
-			if (other.key != null) {
-				setKeyP(other.key);
-			}
-			if (other.id != null) {
-				setIdP(other.id);
+	public StorageIdentifier(StorageIdentifier other) {
+		id = other.id;
+		key = other.key;
+		genHashCode();
+	}
+	
+	public StorageIdentifier(StorageIdentifierMutant other) throws InvalidParameterException {
+		if (other.getKey() != null || other.getId() != null) {
+			if (other.getKey() != null) {
+				setKeyP(other.getKey());
+			} 
+			if (other.getId() != null){
+				setIdP(other.getId());
 			}
 		} else {
-			throw new InvalidParameterException("A StorageIdentifier must have a key or a id!", "StorageIdentifier");
+			throw new InvalidParameterException(NO_KEY_OR_A_ID, CLAZZ_SIMPLE_NAME);
 		}
 		genHashCode();
 	}
 	
-	public StorageIdentifier(Integer id) throws InvalidParameterException {
+	public StorageIdentifier(Long id) throws InvalidParameterException {
 		setIdP(id);
 		genHashCode();
 	}
@@ -51,7 +65,7 @@ public class StorageIdentifier {
 		genHashCode();
 	}
 	
-	public StorageIdentifier(Integer id, String key) throws InvalidParameterException {
+	public StorageIdentifier(Long id, String key) throws InvalidParameterException {
 		setKeyP(key);
 		setIdP(id);
 		genHashCode();
@@ -61,20 +75,20 @@ public class StorageIdentifier {
 		return key;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 	
 	protected void setKeyP(String p_key) throws InvalidParameterException {
 		if (StringUtils.isEmpty(p_key)) {
-			throw new InvalidParameterException("StorageIdentifier key can't be set to empty!", "setKey");
+			throw new InvalidParameterException(KEY_CANT_BE_SET_TO_EMPTY, SET_KEY);
 		}
 		key = p_key;
 	}
 
-	protected void setIdP(Integer p_id) throws InvalidParameterException {
+	protected void setIdP(Long p_id) throws InvalidParameterException {
 		if (p_id == null) {
-			throw new InvalidParameterException("StorageIdentifier id can't be set to null!", "setId");
+			throw new InvalidParameterException(ID_CANT_BE_SET_TO_NULL, SET_ID);
 		}
 		id = p_id;
 	}

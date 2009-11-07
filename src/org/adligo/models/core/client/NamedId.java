@@ -2,6 +2,8 @@ package org.adligo.models.core.client;
 
 
 public class NamedId implements I_NamedId {
+	public static final String SET_ID = "setId";
+	public static final String SET_NAME = "setName";
 	
 	protected StorageIdentifier id;
 	protected String name;
@@ -10,6 +12,12 @@ public class NamedId implements I_NamedId {
 	public NamedId(NamedId p) {
 		id = p.id;
 		name = p.name;
+		hash_code = genHashCode();
+	}
+	
+	public NamedId(NamedIdMutant p) throws InvalidParameterException {
+		setIdP(p.id);
+		setNameP(p.name);
 		hash_code = genHashCode();
 	}
 	
@@ -26,6 +34,19 @@ public class NamedId implements I_NamedId {
 		return hash_code;
 	}
 	
+	/**
+	 * allow sub class to throw exception if necessary
+	 * 
+	 * @param p_id
+	 * @throws InvalidParameterException
+	 */
+	protected void setIdP(StorageIdentifier p_id) throws InvalidParameterException {
+		id = p_id;
+	}
+	
+	protected void setNameP(String p_name) throws InvalidParameterException {
+		name = p_name;
+	}
 	protected int genHashCode() {
 		final int prime = 31;
 		int result = 1;
