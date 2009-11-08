@@ -92,7 +92,7 @@ public class User implements I_NamedId {
 		sb.append("uid=");
 		sb.append(name);
 		sb.append(",");
-		sb.append(Domain.toDn(domain));
+		sb.append(DomainName.toDn(domain));
 		return sb.toString();
 	}
 	
@@ -103,9 +103,6 @@ public class User implements I_NamedId {
 		p_name = p_name.trim();
 		if (p_name.indexOf(" ") != -1) {
 			throw new InvalidParameterException(getConstants().getNoSpaceInNameMessage(), "setName");
-		}
-		if (p_name.indexOf("\t") != -1) {
-			throw new InvalidParameterException(getConstants().getNoTabInNameMessage(), "setName");
 		}
 		this.name = p_name;
 	}

@@ -7,4 +7,5 @@ public interface I_EmailValidationConstants {
 	public String getNoDomainError();
 	public String getToShortError();
 	public String getNoSpaceError();
+	public String getBadDomainError();
 }

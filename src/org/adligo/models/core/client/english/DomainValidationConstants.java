@@ -1,8 +1,8 @@
 package org.adligo.models.core.client.english;
 
-import org.adligo.models.core.client.i18n.I_DomainValidationConstants;
+import org.adligo.models.core.client.i18n.I_DomainNameValidationConstants;
 
-public class DomainValidationConstants implements I_DomainValidationConstants {
+public class DomainValidationConstants implements I_DomainNameValidationConstants {
 
 	public static final String DOMAIN_CAN_NOT_HAVE_A_DOT_AS_ITS_LAST_CHARACTER = "Domain can NOT have a dot as its last character.";
 	public static final String DOMAIN_CAN_NOT_HAVE_A_DOT_AS_ITS_FIRST_CHARACTER = "Domain can NOT have a dot as its first character.";

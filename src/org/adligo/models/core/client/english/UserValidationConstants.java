@@ -23,24 +23,25 @@ import org.adligo.models.core.client.i18n.I_UserValidationConstants;
  */
 public class UserValidationConstants implements I_UserValidationConstants {
 
+	public static final String USER_PASSWORD_CAN_T_BE_EMPTY = "User password can't be set to empty!";
+	public static final String USER_DOMAIN_NAME_CANT_BE_EMPTY = "User domain name can't be set to empty!";
+	public static final String USER_NAME_CANT_CONTAIN_A_SPACE = "User name can't contain a space character!";
+	public static final String USER_NAME_CANT_BE_SET_TO_EMPTY = "User name can't be set to empty!";
+
 	public String getNoUserNameMessage() {
-		return "User name can't be set to empty!";
+		return USER_NAME_CANT_BE_SET_TO_EMPTY;
 	}
 
 	public String getNoSpaceInNameMessage() {
-		return "User name can't contain a space character!";
-	}
-
-	public String getNoTabInNameMessage() {
-		return "User name can't contain a tab character!";
+		return USER_NAME_CANT_CONTAIN_A_SPACE;
 	}
 
 	public String getNoEmptyDomainMessage() {
-		return "User domain can't be set to empty!";
+		return USER_DOMAIN_NAME_CANT_BE_EMPTY;
 	}
 
 	public String getNoEmptyPasswordMessage() {
-		return "User password can't be set to empty!";
+		return USER_PASSWORD_CAN_T_BE_EMPTY;
 	}
 
 	public String getNullUserIdMessage() {
