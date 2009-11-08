@@ -96,8 +96,6 @@ public class User implements I_NamedId {
 		return sb.toString();
 	}
 	
-	
-	
 	protected void setNameP(String p_name) throws InvalidParameterException {
 		if (StringUtils.isEmpty(p_name)) {
 			throw new InvalidParameterException(getConstants().getNoUserNameMessage(), "setName");
