@@ -4,6 +4,7 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 
 
 public class UserMutant extends User implements IsSerializable {
+	public static final String SET_DOMAIN = "setDomain";
 	
 	public UserMutant() {}
 	
@@ -18,7 +19,11 @@ public class UserMutant extends User implements IsSerializable {
 		super.setDomainP(domain);
 	}
 	public void setDomain(String domain) throws InvalidParameterException {
-		super.setDomainP(new DomainName(domain));
+		try {
+			super.setDomainP(new DomainName(domain));
+		} catch (InvalidParameterException x) {
+			throw new InvalidParameterException(x.getMessage(), SET_DOMAIN);
+		}
 	}
 	
 	public void setPassword(String password) throws InvalidParameterException {
