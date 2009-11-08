@@ -12,37 +12,37 @@ public class DomainValidationConstants implements I_DomainValidationConstants {
 	public static final String DOMAIN_MUST_CONTAIN_A_DOT = "Domain must contain a dot ie. (name.com).";
 	public static final String DOMAIN_CAN_NOT_BE_EMPTY = "Domain can not be empty.";
 
-	@Override
+	
 	public String getEmptyError() {
 		return DOMAIN_CAN_NOT_BE_EMPTY;
 	}
 
-	@Override
+	
 	public String getNoDotError() {
 		return DOMAIN_MUST_CONTAIN_A_DOT;
 	}
 
-	@Override
+	
 	public String getNoSpaceError() {
 		return DOMAIN_MAY_NOT_CONTAIN_A_SPACE;
 	}
 
-	@Override
+	
 	public String getToShortError() {
 		return DOMAIN_TO_SHORT;
 	}
 
-	@Override
+	
 	public String getDotCantBeConsecutive() {
 		return DOMAIN_CAN_NOT_HAVE_TWO_CONSECUTIVE_DOTS;
 	}
 
-	@Override
+	
 	public String getDotCantBeFirst() {
 		return DOMAIN_CAN_NOT_HAVE_A_DOT_AS_ITS_FIRST_CHARACTER;
 	}
 
-	@Override
+	
 	public String getDotCantBeLast() {
 		return DOMAIN_CAN_NOT_HAVE_A_DOT_AS_ITS_LAST_CHARACTER;
 	}
