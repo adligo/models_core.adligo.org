@@ -8,20 +8,36 @@ import org.adligo.i.util.client.ArrayCollection;
 import org.adligo.i.util.client.StringUtils;
 import org.adligo.models.core.client.i18n.I_DomainNameValidationConstants;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
+
 /**
  * immutable Class to represent a domain name ie adligo.com
  * @author scott
  *
  */
-public class DomainName extends NamedId {
+public class DomainName extends NamedId implements IsSerializable {
 	private static final Log log = LogFactory.getLog(DomainName.class);
 	
 	public static final String DOMAIN_NAME = "DomainName";
 	private static final I_Invoker CONSTANTS_FACTORY = 
 		Registry.getInvoker(ModelInvokerNames.CONSTANTS_FACTORY);
 	
-	private ArrayCollection components = new ArrayCollection();
+	private String[] components;
 	private String asString;
+	
+	/**
+	 * for serilization
+	 */
+	public DomainName() {}
+	
+	public DomainName(DomainName other) {
+		components = new String[other.components.length];
+		for (int i = 0; i < other.components.length; i++) {
+			components[i] = other.components[i];
+		}
+		asString = other.asString;
+	}
+	
 	public DomainName(String name) throws InvalidParameterException {
 		validate(name);
 		asString = name;
@@ -44,12 +60,18 @@ public class DomainName extends NamedId {
 		if (log.isDebugEnabled()) {
 			log.debug("adding component " + sb.toString());
 		}
-		components.add(sb.toString());
-	}
-	
-	public DomainName(DomainName other) {
-		components = other.components;
-		asString = other.asString;
+		if (components == null) {
+			components = new String[1];
+			components[0] = sb.toString();
+		} else {
+			String [] new_components = new String[components.length + 1];
+			for (int i = 0; i < components.length; i++) {
+				new_components[i] = components[i];
+			}
+			new_components[new_components.length - 1] = (sb.toString());
+			components = new_components;
+		}
+		
 	}
 	
 	public static String toDn(String domain) throws InvalidParameterException {
@@ -58,13 +80,13 @@ public class DomainName extends NamedId {
 		//j2me doesn't have string builder
 		StringBuffer sb = new StringBuffer();
 		
-		ArrayCollection compts = name.components;
-		for (int i = 0; i < compts.size(); i++) {
+		String [] compts = name.components;
+		for (int i = 0; i < compts.length; i++) {
 			if (i != 0) {
 				sb.append(",");
 			}
 			sb.append("dc=");
-			sb.append(compts.get(i));
+			sb.append(compts[i]);
 		}
 		return sb.toString();
 	}
@@ -77,6 +99,7 @@ public class DomainName extends NamedId {
 			throw new InvalidParameterException(constants.getEmptyError(), DOMAIN_NAME);
 		}
 		domain = domain.trim();
+		domain = domain.toLowerCase();
 		if (domain.length() < 4) {
 			throw new InvalidParameterException(constants.getToShortError(), DOMAIN_NAME);
 		}
@@ -105,12 +128,10 @@ public class DomainName extends NamedId {
 		}
 	}
 
-	@Override
 	public int hashCode() {
 		return asString.hashCode();
 	}
 
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -127,7 +148,6 @@ public class DomainName extends NamedId {
 		return true;
 	}
 
-	@Override
 	public String toString() {
 		return asString;
 	}

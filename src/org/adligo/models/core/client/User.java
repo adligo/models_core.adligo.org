@@ -38,7 +38,7 @@ public class User implements I_NamedId {
 	 * 
 	 * adligo.com
 	 */
-	private String domain;
+	private DomainName domain;
 	private String password;
 	private String email;
 	
@@ -60,7 +60,7 @@ public class User implements I_NamedId {
 		return name;
 	}
 	
-	public String getDomain() {
+	public DomainName getDomain() {
 		return domain;
 	}
 	
@@ -92,7 +92,7 @@ public class User implements I_NamedId {
 		sb.append("uid=");
 		sb.append(name);
 		sb.append(",");
-		sb.append(DomainName.toDn(domain));
+		sb.append(DomainName.toDn(domain.toString()));
 		return sb.toString();
 	}
 	
@@ -113,10 +113,7 @@ public class User implements I_NamedId {
 		return constants;
 	}
 	
-	protected void setDomainP(String domain) throws InvalidParameterException {
-		if (StringUtils.isEmpty(domain)) {
-			throw new InvalidParameterException(getConstants().getNoEmptyDomainMessage(), "setDomain");
-		}
+	protected void setDomainP(DomainName domain) {
 		this.domain = domain;
 	}
 	protected void setPasswordP(String password) throws InvalidParameterException {

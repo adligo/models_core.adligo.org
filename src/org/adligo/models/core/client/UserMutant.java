@@ -14,9 +14,13 @@ public class UserMutant extends User implements IsSerializable {
 	public void setName(String name) throws InvalidParameterException {
 		super.setNameP(name);
 	}
-	public void setDomain(String domain) throws InvalidParameterException {
+	public void setDomain(DomainName domain) {
 		super.setDomainP(domain);
 	}
+	public void setDomain(String domain) throws InvalidParameterException {
+		super.setDomainP(new DomainName(domain));
+	}
+	
 	public void setPassword(String password) throws InvalidParameterException {
 		super.setPasswordP(password);
 	}

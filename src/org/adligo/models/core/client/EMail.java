@@ -82,12 +82,10 @@ public class EMail {
 		return asString;
 	}
 
-	@Override
 	public int hashCode() {
 		return asString.hashCode();
 	}
 
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
