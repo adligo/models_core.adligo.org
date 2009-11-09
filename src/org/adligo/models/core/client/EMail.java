@@ -29,9 +29,7 @@ public class EMail {
 		}	
 		email = email.trim();
 		if (email.length() < 6) {
-			if (StringUtils.isEmpty(email)) {
-				throw new InvalidParameterException(constants.getToShortError(), EMAIL);
-			}
+			throw new InvalidParameterException(constants.getToShortError(), EMAIL);
 		}
 		StringBuffer userB = new StringBuffer();
 		StringBuffer domainB = new StringBuffer();
@@ -49,6 +47,10 @@ public class EMail {
 				domainB.append(c);
 			}
 		}
+		if (!foundAt) {
+			throw new InvalidParameterException(constants.getNoAtError(), EMAIL);
+		}
+		
 		userName = userB.toString();
 		try {
 			domainName = new DomainName(domainB.toString());
@@ -59,11 +61,9 @@ public class EMail {
 			throw toThrow;
 		}
 		if (userName.length() == 0) {
-			if (StringUtils.isEmpty(email)) {
-				throw new InvalidParameterException(constants.getNoUserError(), EMAIL);
-			}
+			throw new InvalidParameterException(constants.getNoUserError(), EMAIL);
 		}
-		
+		asString = email;
 	}
 	
 	public static void validate(String email) throws InvalidParameterException {
