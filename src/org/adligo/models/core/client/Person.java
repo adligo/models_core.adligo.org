@@ -17,7 +17,7 @@ public class Person implements I_NamedId {
 		hash_code = genHashCode();
 	}
 	
-	protected Person() {}
+	public Person() {}
 	
 	public StorageIdentifier getId() {
 		return id;

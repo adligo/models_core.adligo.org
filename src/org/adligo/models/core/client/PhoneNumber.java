@@ -4,7 +4,7 @@ public class PhoneNumber {
 	protected StorageIdentifier id;
 	protected String number;
 	
-	protected PhoneNumber() {}
+	public PhoneNumber() {}
 	
 	public PhoneNumber(PhoneNumber p) {
 		id = p.id;

@@ -32,7 +32,7 @@ public class StorageIdentifier {
 	private Long id;
 	private int hashCode;
 	
-	protected StorageIdentifier() {
+	public StorageIdentifier() {
 	}
 	
 	public StorageIdentifier(StorageIdentifier other) {

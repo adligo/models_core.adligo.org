@@ -21,7 +21,7 @@ public class NamedId implements I_NamedId {
 		hash_code = genHashCode();
 	}
 	
-	protected NamedId() {}
+	public NamedId() {}
 	
 	public StorageIdentifier getId() {
 		return id;

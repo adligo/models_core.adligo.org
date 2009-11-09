@@ -25,7 +25,7 @@ public class Address {
 		hash_code = genHashCode();
 	}
 	
-	protected Address() {}
+	public Address() {}
 	
 	public StorageIdentifier getId() {
 		return id;

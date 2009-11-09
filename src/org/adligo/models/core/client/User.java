@@ -42,7 +42,7 @@ public class User implements I_NamedId {
 	private String password;
 	private String email;
 	
-	protected User() {}
+	public User() {}
 	
 	public User(User p) throws InvalidParameterException {
 		

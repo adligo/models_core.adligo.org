@@ -19,7 +19,7 @@ public class Organization implements I_NamedId {
 		hash_code = genHashCode();
 	}
 	
-	protected Organization() {}
+	public Organization() {}
 	
 	public StorageIdentifier getId() {
 		return id;
