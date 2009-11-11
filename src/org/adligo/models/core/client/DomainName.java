@@ -153,8 +153,6 @@ public class DomainName implements IsSerializable, I_NamedId, I_Mutable, I_Valid
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!super.equals(obj))
-			return false;
 		if (obj instanceof DomainName) {
 			DomainName other = (DomainName) obj;
 			if (namedId == null) {
