@@ -5,6 +5,15 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class OrganizationMutant extends Organization implements IsSerializable {
 	
+	
+	public OrganizationMutant() {
+		
+	}
+	
+	public OrganizationMutant(Organization o) {
+		super(o);
+	}
+	
 	public void setId(StorageIdentifier p) {
 		id = p;
 	}

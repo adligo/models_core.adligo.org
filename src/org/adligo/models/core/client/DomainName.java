@@ -15,34 +15,52 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  * @author scott
  *
  */
-public class DomainName extends NamedId implements IsSerializable {
+public class DomainName implements IsSerializable, I_NamedId, I_Mutable, I_Validateable {
 	private static final Log log = LogFactory.getLog(DomainName.class);
 	
 	public static final String DOMAIN_NAME = "DomainName";
 	private static final I_Invoker CONSTANTS_FACTORY = 
 		Registry.getInvoker(ModelInvokerNames.CONSTANTS_FACTORY);
 	
+	private NamedId namedId;
 	private String[] components;
-	private String asString;
 	
 	/**
-	 * for serilization
+	 * mostly only for RPC Serilization
+	 * as this class is immutable
 	 */
-	public DomainName() {}
+	public DomainName() {
+		namedId = new NamedId();
+	}
 	
-	public DomainName(DomainName other) {
+	public DomainName(DomainName other) throws InvalidParameterException {
+		I_DomainNameValidationConstants constants = (I_DomainNameValidationConstants) 
+		CONSTANTS_FACTORY.invoke(I_DomainNameValidationConstants.class);
+
+		namedId = new NamedId(other.namedId);
+		if (StringUtils.isEmpty(namedId.getName())) {
+			throw new InvalidParameterException(constants.getEmptyError(), DOMAIN_NAME);
+		}
+
 		components = new String[other.components.length];
 		for (int i = 0; i < other.components.length; i++) {
 			components[i] = other.components[i];
 		}
-		asString = other.asString;
 	}
 	
 	public DomainName(String name) throws InvalidParameterException {
-		validate(name);
-		asString = name;
+		setNameP(name, null);
+	}
+
+	public DomainName(String name, StorageIdentifier id) throws InvalidParameterException {
+		setNameP(name, id);
+	}
+	
+	private void setNameP(String p_name, StorageIdentifier id) throws InvalidParameterException {
+		validate(p_name);
+		namedId = new NamedId(p_name, id);
 		
-		char [] chars = name.toCharArray();
+		char [] chars = p_name.toCharArray();
 		StringBuffer sb = new StringBuffer();
 		for (int i = 0; i < chars.length; i++) {
 			char c = chars[i];
@@ -129,7 +147,7 @@ public class DomainName extends NamedId implements IsSerializable {
 	}
 
 	public int hashCode() {
-		return asString.hashCode();
+		return namedId.hashCode();
 	}
 
 	public boolean equals(Object obj) {
@@ -137,19 +155,48 @@ public class DomainName extends NamedId implements IsSerializable {
 			return true;
 		if (!super.equals(obj))
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		DomainName other = (DomainName) obj;
-		if (asString == null) {
-			if (other.asString != null)
+		if (obj instanceof DomainName) {
+			DomainName other = (DomainName) obj;
+			if (namedId == null) {
+				if (other.namedId != null)
+					return false;
+			} else if (!namedId.equals(other.namedId))
 				return false;
-		} else if (!asString.equals(other.asString))
-			return false;
-		return true;
+			return true;
+		}
+		return false;
 	}
 
 	public String toString() {
-		return asString;
+		if (namedId == null) {
+			return "'empty domain'";
+		}
+		if (namedId.getName() == null) {
+			return "'empty domain'";
+		}
+		return namedId.getName();
+	}
+
+	public boolean isMutable() {
+		return false;
+	}
+
+	public boolean isValid() {
+		if (namedId == null) {
+			return false;
+		}
+		if (namedId.getName() == null) {
+			return false;
+		}
+		return true;
+	}
+
+	public StorageIdentifier getId() {
+		return namedId.getId();
+	}
+
+	public String getName() {
+		return namedId.getName();
 	}
 	
 	

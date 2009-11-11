@@ -6,6 +6,14 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 public class PersonMutant extends Person implements IsSerializable  {
 	
 
+	public PersonMutant() {
+		
+	}
+	
+	public PersonMutant(Person p) {
+		super(p);
+	}
+	
 	public void setId(StorageIdentifier id) {
 		this.id = id;
 	}

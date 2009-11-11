@@ -1,8 +1,7 @@
 package org.adligo.models.core.client;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
 
-public class NamedIdMutant extends NamedId implements IsSerializable {
+public class NamedIdMutant extends NamedId {
 
 	public void setId(StorageIdentifier p) throws InvalidParameterException {
 		setIdP(p);

@@ -1,7 +1,11 @@
 package org.adligo.models.core.client;
 
+import org.adligo.i.util.client.ClassUtils;
 
-public class NamedId implements I_NamedId {
+import com.google.gwt.user.client.rpc.IsSerializable;
+
+
+public class NamedId implements I_NamedId, IsSerializable {
 	public static final String SET_ID = "setId";
 	public static final String SET_NAME = "setName";
 	
@@ -21,6 +25,16 @@ public class NamedId implements I_NamedId {
 		hash_code = genHashCode();
 	}
 	
+	public NamedId(String p_name) throws InvalidParameterException {
+		setNameP(p_name);
+		hash_code = genHashCode();
+	}
+	
+	public NamedId(String p_name, StorageIdentifier p_id) throws InvalidParameterException {
+		setNameP(p_name);
+		setIdP(p_id);
+		hash_code = genHashCode();
+	}
 	public NamedId() {}
 	
 	public StorageIdentifier getId() {
@@ -59,16 +73,27 @@ public class NamedId implements I_NamedId {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		final NamedId other = (NamedId) obj;
-		if (name == null) {
-			if (other.name != null)
+		if (obj instanceof NamedId) {
+			final NamedId other = (NamedId) obj;
+			if (name == null) {
+				if (other.name != null)
+					return false;
+			} else if (!name.equals(other.name))
 				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
+			return true;
+		}
+		return false;
 	}
 
-	
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		sb.append(ClassUtils.getClassShortName(NamedId.class));
+		sb.append(" [name=");
+		sb.append(name);
+		sb.append(",id=");
+		sb.append(id);
+		sb.append("]");
+		
+		return sb.toString();
+	}
 }

@@ -2,10 +2,11 @@ package org.adligo.models.core.client;
 
 import org.adligo.i.adi.client.I_Invoker;
 import org.adligo.i.adi.client.Registry;
+import org.adligo.i.util.client.ClassUtils;
 import org.adligo.i.util.client.StringUtils;
 import org.adligo.models.core.client.i18n.I_UserValidationConstants;
 
-public class User implements I_NamedId {
+public class User implements I_NamedId, I_Validateable, I_Mutable {
 	private static final I_Invoker CONSTANTS_FACTORY = 
 		Registry.getInvoker(ModelInvokerNames.CONSTANTS_FACTORY);
 	
@@ -38,9 +39,9 @@ public class User implements I_NamedId {
 	 * 
 	 * adligo.com
 	 */
-	private DomainName domain;
+	protected DomainName domain;
 	private String password;
-	private String email;
+	private EMail email;
 	
 	public User() {}
 	
@@ -50,10 +51,10 @@ public class User implements I_NamedId {
 		if (p.id != null) {
 			id = new StorageIdentifier(p.id);
 		}
-		setDomainP(p.domain);
+		setDomainP(new DomainName(p.domain));
 		setPasswordP(p.password);
 		setNameP(p.name);
-		setEmailP(p.email);
+		setEmailP(new EMail(p.email));
 	}
 	
 	public String getName() {
@@ -72,7 +73,7 @@ public class User implements I_NamedId {
 		return id;
 	}
 	
-	public String getEmail() {
+	public EMail getEmail() {
 		return email;
 	}
 
@@ -139,26 +140,44 @@ public class User implements I_NamedId {
 	 * @param p_email
 	 * @throws InvalidParameterException
 	 */
-	protected void setEmailP(String p_email) throws InvalidParameterException {
-		if (StringUtils.isEmpty(p_email)) {
-			throw new InvalidParameterException(getConstants().getNoEmptyUserEmailMessage(), "setEmail");
-		}
-		p_email = p_email.trim();
-		if (p_email.length() < 6) {
-			throw new InvalidParameterException(getConstants().getUserEmailTwoShortMessage(), "setEmail");
-		}
-		if (p_email.indexOf(".") == -1) {
-			throw new InvalidParameterException(getConstants().getUserMustContainDot(), "setEmail");
-		}
-		if (p_email.indexOf("@") == -1) {
-			throw new InvalidParameterException(getConstants().getNoUserEmailWithoutAtMessage(), "setEmail");
-		}
-		if (p_email.indexOf(" ") != -1) {
-			throw new InvalidParameterException(getConstants().getNoUserEmailWithSpaceMessage(), "setName");
-		}
-		if (p_email.indexOf("\t") != -1) {
-			throw new InvalidParameterException(getConstants().getNoUserEmailWithTabMessage(), "setName");
-		}
+	protected void setEmailP(EMail p_email) {
 		email = p_email;
+	}
+	
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		sb.append(ClassUtils.getClassShortName(User.class));
+		appendFields(sb);
+		return sb.toString();
+	}
+	
+	protected void appendFields(StringBuffer sb) {
+		sb.append(" [name=");
+		sb.append(this.name);
+		sb.append(",email=");
+		sb.append(this.email);
+		sb.append(",domain=");
+		sb.append(this.domain);
+		sb.append("]");
+	}
+
+	public boolean isMutable() {
+		return false;
+	}
+
+	public boolean isValid() {
+		if (domain == null) {
+			return false;
+		} 
+		if (email == null) {
+			return false;
+		}
+		if (StringUtils.isEmpty(name)) {
+			return false;
+		}
+		if (StringUtils.isEmpty(password)) {
+			return false;
+		}
+		return true;
 	}
 }

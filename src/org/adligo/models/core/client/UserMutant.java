@@ -1,9 +1,12 @@
 package org.adligo.models.core.client;
 
+import org.adligo.i.util.client.ClassUtils;
+
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 
 public class UserMutant extends User implements IsSerializable {
+	public static final String SET_EMAIL = "setEmail";
 	public static final String SET_DOMAIN = "setDomain";
 	
 	public UserMutant() {}
@@ -33,6 +36,24 @@ public class UserMutant extends User implements IsSerializable {
 		super.setIdP(id);
 	}
 	public void setEmail(String email) throws InvalidParameterException {
+		try {
+			super.setEmailP(new EMail(email));
+		} catch (InvalidParameterException x) {
+			throw new InvalidParameterException(x.getMessage(), SET_EMAIL);
+		}
+	}
+	public void setEmail(EMail email) throws InvalidParameterException {
 		super.setEmailP(email);
+	}
+	
+	public boolean isMutable() {
+		return true;
+	}
+	
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		sb.append(ClassUtils.getClassShortName(UserMutant.class));
+		appendFields(sb);
+		return sb.toString();
 	}
 }

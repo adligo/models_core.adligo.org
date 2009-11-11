@@ -5,7 +5,9 @@ import org.adligo.i.adi.client.Registry;
 import org.adligo.i.util.client.StringUtils;
 import org.adligo.models.core.client.i18n.I_EmailValidationConstants;
 
-public class EMail {
+import com.google.gwt.user.client.rpc.IsSerializable;
+
+public class EMail implements I_Mutable, I_Validateable, IsSerializable {
 	public static final String EMAIL = "email";
 	private static final I_Invoker CONSTANTS_FACTORY = 
 		Registry.getInvoker(ModelInvokerNames.CONSTANTS_FACTORY);
@@ -13,8 +15,19 @@ public class EMail {
 	private String userName;
 	private String asString;
 	
+	/**
+	 * mostly only for RPC Serilization
+	 * as this class is immutable
+	 */
+	public EMail() {}
 	
-	public EMail(EMail other) {
+	public EMail(EMail other) throws InvalidParameterException {
+		I_EmailValidationConstants constants = (I_EmailValidationConstants) 
+				CONSTANTS_FACTORY.invoke(I_EmailValidationConstants.class);
+		
+		if (StringUtils.isEmpty(other.asString)) {
+			throw new InvalidParameterException(constants.getEmptyError(), EMAIL);
+		}
 		domainName = other.domainName;
 		userName = other.userName;
 		asString = other.asString;
@@ -22,7 +35,7 @@ public class EMail {
 
 	public EMail(String email) throws InvalidParameterException {
 		I_EmailValidationConstants constants = (I_EmailValidationConstants) 
-		CONSTANTS_FACTORY.invoke(I_EmailValidationConstants.class);
+				CONSTANTS_FACTORY.invoke(I_EmailValidationConstants.class);
 
 		if (StringUtils.isEmpty(email)) {
 			throw new InvalidParameterException(constants.getEmptyError(), EMAIL);
@@ -99,6 +112,17 @@ public class EMail {
 				return false;
 		} else if (!asString.equals(other.asString))
 			return false;
+		return true;
+	}
+
+	public boolean isMutable() {
+		return false;
+	}
+
+	public boolean isValid() {
+		if (asString == null) {
+			return false;
+		}
 		return true;
 	}
 	

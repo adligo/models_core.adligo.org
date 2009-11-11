@@ -3,13 +3,15 @@ package org.adligo.models.core.client;
 import org.adligo.i.util.client.ClassUtils;
 import org.adligo.i.util.client.StringUtils;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
+
 /**
  * this provides a unique identifier for a stored model
  * Storage Identifier 
  * @author scott
  *
  */
-public class StorageIdentifier {
+public class StorageIdentifier implements IsSerializable {
 	public static final String SET_ID = "setId";
 	public static final String SET_KEY = "setKey";
 	public static final String CLAZZ_SIMPLE_NAME = "StorageIdentifier";
@@ -113,18 +115,21 @@ public class StorageIdentifier {
 		if (obj == null)
 			return false;
 		//allow extensions to equal
-		StorageIdentifier other = (StorageIdentifier) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (obj instanceof StorageIdentifier) {
+			StorageIdentifier other = (StorageIdentifier) obj;
+			if (id == null) {
+				if (other.id != null)
+					return false;
+			} else if (!id.equals(other.id))
 				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (key == null) {
-			if (other.key != null)
+			if (key == null) {
+				if (other.key != null)
+					return false;
+			} else if (!key.equals(other.key))
 				return false;
-		} else if (!key.equals(other.key))
-			return false;
-		return true;
+			return true;
+		}
+		return false;
 	}
 	
 	public boolean hasValue() {
