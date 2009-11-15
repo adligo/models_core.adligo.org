@@ -6,7 +6,9 @@ import org.adligo.i.util.client.ClassUtils;
 import org.adligo.i.util.client.StringUtils;
 import org.adligo.models.core.client.i18n.I_UserValidationConstants;
 
-public class User implements I_NamedId, I_Validateable, I_Mutable {
+import com.google.gwt.user.client.rpc.IsSerializable;
+
+public class User implements I_NamedId, I_Validateable, I_Mutable, IsSerializable {
 	public static final String USER_ID_NULL = "User id can't be set to null!";
 	public static final String USER_ID_EMPTY = "User id can't be set to a StorageIdentifier with out a value ";
 	
