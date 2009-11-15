@@ -87,7 +87,7 @@ public class NamedId implements I_NamedId, IsSerializable {
 
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
-		sb.append(ClassUtils.getClassShortName(NamedId.class));
+		sb.append(ClassUtils.getClassShortName(this.getClass()));
 		sb.append(" [name=");
 		sb.append(name);
 		sb.append(",id=");
