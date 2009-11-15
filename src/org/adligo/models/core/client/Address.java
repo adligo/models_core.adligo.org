@@ -49,7 +49,9 @@ public class Address implements IsSerializable, I_Validateable, I_Storable {
 			setPostalCodeP(p.postal_code);
 			hash_code = genHashCode();
 		} catch (InvalidParameterException x) {
-			throw new InvalidParameterException(x.getMessage(), ADDRESS);
+			InvalidParameterException ipe = new InvalidParameterException(x.getMessage(), ADDRESS);
+			ipe.initCause(x);
+			throw ipe;
 		}
 	}
 	
