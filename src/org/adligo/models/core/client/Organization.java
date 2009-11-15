@@ -1,7 +1,9 @@
 package org.adligo.models.core.client;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
 
-public class Organization implements I_NamedId {
+
+public class Organization implements I_NamedId, IsSerializable {
 	
 	protected StorageIdentifier id;
 	protected String name;

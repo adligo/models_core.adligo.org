@@ -1,9 +1,8 @@
 package org.adligo.models.core.client;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
 
 
-public class PersonMutant extends Person implements IsSerializable  {
+public class PersonMutant extends Person {
 	
 
 	public PersonMutant() {

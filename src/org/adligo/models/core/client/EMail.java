@@ -7,13 +7,13 @@ import org.adligo.models.core.client.i18n.I_EmailValidationConstants;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
-public class EMail implements I_Mutable, I_Validateable, IsSerializable {
+public class EMail implements I_Mutable, I_Validateable, IsSerializable, I_NamedId {
 	public static final String EMAIL = "email";
 	private static final I_Invoker CONSTANTS_FACTORY = 
 		Registry.getInvoker(ModelInvokerNames.CONSTANTS_FACTORY);
 	private DomainName domainName;
 	private String userName;
-	private String asString;
+	private NamedId namedId;
 	
 	/**
 	 * mostly only for RPC Serilization
@@ -24,13 +24,19 @@ public class EMail implements I_Mutable, I_Validateable, IsSerializable {
 	public EMail(EMail other) throws InvalidParameterException {
 		I_EmailValidationConstants constants = (I_EmailValidationConstants) 
 				CONSTANTS_FACTORY.invoke(I_EmailValidationConstants.class);
-		
-		if (StringUtils.isEmpty(other.asString)) {
+
+		if (other == null) {
+			throw new InvalidParameterException(constants.getEmptyError(), EMAIL);
+		}
+		if (other.namedId == null) {
+			throw new InvalidParameterException(constants.getEmptyError(), EMAIL);
+		}
+		namedId = new NamedId(other.namedId);
+		if (StringUtils.isEmpty(namedId.getName())) {
 			throw new InvalidParameterException(constants.getEmptyError(), EMAIL);
 		}
 		domainName = other.domainName;
 		userName = other.userName;
-		asString = other.asString;
 	}
 
 	public EMail(String email) throws InvalidParameterException {
@@ -76,7 +82,7 @@ public class EMail implements I_Mutable, I_Validateable, IsSerializable {
 		if (userName.length() == 0) {
 			throw new InvalidParameterException(constants.getNoUserError(), EMAIL);
 		}
-		asString = email;
+		namedId = new NamedId(email);
 	}
 	
 	public static void validate(String email) throws InvalidParameterException {
@@ -92,11 +98,20 @@ public class EMail implements I_Mutable, I_Validateable, IsSerializable {
 	}
 	
 	public String toString() {
-		return asString;
+		if (namedId == null) {
+			return "'empty email'";
+		}
+		if (namedId.getName() == null) {
+			return "'empty email'";
+		}
+		return namedId.getName();
 	}
 
 	public int hashCode() {
-		return asString.hashCode();
+		if (namedId == null) {
+			return 0;
+		}
+		return namedId.hashCode();
 	}
 
 	public boolean equals(Object obj) {
@@ -104,15 +119,16 @@ public class EMail implements I_Mutable, I_Validateable, IsSerializable {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		EMail other = (EMail) obj;
-		if (asString == null) {
-			if (other.asString != null)
+		if (obj instanceof EMail) {
+			EMail other = (EMail) obj;
+			if (namedId == null) {
+				if (other.namedId != null)
+					return false;
+			} else if (!namedId.equals(other.namedId))
 				return false;
-		} else if (!asString.equals(other.asString))
-			return false;
-		return true;
+			return true;
+		}
+		return false;
 	}
 
 	public boolean isMutable() {
@@ -120,10 +136,27 @@ public class EMail implements I_Mutable, I_Validateable, IsSerializable {
 	}
 
 	public boolean isValid() {
-		if (asString == null) {
+		if (namedId == null) {
+			return false;
+		}
+		if (StringUtils.isEmpty(namedId.getName())) {
 			return false;
 		}
 		return true;
+	}
+
+	public StorageIdentifier getId() {
+		if (namedId != null) {
+			return namedId.getId();
+		}
+		return null;
+	}
+
+	public String getName() {
+		if (namedId != null) {
+			return namedId.getName();
+		}
+		return null;
 	}
 	
 }

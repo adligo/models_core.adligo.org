@@ -2,10 +2,7 @@ package org.adligo.models.core.client;
 
 import org.adligo.i.util.client.ClassUtils;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
-
-
-public class UserMutant extends User implements IsSerializable {
+public class UserMutant extends User {
 	public static final String SET_EMAIL = "setEmail";
 	public static final String SET_DOMAIN = "setDomain";
 	
