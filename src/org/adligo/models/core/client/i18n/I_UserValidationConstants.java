@@ -5,12 +5,4 @@ public interface I_UserValidationConstants {
 	public String getNoSpaceInNameMessage();
 	public String getNoEmptyDomainMessage();
 	public String getNoEmptyPasswordMessage();
-	public String getNullUserIdMessage();
-	public String getUserIdWithOutValueMessage();
-	public String getNoUserEmailWithoutAtMessage();
-	public String getNoEmptyUserEmailMessage();
-	public String getNoUserEmailWithSpaceMessage();
-	public String getNoUserEmailWithTabMessage();
-	public String getUserEmailTwoShortMessage();
-	public String getUserMustContainDot();
 }

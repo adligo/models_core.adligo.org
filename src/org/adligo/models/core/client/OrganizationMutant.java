@@ -9,17 +9,20 @@ public class OrganizationMutant extends Organization {
 		
 	}
 	
-	public OrganizationMutant(Organization o) {
+	public OrganizationMutant(Organization o) throws InvalidParameterException {
 		super(o);
 	}
 	
-	public void setId(StorageIdentifier p) {
-		id = p;
+	public void setId(StorageIdentifier p)  throws InvalidParameterException {
+		setIdP(p);
 	}
-	public void setName(String p) {
-		name = p;
+	
+	public void setName(String p) throws InvalidParameterException {
+		setNameP(p);
 	}
-	public void setType(NamedId p) {
-		type = p;
+	
+	public void setType(NamedId p) throws InvalidParameterException {
+		setTypeP(p);
 	}
+	
 }

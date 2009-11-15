@@ -9,12 +9,12 @@ public class PersonMutant extends Person {
 		
 	}
 	
-	public PersonMutant(Person p) {
+	public PersonMutant(Person p) throws InvalidParameterException {
 		super(p);
 	}
 	
-	public void setId(StorageIdentifier id) {
-		this.id = id;
+	public void setId(StorageIdentifier id) throws InvalidParameterException {
+		super.setIdP(id);
 	}
 
 	public void setFirst_name(String first_name) {
@@ -25,8 +25,8 @@ public class PersonMutant extends Person {
 		this.middle_name = middle_name;
 	}
 
-	public void setLast_name(String last_name) {
-		this.last_name = last_name;
+	public void setLast_name(String last_name) throws InvalidParameterException {
+		super.setLast_nameP(last_name);
 	}
 	
 	public int hashCode() {

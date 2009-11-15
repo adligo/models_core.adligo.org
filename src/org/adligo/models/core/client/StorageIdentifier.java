@@ -8,6 +8,10 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 /**
  * this provides a unique identifier for a stored model
  * Storage Identifier 
+ * 
+ * Note the errors are not internationalized because
+ * they are primarily for programmers who write code in English.
+ * 
  * @author scott
  *
  */
@@ -37,13 +41,11 @@ public class StorageIdentifier implements IsSerializable {
 	public StorageIdentifier() {
 	}
 	
-	public StorageIdentifier(StorageIdentifier other) {
-		id = other.id;
-		key = other.key;
-		genHashCode();
-	}
 	
-	public StorageIdentifier(StorageIdentifierMutant other) throws InvalidParameterException {
+	public StorageIdentifier(StorageIdentifier other) throws InvalidParameterException {
+		if (other == null) {
+			throw new InvalidParameterException(NO_KEY_OR_A_ID, CLAZZ_SIMPLE_NAME);
+		}
 		if (other.getKey() != null || other.getId() != null) {
 			if (other.getKey() != null) {
 				setKeyP(other.getKey());

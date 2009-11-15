@@ -1,6 +1,6 @@
 package org.adligo.models.core.client;
 
-public class AddressMutant extends Address {
+public class AddressMutant extends Address implements I_StorageMutant {
 
 	public void setStreet_address(String p) throws InvalidParameterException {
 		super.setStreetAddressP(p);
@@ -24,5 +24,9 @@ public class AddressMutant extends Address {
 	
 	public int hashCode() {
 		return super.genHashCode();
+	}
+
+	public void setId(StorageIdentifier id) throws InvalidParameterException {
+		super.setIdP(id);
 	}
 }

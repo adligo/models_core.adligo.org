@@ -3,8 +3,6 @@ package org.adligo.models.core.client;
 import org.adligo.i.util.client.ClassUtils;
 
 public class UserMutant extends User {
-	public static final String SET_EMAIL = "setEmail";
-	public static final String SET_DOMAIN = "setDomain";
 	
 	public UserMutant() {}
 	
@@ -15,7 +13,7 @@ public class UserMutant extends User {
 	public void setName(String name) throws InvalidParameterException {
 		super.setNameP(name);
 	}
-	public void setDomain(DomainName domain) {
+	public void setDomain(DomainName domain)  throws InvalidParameterException {
 		super.setDomainP(domain);
 	}
 	public void setDomain(String domain) throws InvalidParameterException {
@@ -45,6 +43,10 @@ public class UserMutant extends User {
 	
 	public boolean isMutable() {
 		return true;
+	}
+	
+	public int hashCode() {
+		return super.genHashCode();
 	}
 	
 	public String toString() {

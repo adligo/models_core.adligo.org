@@ -44,35 +44,4 @@ public class UserValidationConstants implements I_UserValidationConstants {
 		return USER_PASSWORD_CAN_T_BE_EMPTY;
 	}
 
-	public String getNullUserIdMessage() {
-		return "User id can't be set to null!";
-	}
-
-	public String getUserIdWithOutValueMessage() {
-		return "User id can't be set to a StorageIdentifier with out a value ";
-	}
-
-	public String getNoEmptyUserEmailMessage() {
-		return "User email can't be empty!";
-	}
-
-	public String getNoUserEmailWithoutAtMessage() {
-		return "User email must contain the @ symbol.";
-	}
-
-	public String getNoUserEmailWithSpaceMessage() {
-		return "User email can't contain a space character!";
-	}
-
-	public String getNoUserEmailWithTabMessage() {
-		return "User email can't contain a tab character!";
-	}
-
-	public String getUserEmailTwoShortMessage() {
-		return "User email is two short to be a email.";
-	}
-
-	public String getUserMustContainDot() {
-		return "User email must contain a dot.";
-	}
 }

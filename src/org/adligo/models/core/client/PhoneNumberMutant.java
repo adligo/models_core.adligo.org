@@ -1,6 +1,7 @@
 package org.adligo.models.core.client;
 
 
+
 public class PhoneNumberMutant extends PhoneNumber {
 	
 	public PhoneNumberMutant() {
@@ -11,10 +12,15 @@ public class PhoneNumberMutant extends PhoneNumber {
 		super(other);
 	}
 	
-	public void setId(StorageIdentifier p) {
-		id = p;
+	public void setId(StorageIdentifier p) throws InvalidParameterException {
+		super.setIdP(p);
 	}
 	public void setNumber(String p) throws InvalidParameterException {
 		super.setNumberP(p);
 	}
+	
+	public int hashCode() {
+		return super.genHashCode();
+	}
+	
 }

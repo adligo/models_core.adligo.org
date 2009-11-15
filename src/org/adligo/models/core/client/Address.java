@@ -4,12 +4,11 @@ import org.adligo.i.adi.client.I_Invoker;
 import org.adligo.i.adi.client.Registry;
 import org.adligo.i.util.client.StringUtils;
 import org.adligo.models.core.client.i18n.I_AddressValidationConstants;
-import org.adligo.models.core.client.i18n.I_UserValidationConstants;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 
-public class Address implements IsSerializable {
+public class Address implements IsSerializable, I_Validateable, I_Storable {
 	public static final String ADDRESS = "Address";
 	public static final String SET_POSTAL_CODE = "setPostal_code";
 	public static final String SET_STREET_ADDRESS = "setStreet_address";
@@ -40,7 +39,9 @@ public class Address implements IsSerializable {
 	
 	public Address(Address p) throws InvalidParameterException {
 		try {
-			id = p.id;
+			if (p.id != null) {
+				setIdP(p.id);
+			}
 			setStreetAddressP(p.street_address);
 			setCityP(p.city);
 			setCountry_codeP(p.country_code);
@@ -89,6 +90,10 @@ public class Address implements IsSerializable {
 		I_AddressValidationConstants constants = (I_AddressValidationConstants) 
 						CONSTANTS_FACTORY.invoke(I_AddressValidationConstants.class);
 		return constants;
+	}
+	
+	protected void setIdP(StorageIdentifier p_id) throws InvalidParameterException{
+		id = new StorageIdentifier(p_id);
 	}
 	
 	protected void setCityP(String p) throws InvalidParameterException{
@@ -188,6 +193,16 @@ public class Address implements IsSerializable {
 		} else if (!postal_code.equals(other.postal_code))
 			return false;
 		return true;
+	}
+
+	public boolean isValid() {
+		try {
+			new Address(this);
+			return true;
+		} catch (InvalidParameterException e) {
+			//do nothing
+		}
+		return false;
 	}
 
 	

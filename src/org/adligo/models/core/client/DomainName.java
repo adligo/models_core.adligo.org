@@ -37,6 +37,9 @@ public class DomainName implements IsSerializable, I_NamedId, I_Mutable, I_Valid
 		I_DomainNameValidationConstants constants = (I_DomainNameValidationConstants) 
 		CONSTANTS_FACTORY.invoke(I_DomainNameValidationConstants.class);
 
+		if (other == null) {
+			throw new InvalidParameterException(constants.getEmptyError(), DOMAIN_NAME);
+		}
 		namedId = new NamedId(other.namedId);
 		if (StringUtils.isEmpty(namedId.getName())) {
 			throw new InvalidParameterException(constants.getEmptyError(), DOMAIN_NAME);
