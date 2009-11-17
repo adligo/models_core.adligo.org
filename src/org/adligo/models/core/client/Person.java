@@ -3,6 +3,7 @@ package org.adligo.models.core.client;
 import org.adligo.i.adi.client.I_Invoker;
 import org.adligo.i.adi.client.Registry;
 import org.adligo.i.util.client.ClassUtils;
+import org.adligo.i.util.client.I_Serializable;
 import org.adligo.i.util.client.StringUtils;
 import org.adligo.models.core.client.i18n.I_PersonValidationConstants;
 
@@ -15,7 +16,12 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  * @author scott
  *
  */
-public class Person implements I_NamedId, IsSerializable, I_Validateable {
+public class Person implements I_NamedId, I_Serializable, I_Validateable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	public static final String SET_LAST_NAME = "setLast_name";
 	public static final String PERSON = "Person";
 	

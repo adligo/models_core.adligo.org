@@ -3,12 +3,16 @@ package org.adligo.models.core.client;
 import org.adligo.i.adi.client.I_Invoker;
 import org.adligo.i.adi.client.Registry;
 import org.adligo.i.util.client.ClassUtils;
+import org.adligo.i.util.client.I_Serializable;
 import org.adligo.i.util.client.StringUtils;
 import org.adligo.models.core.client.i18n.I_UserValidationConstants;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
-
-public class User implements I_NamedId, I_Validateable, I_Mutable, IsSerializable {
+public class User implements I_NamedId, I_Validateable, I_Mutable, I_Serializable, I_StorageIdGenerator {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	public static final String USER_ID_NULL = "User id can't be set to null!";
 	public static final String USER_ID_EMPTY = "User id can't be set to a StorageIdentifier with out a value ";
 	
@@ -104,12 +108,13 @@ public class User implements I_NamedId, I_Validateable, I_Mutable, IsSerializabl
 	 */
 	public String getDn() throws InvalidParameterException {
 		if (domain == null) {
-			return null;
+			throw new InvalidParameterException("No Domain Name","getDn");
 		}
 		
 		if (name == null) {
-			return null;
+			throw new InvalidParameterException("No User Name","getDn");
 		}
+		
 		StringBuffer sb = new StringBuffer();
 		sb.append("uid=");
 		sb.append(name);
@@ -236,7 +241,6 @@ public class User implements I_NamedId, I_Validateable, I_Mutable, IsSerializabl
 		return hashCode;
 	}
 
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -272,5 +276,9 @@ public class User implements I_NamedId, I_Validateable, I_Mutable, IsSerializabl
 			return true;
 		}
 		return false;
+	}
+
+	public StorageIdentifier generate() throws InvalidParameterException{
+		return new StorageIdentifier(getDn());
 	}
 }

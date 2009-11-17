@@ -3,14 +3,17 @@ package org.adligo.models.core.client;
 import org.adligo.i.adi.client.I_Invoker;
 import org.adligo.i.adi.client.Registry;
 import org.adligo.i.util.client.ClassUtils;
+import org.adligo.i.util.client.I_Serializable;
 import org.adligo.i.util.client.StringUtils;
 import org.adligo.models.core.client.i18n.I_OrganizationValidationConstants;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
 
-
-public class Organization implements I_NamedId, IsSerializable, I_Validateable {
+public class Organization implements I_NamedId, I_Serializable, I_Validateable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static final String SET_NAME = "setName";
 	public static final String SET_TYPE = "setType";
 	public static final String ORGANIZAITION = "Organization";

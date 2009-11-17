@@ -3,13 +3,19 @@ package org.adligo.models.core.client;
 import org.adligo.i.adi.client.I_Invoker;
 import org.adligo.i.adi.client.Registry;
 import org.adligo.i.util.client.ClassUtils;
+import org.adligo.i.util.client.I_Serializable;
 import org.adligo.i.util.client.StringUtils;
 import org.adligo.models.core.client.i18n.I_PhoneNumberValidationConstants;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
-public class PhoneNumber implements IsSerializable, I_Validateable
+public class PhoneNumber implements I_Serializable, I_Validateable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	public static final String PHONE_NUMBER = "PhoneNumber";
 	public static final String SET_NUMBER = "setNumber";
 	private static final I_Invoker CONSTANTS_FACTORY = 

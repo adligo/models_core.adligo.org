@@ -2,12 +2,16 @@ package org.adligo.models.core.client;
 
 import org.adligo.i.adi.client.I_Invoker;
 import org.adligo.i.adi.client.Registry;
+import org.adligo.i.util.client.I_Serializable;
 import org.adligo.i.util.client.StringUtils;
 import org.adligo.models.core.client.i18n.I_EmailValidationConstants;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
-
-public class EMail implements I_Mutable, I_Validateable, IsSerializable, I_NamedId {
+public class EMail implements I_Mutable, I_Validateable, I_Serializable, I_NamedId {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	public static final String EMAIL = "email";
 	private static final I_Invoker CONSTANTS_FACTORY = 
 		Registry.getInvoker(ModelInvokerNames.CONSTANTS_FACTORY);

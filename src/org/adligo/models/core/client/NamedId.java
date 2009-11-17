@@ -1,11 +1,16 @@
 package org.adligo.models.core.client;
 
 import org.adligo.i.util.client.ClassUtils;
+import org.adligo.i.util.client.I_Serializable;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 
-public class NamedId implements I_NamedId, IsSerializable {
+public class NamedId implements I_NamedId, I_Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static final String ID_NULL = "You set the id to null?";
 	public static final String ID_EMPTY = "You called set id with a invalid object.";
 	public static final String NULL_TO_CONSTRUCTOR =  "you passed null to NamedId";

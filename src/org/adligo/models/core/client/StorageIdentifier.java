@@ -1,6 +1,7 @@
 package org.adligo.models.core.client;
 
 import org.adligo.i.util.client.ClassUtils;
+import org.adligo.i.util.client.I_Serializable;
 import org.adligo.i.util.client.StringUtils;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
@@ -15,7 +16,12 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  * @author scott
  *
  */
-public class StorageIdentifier implements IsSerializable {
+public class StorageIdentifier implements I_Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	public static final String SET_ID = "setId";
 	public static final String SET_KEY = "setKey";
 	public static final String CLAZZ_SIMPLE_NAME = "StorageIdentifier";

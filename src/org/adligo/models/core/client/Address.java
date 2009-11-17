@@ -2,13 +2,18 @@ package org.adligo.models.core.client;
 
 import org.adligo.i.adi.client.I_Invoker;
 import org.adligo.i.adi.client.Registry;
+import org.adligo.i.util.client.I_Serializable;
 import org.adligo.i.util.client.StringUtils;
 import org.adligo.models.core.client.i18n.I_AddressValidationConstants;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 
-public class Address implements IsSerializable, I_Validateable, I_Storable {
+public class Address implements I_Serializable, I_Validateable, I_Storable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static final String ADDRESS = "Address";
 	public static final String SET_POSTAL_CODE = "setPostal_code";
 	public static final String SET_STREET_ADDRESS = "setStreet_address";
