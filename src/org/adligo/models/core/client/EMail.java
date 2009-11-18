@@ -1,10 +1,10 @@
 package org.adligo.models.core.client;
 
 import org.adligo.i.adi.client.I_Invoker;
+import org.adligo.i.adi.client.InvokerNames;
 import org.adligo.i.adi.client.Registry;
 import org.adligo.i.util.client.I_Serializable;
 import org.adligo.i.util.client.StringUtils;
-import org.adligo.models.core.client.i18n.I_EmailValidationConstants;
 
 public class EMail implements I_Mutable, I_Validateable, I_Serializable, I_NamedId {
 	/**
@@ -13,8 +13,6 @@ public class EMail implements I_Mutable, I_Validateable, I_Serializable, I_Named
 	private static final long serialVersionUID = 1L;
 	
 	public static final String EMAIL = "email";
-	private static final I_Invoker CONSTANTS_FACTORY = 
-		Registry.getInvoker(ModelInvokerNames.CONSTANTS_FACTORY);
 	private DomainName domainName;
 	private String userName;
 	private NamedId namedId;
@@ -26,33 +24,34 @@ public class EMail implements I_Mutable, I_Validateable, I_Serializable, I_Named
 	public EMail() {}
 	
 	public EMail(EMail other) throws InvalidParameterException {
-		I_EmailValidationConstants constants = (I_EmailValidationConstants) 
-				CONSTANTS_FACTORY.invoke(I_EmailValidationConstants.class);
 
 		if (other == null) {
-			throw new InvalidParameterException(constants.getEmptyError(), EMAIL);
+			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+					.getEmailEmptyError(), EMAIL);
 		}
 		if (other.namedId == null) {
-			throw new InvalidParameterException(constants.getEmptyError(), EMAIL);
+			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+					.getEmailEmptyError(), EMAIL);
 		}
 		namedId = new NamedId(other.namedId);
 		if (StringUtils.isEmpty(namedId.getName())) {
-			throw new InvalidParameterException(constants.getEmptyError(), EMAIL);
+			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+					.getEmailEmptyError(), EMAIL);
 		}
 		domainName = other.domainName;
 		userName = other.userName;
 	}
 
 	public EMail(String email) throws InvalidParameterException {
-		I_EmailValidationConstants constants = (I_EmailValidationConstants) 
-				CONSTANTS_FACTORY.invoke(I_EmailValidationConstants.class);
 
 		if (StringUtils.isEmpty(email)) {
-			throw new InvalidParameterException(constants.getEmptyError(), EMAIL);
+			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+					.getEmailEmptyError(), EMAIL);
 		}	
 		email = email.trim();
 		if (email.length() < 6) {
-			throw new InvalidParameterException(constants.getToShortError(), EMAIL);
+			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+					.getEmailToShortError(), EMAIL);
 		}
 		StringBuffer userB = new StringBuffer();
 		StringBuffer domainB = new StringBuffer();
@@ -63,7 +62,8 @@ public class EMail implements I_Mutable, I_Validateable, I_Serializable, I_Named
 			if (c == '@') {
 				foundAt = true;
 			} else if (c == ' ') {
-				throw new InvalidParameterException(constants.getNoSpaceError(), EMAIL);
+				throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+						.getEmailNoSpaceError(), EMAIL);
 			} else if (!foundAt) {
 				userB.append(c);
 			} else {
@@ -71,7 +71,8 @@ public class EMail implements I_Mutable, I_Validateable, I_Serializable, I_Named
 			}
 		}
 		if (!foundAt) {
-			throw new InvalidParameterException(constants.getNoAtError(), EMAIL);
+			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+					.getEmailNoAtError(), EMAIL);
 		}
 		
 		userName = userB.toString();
@@ -79,12 +80,14 @@ public class EMail implements I_Mutable, I_Validateable, I_Serializable, I_Named
 			domainName = new DomainName(domainB.toString());
 		} catch (InvalidParameterException ex) {
 			InvalidParameterException toThrow = new InvalidParameterException(
-					constants.getBadDomainError(), EMAIL);
+					ModelsCoreValidationConstantsObtainer.getConstants()
+						.getEmailBadDomainError(), EMAIL);
 			toThrow.initCause(ex);
 			throw toThrow;
 		}
 		if (userName.length() == 0) {
-			throw new InvalidParameterException(constants.getNoUserError(), EMAIL);
+			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+					.getEmailNoUserError(), EMAIL);
 		}
 		namedId = new NamedId(email);
 	}

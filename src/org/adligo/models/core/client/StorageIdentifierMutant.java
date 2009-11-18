@@ -3,6 +3,11 @@ package org.adligo.models.core.client;
 
 public class StorageIdentifierMutant extends StorageIdentifier {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public StorageIdentifierMutant() {}
 	
 	public int hashCode() {

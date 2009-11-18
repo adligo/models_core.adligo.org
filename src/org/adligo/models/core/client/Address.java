@@ -1,12 +1,7 @@
 package org.adligo.models.core.client;
 
-import org.adligo.i.adi.client.I_Invoker;
-import org.adligo.i.adi.client.Registry;
 import org.adligo.i.util.client.I_Serializable;
 import org.adligo.i.util.client.StringUtils;
-import org.adligo.models.core.client.i18n.I_AddressValidationConstants;
-
-import com.google.gwt.user.client.rpc.IsSerializable;
 
 
 public class Address implements I_Serializable, I_Validateable, I_Storable {
@@ -20,9 +15,6 @@ public class Address implements I_Serializable, I_Validateable, I_Storable {
 	public static final String SET_CITY = "setCity";
 	public static final String SET_COUNTRY_SUB_CODE = "setCountry_sub_code";
 	public static final String SET_COUNTRY_CODE = "setCountry_code";
-
-	private static final I_Invoker CONSTANTS_FACTORY = 
-		Registry.getInvoker(ModelInvokerNames.CONSTANTS_FACTORY);
 	
 	protected StorageIdentifier id;
 	protected String street_address;
@@ -93,59 +85,57 @@ public class Address implements I_Serializable, I_Validateable, I_Storable {
 		return hash_code;
 	}
 	
-	private I_AddressValidationConstants getConstants() {
-		I_AddressValidationConstants constants = (I_AddressValidationConstants) 
-						CONSTANTS_FACTORY.invoke(I_AddressValidationConstants.class);
-		return constants;
-	}
+
 	
 	protected void setIdP(StorageIdentifier p_id) throws InvalidParameterException{
 		id = new StorageIdentifier(p_id);
 	}
 	
 	protected void setCityP(String p) throws InvalidParameterException{
-		I_AddressValidationConstants csts = getConstants();
 		if (StringUtils.isEmpty(p)) {
-			throw new InvalidParameterException(csts.getEmptyCityError(),SET_CITY);
+			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+					.getAddressEmptyCityError(),SET_CITY);
 		}
 		city = p;
 	}
 	
 	protected void setStreetAddressP(String p) throws InvalidParameterException{
-		I_AddressValidationConstants csts = getConstants();
 		if (StringUtils.isEmpty(p)) {
-			throw new InvalidParameterException(csts.getEmptyStreetError(),SET_STREET_ADDRESS);
+			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+					.getAddressEmptyStreetError(),SET_STREET_ADDRESS);
 		}
 		street_address = p;
 	}
 	
 	protected void setPostalCodeP(String p) throws InvalidParameterException{
-		I_AddressValidationConstants csts = getConstants();
 		if (StringUtils.isEmpty(p)) {
-			throw new InvalidParameterException(csts.getEmptyPostalError(),SET_POSTAL_CODE);
+			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+					.getAddressEmptyPostalError(),SET_POSTAL_CODE);
 		}
 		postal_code = p;
 	}
 	
 	protected void setCountry_codeP(String p) throws InvalidParameterException{
-		I_AddressValidationConstants csts = getConstants();
 		if (StringUtils.isEmpty(p)) {
-			throw new InvalidParameterException(csts.getEmptyCountryError(),SET_COUNTRY_CODE);
+			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+					.getAddressEmptyCountryError(),SET_COUNTRY_CODE);
 		}
 		if (p.length() != 2) {
-			throw new InvalidParameterException(csts.getCountryCodeWrongSizeError(),SET_COUNTRY_CODE);
+			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+					.getAddressCountryCodeWrongSizeError(),SET_COUNTRY_CODE);
 		}
 		country_code = p;
 	}
 
 	protected void setCountry_sub_codeP(String p) throws InvalidParameterException {
-		I_AddressValidationConstants csts = getConstants();
 		if (StringUtils.isEmpty(p)) {
-			throw new InvalidParameterException(csts.getEmptySubCodeError(),
+			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+					.getAddressEmptySubCodeError(),
 					SET_COUNTRY_SUB_CODE);
 		}
 		if (p.length() > 4) {
-			throw new InvalidParameterException(csts.getSubCodeTwoBigError(),
+			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+					.getAddressSubCodeTwoBigError(),
 					SET_COUNTRY_SUB_CODE);
 		}
 		country_sub_code = p;

@@ -4,8 +4,6 @@ import org.adligo.i.util.client.ClassUtils;
 import org.adligo.i.util.client.I_Serializable;
 import org.adligo.i.util.client.StringUtils;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
-
 /**
  * this provides a unique identifier for a stored model
  * Storage Identifier 

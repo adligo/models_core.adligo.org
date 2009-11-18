@@ -1,11 +1,11 @@
 package org.adligo.models.core.client;
 
 import org.adligo.i.adi.client.I_Invoker;
+import org.adligo.i.adi.client.InvokerNames;
 import org.adligo.i.adi.client.Registry;
 import org.adligo.i.util.client.ClassUtils;
 import org.adligo.i.util.client.I_Serializable;
 import org.adligo.i.util.client.StringUtils;
-import org.adligo.models.core.client.i18n.I_UserValidationConstants;
 
 public class User implements I_NamedId, I_Validateable, I_Mutable, I_Serializable, I_StorageIdGenerator {
 	/**
@@ -23,7 +23,7 @@ public class User implements I_NamedId, I_Validateable, I_Mutable, I_Serializabl
 	public static final String SET_NAME = "setName";
 
 	private static final I_Invoker CONSTANTS_FACTORY = 
-		Registry.getInvoker(ModelInvokerNames.CONSTANTS_FACTORY);
+		Registry.getInvoker(InvokerNames.CONSTANTS_FACTORY);
 	
 	/**
 	 * the unique storage identifier
@@ -61,6 +61,12 @@ public class User implements I_NamedId, I_Validateable, I_Mutable, I_Serializabl
 	
 	public User() {}
 	
+	/**
+	 * constructor for creating a new user
+	 * 
+	 * @param p
+	 * @throws InvalidParameterException
+	 */
 	public User(User p) throws InvalidParameterException {
 		
 		//allow a null id for items that arn't yet stored
@@ -82,6 +88,52 @@ public class User implements I_NamedId, I_Validateable, I_Mutable, I_Serializabl
 		}
 	}
 	
+	/**
+	 * a constructor for passing a list of users back to the client
+	 * when the authenticated user should not know the users
+	 * passwords or emails
+	 * (chat user, or modified data user, exc)
+	 * 
+	 * @param p_domain
+	 * @param p_name
+	 * @throws InvalidParameterException
+	 */
+	public User(String p_domain, String p_name) throws InvalidParameterException {
+		try {
+			setDomainP(new DomainName(p_domain));
+			setNameP(p_name);
+			hashCode = genHashCode();
+		} catch (InvalidParameterException x) {
+			InvalidParameterException ipe = new InvalidParameterException(x.getMessage(), 
+					USER);
+			ipe.initCause(x);
+			throw ipe;
+		}
+	}
+
+	/**
+	 * a constructor for passing a list of users back to the client
+	 * when the authenticated user (some sort of admin user) 
+	 * should not know the users passwords
+	 * @param p_domain
+	 * @param p_name
+	 * @param p_email
+	 * 
+	 * @throws InvalidParameterException
+	 */
+	public User(String p_domain, String p_name, String p_email) throws InvalidParameterException {
+		try {
+			setDomainP(new DomainName(p_domain));
+			setNameP(p_name);
+			setEmailP(new EMail(p_email));
+			hashCode = genHashCode();
+		} catch (InvalidParameterException x) {
+			InvalidParameterException ipe = new InvalidParameterException(x.getMessage(), 
+					USER);
+			ipe.initCause(x);
+			throw ipe;
+		}
+	}
 	public String getName() {
 		return name;
 	}
@@ -125,20 +177,17 @@ public class User implements I_NamedId, I_Validateable, I_Mutable, I_Serializabl
 	
 	protected void setNameP(String p_name) throws InvalidParameterException {
 		if (StringUtils.isEmpty(p_name)) {
-			throw new InvalidParameterException(getConstants().getNoUserNameMessage(), SET_NAME);
+			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+					.getUserNoUserNameMessage(), SET_NAME);
 		}
 		p_name = p_name.trim();
 		if (p_name.indexOf(" ") != -1) {
-			throw new InvalidParameterException(getConstants().getNoSpaceInNameMessage(), SET_NAME);
+			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+					.getUserNoSpaceInNameMessage(), SET_NAME);
 		}
 		this.name = p_name;
 	}
 
-	private I_UserValidationConstants getConstants() {
-		I_UserValidationConstants constants = (I_UserValidationConstants) 
-						CONSTANTS_FACTORY.invoke(I_UserValidationConstants.class);
-		return constants;
-	}
 	
 	protected void setDomainP(DomainName domain)  throws InvalidParameterException {
 		try {
@@ -152,7 +201,8 @@ public class User implements I_NamedId, I_Validateable, I_Mutable, I_Serializabl
 	}
 	protected void setPasswordP(String password) throws InvalidParameterException {
 		if (StringUtils.isEmpty(password)) {
-			throw new InvalidParameterException(getConstants().getNoEmptyPasswordMessage(), SET_PASSWORD);
+			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+					.getUserNoEmptyPasswordMessage(), SET_PASSWORD);
 		}
 		this.password = password;
 	}

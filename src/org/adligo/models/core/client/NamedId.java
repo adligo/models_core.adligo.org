@@ -3,8 +3,6 @@ package org.adligo.models.core.client;
 import org.adligo.i.util.client.ClassUtils;
 import org.adligo.i.util.client.I_Serializable;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
-
 
 public class NamedId implements I_NamedId, I_Serializable {
 	/**

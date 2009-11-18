@@ -2,6 +2,11 @@ package org.adligo.models.core.client;
 
 public class AddressMutant extends Address implements I_StorageMutant {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public void setStreet_address(String p) throws InvalidParameterException {
 		super.setStreetAddressP(p);
 	}

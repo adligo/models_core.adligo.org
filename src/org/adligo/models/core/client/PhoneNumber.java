@@ -1,13 +1,8 @@
 package org.adligo.models.core.client;
 
-import org.adligo.i.adi.client.I_Invoker;
-import org.adligo.i.adi.client.Registry;
 import org.adligo.i.util.client.ClassUtils;
 import org.adligo.i.util.client.I_Serializable;
 import org.adligo.i.util.client.StringUtils;
-import org.adligo.models.core.client.i18n.I_PhoneNumberValidationConstants;
-
-import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class PhoneNumber implements I_Serializable, I_Validateable
 {
@@ -18,8 +13,6 @@ public class PhoneNumber implements I_Serializable, I_Validateable
 	
 	public static final String PHONE_NUMBER = "PhoneNumber";
 	public static final String SET_NUMBER = "setNumber";
-	private static final I_Invoker CONSTANTS_FACTORY = 
-		Registry.getInvoker(ModelInvokerNames.CONSTANTS_FACTORY);
 	private static final String DIGITS = "0123456789";
 	
 	protected StorageIdentifier id;
@@ -64,18 +57,18 @@ public class PhoneNumber implements I_Serializable, I_Validateable
 	}
 
 	protected void setNumberP(String p) throws InvalidParameterException {
-		I_PhoneNumberValidationConstants csts = (I_PhoneNumberValidationConstants) 
-				CONSTANTS_FACTORY.invoke(I_PhoneNumberValidationConstants.class);
 		
 		if (StringUtils.isEmpty(p)) {
-			throw new InvalidParameterException(csts.getEmptyError(),SET_NUMBER);
+			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+					.getPhoneEmptyError(),SET_NUMBER);
 		}
 		char [] chars = p.toCharArray();
 		for (int i = 0; i < chars.length; i++) {
 			char c = chars[i];
 			int index = DIGITS.indexOf(c);
 			if (index == -1) {
-				throw new InvalidParameterException(csts.getInvalidCharacterError(),SET_NUMBER);
+				throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+						.getPhoneInvalidCharacterError(),SET_NUMBER);
 			}
 		}
 		number = p;

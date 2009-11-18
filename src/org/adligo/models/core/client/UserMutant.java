@@ -4,6 +4,11 @@ import org.adligo.i.util.client.ClassUtils;
 
 public class UserMutant extends User {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public UserMutant() {}
 	
 	public UserMutant(User p) throws InvalidParameterException {

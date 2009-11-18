@@ -5,6 +5,11 @@ package org.adligo.models.core.client;
 public class OrganizationMutant extends Organization {
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public OrganizationMutant() {
 		
 	}

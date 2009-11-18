@@ -1,11 +1,11 @@
 package org.adligo.models.core.client;
 
 import org.adligo.i.adi.client.I_Invoker;
+import org.adligo.i.adi.client.InvokerNames;
 import org.adligo.i.adi.client.Registry;
 import org.adligo.i.util.client.ClassUtils;
 import org.adligo.i.util.client.I_Serializable;
 import org.adligo.i.util.client.StringUtils;
-import org.adligo.models.core.client.i18n.I_OrganizationValidationConstants;
 
 
 public class Organization implements I_NamedId, I_Serializable, I_Validateable {
@@ -17,9 +17,6 @@ public class Organization implements I_NamedId, I_Serializable, I_Validateable {
 	public static final String SET_NAME = "setName";
 	public static final String SET_TYPE = "setType";
 	public static final String ORGANIZAITION = "Organization";
-	
-	private static final I_Invoker CONSTANTS_FACTORY = 
-		Registry.getInvoker(ModelInvokerNames.CONSTANTS_FACTORY);
 	
 	protected StorageIdentifier id;
 	protected String name;
@@ -67,16 +64,10 @@ public class Organization implements I_NamedId, I_Serializable, I_Validateable {
 		return name;
 	}
 	
-	private I_OrganizationValidationConstants getConstants() {
-		I_OrganizationValidationConstants constants = (I_OrganizationValidationConstants) 
-						CONSTANTS_FACTORY.invoke(I_OrganizationValidationConstants.class);
-		return constants;
-	}
-	
 	protected void setNameP(String p) throws InvalidParameterException {
-		I_OrganizationValidationConstants csts = getConstants();
 		if (StringUtils.isEmpty(p)) {
-			throw new InvalidParameterException(csts.getEmptyNameError(),SET_NAME);
+			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+					.getOrgEmptyNameError(),SET_NAME);
 		}
 		name = p;
 	}
@@ -86,12 +77,13 @@ public class Organization implements I_NamedId, I_Serializable, I_Validateable {
 	}
 
 	protected void setTypeP(NamedId p) throws InvalidParameterException {
-		I_OrganizationValidationConstants csts = getConstants();
 		if (p == null) {
-			throw new InvalidParameterException(csts.getEmptyTypeError(),SET_TYPE);
+			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+					.getOrgEmptyTypeError(),SET_TYPE);
 		}
 		if (StringUtils.isEmpty(p.getName())) {
-			throw new InvalidParameterException(csts.getEmptyTypeError(),SET_TYPE);
+			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+					.getOrgEmptyTypeError(),SET_TYPE);
 		}
 		type = p;
 	}

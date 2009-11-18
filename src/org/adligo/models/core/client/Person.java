@@ -1,13 +1,11 @@
 package org.adligo.models.core.client;
 
 import org.adligo.i.adi.client.I_Invoker;
+import org.adligo.i.adi.client.InvokerNames;
 import org.adligo.i.adi.client.Registry;
 import org.adligo.i.util.client.ClassUtils;
 import org.adligo.i.util.client.I_Serializable;
 import org.adligo.i.util.client.StringUtils;
-import org.adligo.models.core.client.i18n.I_PersonValidationConstants;
-
-import com.google.gwt.user.client.rpc.IsSerializable;
 
 
 /**
@@ -24,9 +22,6 @@ public class Person implements I_NamedId, I_Serializable, I_Validateable {
 	
 	public static final String SET_LAST_NAME = "setLast_name";
 	public static final String PERSON = "Person";
-	
-	private static final I_Invoker CONSTANTS_FACTORY = 
-		Registry.getInvoker(ModelInvokerNames.CONSTANTS_FACTORY);
 	
 	protected StorageIdentifier id;
 	protected String first_name;
@@ -100,15 +95,10 @@ public class Person implements I_NamedId, I_Serializable, I_Validateable {
 		return last_name;
 	}
 
-	private I_PersonValidationConstants getConstants() {
-		return (I_PersonValidationConstants) 
-						CONSTANTS_FACTORY.invoke(I_PersonValidationConstants.class);
-	}
-	
 	protected void setLast_nameP(String p) throws InvalidParameterException {
-		I_PersonValidationConstants csts = getConstants();
 		if (StringUtils.isEmpty(p)) {
-			throw new InvalidParameterException(csts.getNoNameError(), SET_LAST_NAME);
+			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+					.getPersonNoNameError(), SET_LAST_NAME);
 		}
 		last_name = p;
 	}
