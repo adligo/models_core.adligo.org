@@ -177,12 +177,12 @@ public class User implements I_NamedId, I_Validateable, I_Mutable, I_Serializabl
 	
 	protected void setNameP(String p_name) throws InvalidParameterException {
 		if (StringUtils.isEmpty(p_name)) {
-			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getUserNoUserNameMessage(), SET_NAME);
 		}
 		p_name = p_name.trim();
 		if (p_name.indexOf(" ") != -1) {
-			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getUserNoSpaceInNameMessage(), SET_NAME);
 		}
 		this.name = p_name;
@@ -201,7 +201,7 @@ public class User implements I_NamedId, I_Validateable, I_Mutable, I_Serializabl
 	}
 	protected void setPasswordP(String password) throws InvalidParameterException {
 		if (StringUtils.isEmpty(password)) {
-			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getUserNoEmptyPasswordMessage(), SET_PASSWORD);
 		}
 		this.password = password;

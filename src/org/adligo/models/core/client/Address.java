@@ -93,7 +93,7 @@ public class Address implements I_Serializable, I_Validateable, I_Storable {
 	
 	protected void setCityP(String p) throws InvalidParameterException{
 		if (StringUtils.isEmpty(p)) {
-			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getAddressEmptyCityError(),SET_CITY);
 		}
 		city = p;
@@ -101,7 +101,7 @@ public class Address implements I_Serializable, I_Validateable, I_Storable {
 	
 	protected void setStreetAddressP(String p) throws InvalidParameterException{
 		if (StringUtils.isEmpty(p)) {
-			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getAddressEmptyStreetError(),SET_STREET_ADDRESS);
 		}
 		street_address = p;
@@ -109,7 +109,7 @@ public class Address implements I_Serializable, I_Validateable, I_Storable {
 	
 	protected void setPostalCodeP(String p) throws InvalidParameterException{
 		if (StringUtils.isEmpty(p)) {
-			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getAddressEmptyPostalError(),SET_POSTAL_CODE);
 		}
 		postal_code = p;
@@ -117,11 +117,11 @@ public class Address implements I_Serializable, I_Validateable, I_Storable {
 	
 	protected void setCountry_codeP(String p) throws InvalidParameterException{
 		if (StringUtils.isEmpty(p)) {
-			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getAddressEmptyCountryError(),SET_COUNTRY_CODE);
 		}
 		if (p.length() != 2) {
-			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getAddressCountryCodeWrongSizeError(),SET_COUNTRY_CODE);
 		}
 		country_code = p;
@@ -129,12 +129,12 @@ public class Address implements I_Serializable, I_Validateable, I_Storable {
 
 	protected void setCountry_sub_codeP(String p) throws InvalidParameterException {
 		if (StringUtils.isEmpty(p)) {
-			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getAddressEmptySubCodeError(),
 					SET_COUNTRY_SUB_CODE);
 		}
 		if (p.length() > 4) {
-			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getAddressSubCodeTwoBigError(),
 					SET_COUNTRY_SUB_CODE);
 		}

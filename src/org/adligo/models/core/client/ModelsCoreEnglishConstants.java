@@ -1,8 +1,11 @@
 package org.adligo.models.core.client;
 
 
-public class ModelsCoreEnglishValidationConstants implements I_ModelsCoreValidationConstants {
-
+public class ModelsCoreEnglishConstants implements I_ModelsCoreConstants {
+	public static final String USER_RELATIONS_EMPTY_ROLE = "Can't add a empty role to UserRelations.";
+	public static final String USER_RELATIONS_EMPTY_GROUP = "Can't add a empty group to UserRelations.";
+	public static final String USER_GROUP_EMPTY_ROLE_TO_USER_GROUP = "Can't add a empty role to UserGroup.";
+	
 	public static final String THE_COUNTRY_SUBDIVISION_CODE_MUST_BE_4_DIGITS_OR_LESS = "The country subdivision code must be 4 digits or less.";
 	public static final String THE_COUNTRY_SUBDIVISION_CODE_MAY_NOT_BE_EMPTY = "The country subdivision code may not be empty.";
 	public static final String THE_STREET_FIELD_MAY_NOT_BE_EMPTY = "The street field may not be empty.";
@@ -27,10 +30,10 @@ public class ModelsCoreEnglishValidationConstants implements I_ModelsCoreValidat
 	public static final String E_MAIL_CAN_NOT_BE_EMPTY = "E-mail can NOT be empty.";
 	public static final String DOMAIN_ERROR = "There is a issue with the domain portion of the E-mail, after the @ symbol.";
 
-	public static final String THE_TYPE_FIELD_CAN_NOT_BE_EMPTY = "The type field can not be empty.";
-	public static final String THE_NAME_FIELD_CAN_NOT_BE_EMPTY = "The name field can not be empty.";
+	public static final String ORG_EMPTY_TYPE = "The type field can not be empty.";
+	public static final String ORG_EMPTY_NAME = "The name field can not be empty.";
 
-	public static final String A_NAME_LAST_NAME_IS_REQUIRED = "A name (last name) is required.";
+	public static final String PERSON_A_NAME_LAST_NAME_IS_REQUIRED = "A name (last name) is required.";
 
 	public static final String PHONE_NUMBER_MAY_ONLY_HAVE_ARABIC_NUMERALS = "A phone number may only have Arabic numerals ie (0-9).";
 	public static final String PHONE_NUMBER_CAN_NOT_BE_EMPTY = "A phone number can not be empty.";
@@ -132,15 +135,15 @@ public class ModelsCoreEnglishValidationConstants implements I_ModelsCoreValidat
 	}
 	
 	public String getOrgEmptyNameError() {
-		return THE_NAME_FIELD_CAN_NOT_BE_EMPTY;
+		return ORG_EMPTY_NAME;
 	}
 
 	public String getOrgEmptyTypeError() {
-		return THE_TYPE_FIELD_CAN_NOT_BE_EMPTY;
+		return ORG_EMPTY_TYPE;
 	}
 	
 	public String getPersonNoNameError() {
-		return A_NAME_LAST_NAME_IS_REQUIRED;
+		return PERSON_A_NAME_LAST_NAME_IS_REQUIRED;
 	}
 
 	public String getPhoneEmptyError() {
@@ -168,14 +171,15 @@ public class ModelsCoreEnglishValidationConstants implements I_ModelsCoreValidat
 	}
 	
 	public String getUserGroupEmptyRoleError() {
-		return "Can't add a empty role to UserGroup.";
+		return USER_GROUP_EMPTY_ROLE_TO_USER_GROUP;
 	}
 	
 	public String getUserRelationsEmptyGroupError() {
-		return "Can't add a empty group to UserRelations.";
+		return USER_RELATIONS_EMPTY_GROUP;
 	}
 
 	public String getUserRelationsEmptyRoleError() {
-		return "Can't add a empty role to UserRelations.";
+		return USER_RELATIONS_EMPTY_ROLE;
 	}
+
 }

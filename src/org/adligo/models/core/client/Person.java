@@ -97,7 +97,7 @@ public class Person implements I_NamedId, I_Serializable, I_Validateable {
 
 	protected void setLast_nameP(String p) throws InvalidParameterException {
 		if (StringUtils.isEmpty(p)) {
-			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getPersonNoNameError(), SET_LAST_NAME);
 		}
 		last_name = p;

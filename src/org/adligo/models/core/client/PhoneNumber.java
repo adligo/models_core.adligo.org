@@ -59,7 +59,7 @@ public class PhoneNumber implements I_Serializable, I_Validateable
 	protected void setNumberP(String p) throws InvalidParameterException {
 		
 		if (StringUtils.isEmpty(p)) {
-			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getPhoneEmptyError(),SET_NUMBER);
 		}
 		char [] chars = p.toCharArray();
@@ -67,7 +67,7 @@ public class PhoneNumber implements I_Serializable, I_Validateable
 			char c = chars[i];
 			int index = DIGITS.indexOf(c);
 			if (index == -1) {
-				throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+				throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 						.getPhoneInvalidCharacterError(),SET_NUMBER);
 			}
 		}

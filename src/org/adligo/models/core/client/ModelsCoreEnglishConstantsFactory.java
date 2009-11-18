@@ -6,6 +6,6 @@ public class ModelsCoreEnglishConstantsFactory {
 	
 	public ModelsCoreEnglishConstantsFactory() {
 		I18nConstantsFactory fact = I18nConstantsFactory.INSTANCE;
-		fact.put(I_ModelsCoreValidationConstants.class, new ModelsCoreEnglishValidationConstants());
+		fact.put(I_ModelsCoreConstants.class, new ModelsCoreEnglishConstants());
 	};
 }

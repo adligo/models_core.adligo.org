@@ -66,7 +66,7 @@ public class Organization implements I_NamedId, I_Serializable, I_Validateable {
 	
 	protected void setNameP(String p) throws InvalidParameterException {
 		if (StringUtils.isEmpty(p)) {
-			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getOrgEmptyNameError(),SET_NAME);
 		}
 		name = p;
@@ -78,11 +78,11 @@ public class Organization implements I_NamedId, I_Serializable, I_Validateable {
 
 	protected void setTypeP(NamedId p) throws InvalidParameterException {
 		if (p == null) {
-			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getOrgEmptyTypeError(),SET_TYPE);
 		}
 		if (StringUtils.isEmpty(p.getName())) {
-			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getOrgEmptyTypeError(),SET_TYPE);
 		}
 		type = p;

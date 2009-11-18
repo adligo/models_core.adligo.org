@@ -4,14 +4,14 @@ import org.adligo.i.adi.client.I_Invoker;
 import org.adligo.i.adi.client.InvokerNames;
 import org.adligo.i.adi.client.Registry;
 
-public class ModelsCoreValidationConstantsObtainer {
+public class ModelsCoreConstantsObtainer {
 
 	private static final I_Invoker CONSTANTS_FACTORY = 
 		Registry.getInvoker(InvokerNames.CONSTANTS_FACTORY);
 	
-	public static I_ModelsCoreValidationConstants getConstants() {
-		I_ModelsCoreValidationConstants constants = (I_ModelsCoreValidationConstants) 
-						CONSTANTS_FACTORY.invoke(I_ModelsCoreValidationConstants.class);
+	public static I_ModelsCoreConstants getConstants() {
+		I_ModelsCoreConstants constants = (I_ModelsCoreConstants) 
+						CONSTANTS_FACTORY.invoke(I_ModelsCoreConstants.class);
 		return constants;
 	}
 }

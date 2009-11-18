@@ -26,16 +26,16 @@ public class EMail implements I_Mutable, I_Validateable, I_Serializable, I_Named
 	public EMail(EMail other) throws InvalidParameterException {
 
 		if (other == null) {
-			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getEmailEmptyError(), EMAIL);
 		}
 		if (other.namedId == null) {
-			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getEmailEmptyError(), EMAIL);
 		}
 		namedId = new NamedId(other.namedId);
 		if (StringUtils.isEmpty(namedId.getName())) {
-			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getEmailEmptyError(), EMAIL);
 		}
 		domainName = other.domainName;
@@ -45,12 +45,12 @@ public class EMail implements I_Mutable, I_Validateable, I_Serializable, I_Named
 	public EMail(String email) throws InvalidParameterException {
 
 		if (StringUtils.isEmpty(email)) {
-			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getEmailEmptyError(), EMAIL);
 		}	
 		email = email.trim();
 		if (email.length() < 6) {
-			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getEmailToShortError(), EMAIL);
 		}
 		StringBuffer userB = new StringBuffer();
@@ -62,7 +62,7 @@ public class EMail implements I_Mutable, I_Validateable, I_Serializable, I_Named
 			if (c == '@') {
 				foundAt = true;
 			} else if (c == ' ') {
-				throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+				throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 						.getEmailNoSpaceError(), EMAIL);
 			} else if (!foundAt) {
 				userB.append(c);
@@ -71,7 +71,7 @@ public class EMail implements I_Mutable, I_Validateable, I_Serializable, I_Named
 			}
 		}
 		if (!foundAt) {
-			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getEmailNoAtError(), EMAIL);
 		}
 		
@@ -80,13 +80,13 @@ public class EMail implements I_Mutable, I_Validateable, I_Serializable, I_Named
 			domainName = new DomainName(domainB.toString());
 		} catch (InvalidParameterException ex) {
 			InvalidParameterException toThrow = new InvalidParameterException(
-					ModelsCoreValidationConstantsObtainer.getConstants()
+					ModelsCoreConstantsObtainer.getConstants()
 						.getEmailBadDomainError(), EMAIL);
 			toThrow.initCause(ex);
 			throw toThrow;
 		}
 		if (userName.length() == 0) {
-			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getEmailNoUserError(), EMAIL);
 		}
 		namedId = new NamedId(email);

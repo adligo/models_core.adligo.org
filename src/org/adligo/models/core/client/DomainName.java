@@ -34,12 +34,12 @@ public class DomainName implements I_Serializable, I_NamedId, I_Mutable, I_Valid
 	public DomainName(DomainName other) throws InvalidParameterException {
 
 		if (other == null) {
-			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getDomainNameEmptyError(), DOMAIN_NAME);
 		}
 		namedId = new NamedId(other.namedId);
 		if (StringUtils.isEmpty(namedId.getName())) {
-			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getDomainNameEmptyError(), DOMAIN_NAME);
 		}
 
@@ -156,22 +156,22 @@ public class DomainName implements I_Serializable, I_NamedId, I_Mutable, I_Valid
 	public static void validate(String domain) throws InvalidParameterException {
 		
 		if (StringUtils.isEmpty(domain)) {
-			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getDomainNameEmptyError(), DOMAIN_NAME);
 		}
 		domain = domain.trim();
 		domain = domain.toLowerCase();
 		if (domain.length() < 4) {
-			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getDomainNameToShortError(), DOMAIN_NAME);
 		}
 		int dot = domain.indexOf(".");
 		if (dot == -1) {
-			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getDomainNameNoDotError(), DOMAIN_NAME);
 		}
 		if (dot == 0) {
-			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getDomainNameDotCantBeFirst(), DOMAIN_NAME);
 		}
 		dot = -1;
@@ -179,18 +179,18 @@ public class DomainName implements I_Serializable, I_NamedId, I_Mutable, I_Valid
 		for (int i = 0; i < chars.length; i++) {
 			char c =  chars[i];
 			if (c == ' ') {
-				throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+				throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 						.getDomainNameNoSpaceError(), DOMAIN_NAME);
 			} else if (c == '.') {
 				if (dot == i-1) {
-					throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+					throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 							.getDomainNameDotCantBeConsecutive(), DOMAIN_NAME);
 				}
 				dot = i;
 			}
 		}
 		if (dot == domain.length() - 1) {
-			throw new InvalidParameterException(ModelsCoreValidationConstantsObtainer.getConstants()
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getDomainNameDotCantBeLast(), DOMAIN_NAME);
 		}
 	}
