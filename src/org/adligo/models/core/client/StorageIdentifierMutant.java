@@ -1,28 +1,56 @@
 package org.adligo.models.core.client;
 
 
-public class StorageIdentifierMutant extends StorageIdentifier {
+public class StorageIdentifierMutant implements I_StorageIdentifier {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	public StorageIdentifierMutant() {}
+	private StorageIdentifier wrapped;
 	
-	public int hashCode() {
-		return super.genHashCode();
+	public StorageIdentifierMutant() {
+		wrapped = new StorageIdentifier();
 	}
 	
-	public StorageIdentifierMutant(StorageIdentifier other) throws InvalidParameterException {
-		super(other);
+	public int hashCode() {
+		return wrapped.genHashCode();
+	}
+	
+	public StorageIdentifierMutant(I_StorageIdentifier other) throws InvalidParameterException {
+		wrapped = new StorageIdentifier(other);
 	}
 	
 	public void setKey(String key) throws InvalidParameterException {
-		super.setKeyP(key);
+		wrapped.setKeyP(key);
 	}
 
 	public void setId(Long id) throws InvalidParameterException {
-		super.setIdP(id);
+		wrapped.setIdP(id);
 	}
+
+	public boolean equals(Object obj) {
+		return wrapped.equals(obj);
+	}
+
+	public Long getId() {
+		return wrapped.getId();
+	}
+
+	public String getKey() {
+		return wrapped.getKey();
+	}
+
+	public boolean hasValue() {
+		return wrapped.hasValue();
+	}
+
+	public String toString() {
+		return wrapped.toString(this.getClass());
+	}
+
+	protected StorageIdentifier getWrapped() {
+		return wrapped;
+	}
+	
 }

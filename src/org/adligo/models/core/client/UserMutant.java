@@ -32,9 +32,10 @@ public class UserMutant extends User {
 	public void setPassword(String password) throws InvalidParameterException {
 		super.setPasswordP(password);
 	}
-	public void setId(StorageIdentifier id) throws InvalidParameterException {
+	public void setId(I_StorageIdentifier id) throws InvalidParameterException {
 		super.setIdP(id);
 	}
+	
 	public void setEmail(String email) throws InvalidParameterException {
 		try {
 			super.setEmailP(new EMail(email));

@@ -14,7 +14,7 @@ import org.adligo.i.util.client.StringUtils;
  * @author scott
  *
  */
-public class StorageIdentifier implements I_Serializable {
+public class StorageIdentifier implements I_Serializable, I_StorageIdentifier {
 	/**
 	 * 
 	 */
@@ -46,7 +46,7 @@ public class StorageIdentifier implements I_Serializable {
 	}
 	
 	
-	public StorageIdentifier(StorageIdentifier other) throws InvalidParameterException {
+	public StorageIdentifier(I_StorageIdentifier other) throws InvalidParameterException {
 		if (other == null) {
 			throw new InvalidParameterException(NO_KEY_OR_A_ID, CLAZZ_SIMPLE_NAME);
 		}
@@ -121,21 +121,27 @@ public class StorageIdentifier implements I_Serializable {
 		if (obj == null)
 			return false;
 		//allow extensions to equal
+		StorageIdentifier other = null;
 		if (obj instanceof StorageIdentifier) {
-			StorageIdentifier other = (StorageIdentifier) obj;
-			if (id == null) {
-				if (other.id != null)
-					return false;
-			} else if (!id.equals(other.id))
-				return false;
-			if (key == null) {
-				if (other.key != null)
-					return false;
-			} else if (!key.equals(other.key))
-				return false;
-			return true;
+			other = (StorageIdentifier) obj;
 		}
-		return false;
+		if (obj instanceof StorageIdentifierMutant) {
+			other = ((StorageIdentifierMutant) obj).getWrapped();
+		}
+		if (other == null) {
+			return false;
+		}
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (key == null) {
+			if (other.key != null)
+				return false;
+		} else if (!key.equals(other.key))
+			return false;
+		return true;
 	}
 	
 	public boolean hasValue() {
@@ -146,8 +152,12 @@ public class StorageIdentifier implements I_Serializable {
 	}
 	
 	public String toString() {
+		return toString(this.getClass());
+	}
+	
+	public String toString(Class c) {
 		StringBuffer sb = new StringBuffer();
-		sb.append(ClassUtils.getClassShortName(this.getClass()));
+		sb.append(ClassUtils.getClassShortName(c));
 		sb.append(" [id=");
 		sb.append(id);
 		sb.append(",key=");

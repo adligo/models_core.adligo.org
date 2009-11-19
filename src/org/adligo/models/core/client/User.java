@@ -21,9 +21,6 @@ public class User implements I_NamedId, I_Validateable, I_Mutable, I_Serializabl
 	public static final String USER = "User";
 	public static final String SET_PASSWORD = "setPassword";
 	public static final String SET_NAME = "setName";
-
-	private static final I_Invoker CONSTANTS_FACTORY = 
-		Registry.getInvoker(InvokerNames.CONSTANTS_FACTORY);
 	
 	/**
 	 * the unique storage identifier
@@ -207,7 +204,7 @@ public class User implements I_NamedId, I_Validateable, I_Mutable, I_Serializabl
 		this.password = password;
 	}
 	
-	protected void setIdP(StorageIdentifier p_id) throws InvalidParameterException {
+	protected void setIdP(I_StorageIdentifier p_id) throws InvalidParameterException {
 		if (p_id == null) {
 			throw new InvalidParameterException(USER_ID_NULL, I_StorageMutant.SET_ID);
 		}
