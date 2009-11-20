@@ -1,14 +1,11 @@
 package org.adligo.models.core.client;
 
-import org.adligo.i.adi.client.I_Invoker;
-import org.adligo.i.adi.client.InvokerNames;
-import org.adligo.i.adi.client.Registry;
 import org.adligo.i.util.client.ClassUtils;
 import org.adligo.i.util.client.I_Serializable;
 import org.adligo.i.util.client.StringUtils;
 
 
-public class Organization implements I_NamedId, I_Serializable, I_Validateable {
+public class Organization implements I_Org, I_Serializable, I_Validateable {
 	
 	/**
 	 * 
@@ -18,22 +15,22 @@ public class Organization implements I_NamedId, I_Serializable, I_Validateable {
 	public static final String SET_TYPE = "setType";
 	public static final String ORGANIZAITION = "Organization";
 	
-	protected StorageIdentifier id;
-	protected String name;
+	private StorageIdentifier id;
+	private String name;
 	/**
 	 * the type pertains to something like a School, Band, Company
 	 * to be defined depending on your problem domain 
 	 */
-	protected NamedId type;
+	private NamedId type;
 	private int hash_code;
 	
-	public Organization(Organization p) throws InvalidParameterException {
+	public Organization(I_Org p) throws InvalidParameterException {
 		try {
 			if (p.getId() != null) {
 				setIdP(p.getId());
 			}
-			setNameP(p.name);
-			setTypeP(p.type);
+			setNameP(p.getName());
+			setTypeP(p.getType());
 		} catch (InvalidParameterException x) {
 			InvalidParameterException ipe = new InvalidParameterException(x.getMessage(), ORGANIZAITION);
 			ipe.initCause(x);
@@ -42,7 +39,7 @@ public class Organization implements I_NamedId, I_Serializable, I_Validateable {
 		hash_code = genHashCode();
 	}
 	
-	protected void setIdP(StorageIdentifier p) throws InvalidParameterException {
+	protected void setIdP(I_StorageIdentifier p) throws InvalidParameterException {
 		try {
 			id = new StorageIdentifier(p);
 		} catch (InvalidParameterException e) {
@@ -57,7 +54,7 @@ public class Organization implements I_NamedId, I_Serializable, I_Validateable {
 	 */
 	public Organization() {}
 	
-	public StorageIdentifier getId() {
+	public I_StorageIdentifier getId() {
 		return id;
 	}
 	public String getName() {
@@ -72,11 +69,14 @@ public class Organization implements I_NamedId, I_Serializable, I_Validateable {
 		name = p;
 	}
 
-	public NamedId getType() {
+	/* (non-Javadoc)
+	 * @see org.adligo.models.core.client.I_Org#getType()
+	 */
+	public I_NamedId getType() {
 		return type;
 	}
 
-	protected void setTypeP(NamedId p) throws InvalidParameterException {
+	protected void setTypeP(I_NamedId p) throws InvalidParameterException {
 		if (p == null) {
 			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getOrgEmptyTypeError(),SET_TYPE);
@@ -85,7 +85,13 @@ public class Organization implements I_NamedId, I_Serializable, I_Validateable {
 			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getOrgEmptyTypeError(),SET_TYPE);
 		}
-		type = p;
+		try {
+			type = new NamedId(p);
+		} catch (InvalidParameterException x) {
+			InvalidParameterException ipe = new InvalidParameterException(x.getMessage(), SET_TYPE);
+			ipe.initCause(x);
+			throw ipe;
+		}
 	}
 	
 	public int hashCode() {
@@ -105,17 +111,17 @@ public class Organization implements I_NamedId, I_Serializable, I_Validateable {
 			return true;
 		if (obj == null)
 			return false;
-		if (obj instanceof Organization) {
-			final Organization other = (Organization) obj;
+		if (obj instanceof I_Org) {
+			final I_Org other = (I_Org) obj;
 			if (name == null) {
-				if (other.name != null)
+				if (other.getName() != null)
 					return false;
-			} else if (!name.equals(other.name))
+			} else if (!name.equals(other.getName()))
 				return false;
 			if (type == null) {
-				if (other.type != null)
+				if (other.getType() != null)
 					return false;
-			} else if (!type.equals(other.type))
+			} else if (!type.equals(other.getType()))
 				return false;
 			return true;
 		}
@@ -133,8 +139,12 @@ public class Organization implements I_NamedId, I_Serializable, I_Validateable {
 	}
 	
 	public String toString() {
+		return toString(this.getClass());
+	}
+	
+	public String toString(Class c) {
 		StringBuffer sb = new StringBuffer();
-		sb.append(ClassUtils.getClassShortName(this.getClass()));
+		sb.append(ClassUtils.getClassShortName(c));
 		sb.append(" [name=");
 		sb.append(name);
 		sb.append(",type=");

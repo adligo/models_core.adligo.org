@@ -1,9 +1,7 @@
 package org.adligo.models.core.client;
 
-import org.adligo.i.adi.client.I_Invoker;
-import org.adligo.i.adi.client.InvokerNames;
-import org.adligo.i.adi.client.Registry;
 import org.adligo.i.util.client.ClassUtils;
+import org.adligo.i.util.client.CommonTime;
 import org.adligo.i.util.client.I_Serializable;
 import org.adligo.i.util.client.StringUtils;
 
@@ -14,7 +12,7 @@ import org.adligo.i.util.client.StringUtils;
  * @author scott
  *
  */
-public class Person implements I_NamedId, I_Serializable, I_Validateable {
+public class Person implements I_Serializable, I_Validateable, I_Person {
 	/**
 	 * 
 	 */
@@ -23,20 +21,28 @@ public class Person implements I_NamedId, I_Serializable, I_Validateable {
 	public static final String SET_LAST_NAME = "setLast_name";
 	public static final String PERSON = "Person";
 	
-	protected StorageIdentifier id;
-	protected String first_name;
-	protected String middle_name;
-	protected String last_name;
+	private StorageIdentifier id;
+	private String first_name;
+	private String middle_name;
+	private String last_name;
+	private Long birthday;
+	/**
+	 * null means there alive
+	 */
+	private Long deceased;
 	private int hash_code;
 	
-	public Person(Person p) throws InvalidParameterException {
+	public Person(I_Person p) throws InvalidParameterException {
 		try {
 			if (p.getId() != null) {
 				setIdP(p.getId());
 			}
-			first_name = p.first_name;
-			middle_name = p.middle_name;
-			setLast_nameP(p.last_name);
+			first_name = p.getFirst_name();
+			middle_name = p.getMiddle_name();
+			setLast_nameP(p.getLast_name());
+			birthday = p.getBirthday();
+			deceased = p.getDeceased();
+			
 			hash_code = genHashCode();
 		} catch (InvalidParameterException ex) {
 			InvalidParameterException ipe = new InvalidParameterException(ex.getMessage(), PERSON);
@@ -47,11 +53,14 @@ public class Person implements I_NamedId, I_Serializable, I_Validateable {
 	
 	public Person() {}
 	
-	public StorageIdentifier getId() {
+	/* (non-Javadoc)
+	 * @see org.adligo.models.core.client.I_Person#getId()
+	 */
+	public I_StorageIdentifier getId() {
 		return id;
 	}
 	
-	protected void setIdP(StorageIdentifier p) throws InvalidParameterException {
+	protected void setIdP(I_StorageIdentifier p) throws InvalidParameterException {
 		try {
 			id = new StorageIdentifier(p);
 		} catch (InvalidParameterException e) {
@@ -61,6 +70,9 @@ public class Person implements I_NamedId, I_Serializable, I_Validateable {
 			throw ipe;
 		}
 	}
+	/* (non-Javadoc)
+	 * @see org.adligo.models.core.client.I_Person#getName()
+	 */
 	public String getName() {
 		StringBuffer sb = new StringBuffer();
 		
@@ -83,19 +95,28 @@ public class Person implements I_NamedId, I_Serializable, I_Validateable {
 		return sb.toString();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.adligo.models.core.client.I_Person#getFirst_name()
+	 */
 	public String getFirst_name() {
 		return first_name;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.adligo.models.core.client.I_Person#getMiddle_name()
+	 */
 	public String getMiddle_name() {
 		return middle_name;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.adligo.models.core.client.I_Person#getLast_name()
+	 */
 	public String getLast_name() {
 		return last_name;
 	}
 
-	protected void setLast_nameP(String p) throws InvalidParameterException {
+	void setLast_nameP(String p) throws InvalidParameterException {
 		if (StringUtils.isEmpty(p)) {
 			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getPersonNoNameError(), SET_LAST_NAME);
@@ -107,7 +128,7 @@ public class Person implements I_NamedId, I_Serializable, I_Validateable {
 		return hash_code;
 	}
 	
-	protected int genHashCode() {
+	int genHashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
@@ -117,6 +138,10 @@ public class Person implements I_NamedId, I_Serializable, I_Validateable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result
 				+ ((middle_name == null) ? 0 : middle_name.hashCode());
+		result = prime * result
+				+ ((birthday == null) ? 0 : birthday.hashCode());
+		result = prime * result
+				+ ((deceased == null) ? 0 : deceased.hashCode());
 		return result;
 	}
 
@@ -125,28 +150,41 @@ public class Person implements I_NamedId, I_Serializable, I_Validateable {
 			return true;
 		if (obj == null)
 			return false;
-		if (obj instanceof Person) {
-			final Person other = (Person) obj;
+		if (obj instanceof I_Person) {
+			final I_Person other = (I_Person) obj;
 			if (first_name == null) {
-				if (other.first_name != null)
+				if (other.getFirst_name() != null)
 					return false;
-			} else if (!first_name.equals(other.first_name))
+			} else if (!first_name.equals(other.getFirst_name()))
 				return false;
 			if (last_name == null) {
-				if (other.last_name != null)
+				if (other.getLast_name() != null)
 					return false;
-			} else if (!last_name.equals(other.last_name))
+			} else if (!last_name.equals(other.getLast_name()))
 				return false;
 			if (middle_name == null) {
-				if (other.middle_name != null)
+				if (other.getMiddle_name() != null)
 					return false;
-			} else if (!middle_name.equals(other.middle_name))
+			} else if (!middle_name.equals(other.getMiddle_name()))
+				return false;
+			if (birthday == null) {
+				if (other.getBirthday() != null)
+					return false;
+			} else if (!birthday.equals(other.getBirthday()))
+				return false;
+			if (deceased == null) {
+				if (other.getDeceased() != null)
+					return false;
+			} else if (!deceased.equals(other.getDeceased()))
 				return false;
 			return true;
 		}
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.adligo.models.core.client.I_Person#isValid()
+	 */
 	public boolean isValid() {
 		try {
 			new Person(this);
@@ -156,10 +194,12 @@ public class Person implements I_NamedId, I_Serializable, I_Validateable {
 		}
 		return false;
 	}
-	
 	public String toString() {
+		return toString(this.getClass());
+	}
+	public String toString(Class c) {
 		StringBuffer sb = new StringBuffer();
-		sb.append(ClassUtils.getClassShortName(this.getClass()));
+		sb.append(ClassUtils.getClassShortName(c));
 		sb.append(" [first_name=");
 		sb.append(first_name);
 		sb.append(",middle_name=");
@@ -168,7 +208,51 @@ public class Person implements I_NamedId, I_Serializable, I_Validateable {
 		sb.append(last_name);
 		sb.append(",id=");
 		sb.append(id);
+		
+		sb.append(",birthday=");
+		if (birthday != null) {
+			sb.append(CommonTime.formatDateTime(birthday.longValue()));
+		} else {
+			sb.append("null");
+		}
+		sb.append(",deceased=");
+		if (deceased != null) {
+			sb.append(CommonTime.formatDateTime(deceased.longValue()));
+		} else {
+			sb.append("null");
+		}
 		sb.append("]");
 		return sb.toString();
+	}
+
+	public Long getBirthday() {
+		return birthday;
+	}
+
+	void setBirthdayP(Long p_birthday) {
+		birthday = p_birthday;
+	}
+
+	public Long getDeceased() {
+		return deceased;
+	}
+
+	void setDeceasedP(Long p_deceased) {
+		deceased = p_deceased;
+	}
+
+	void setFirst_nameP(String p_firstName) {
+		first_name = p_firstName;
+	}
+
+	void setMiddle_nameP(String p_middleName) {
+		middle_name = p_middleName;
+	}
+
+	public boolean isAlive() {
+		if (deceased == null) {
+			return true;
+		}
+		return false;
 	}
 }

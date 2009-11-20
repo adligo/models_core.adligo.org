@@ -238,7 +238,7 @@ public class DomainName implements I_Serializable, I_NamedId, I_Mutable, I_Valid
 		return true;
 	}
 
-	public StorageIdentifier getId() {
+	public I_StorageIdentifier getId() {
 		return namedId.getId();
 	}
 

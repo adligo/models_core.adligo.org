@@ -8,5 +8,5 @@ package org.adligo.models.core.client;
  *
  */
 public interface I_Storable {
-	public StorageIdentifier getId();
+	public I_StorageIdentifier getId();
 }

@@ -1,8 +1,5 @@
 package org.adligo.models.core.client;
 
-import org.adligo.i.adi.client.I_Invoker;
-import org.adligo.i.adi.client.InvokerNames;
-import org.adligo.i.adi.client.Registry;
 import org.adligo.i.util.client.I_Serializable;
 import org.adligo.i.util.client.StringUtils;
 
@@ -152,7 +149,7 @@ public class EMail implements I_Mutable, I_Validateable, I_Serializable, I_Named
 		return true;
 	}
 
-	public StorageIdentifier getId() {
+	public I_StorageIdentifier getId() {
 		if (namedId != null) {
 			return namedId.getId();
 		}

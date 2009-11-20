@@ -2,11 +2,6 @@ package org.adligo.models.core.client;
 
 
 public class StorageIdentifierMutant implements I_StorageIdentifier {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private StorageIdentifier wrapped;
 	
 	public StorageIdentifierMutant() {

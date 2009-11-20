@@ -1,13 +1,10 @@
 package org.adligo.models.core.client;
 
-import org.adligo.i.adi.client.I_Invoker;
-import org.adligo.i.adi.client.InvokerNames;
-import org.adligo.i.adi.client.Registry;
 import org.adligo.i.util.client.ClassUtils;
 import org.adligo.i.util.client.I_Serializable;
 import org.adligo.i.util.client.StringUtils;
 
-public class User implements I_NamedId, I_Validateable, I_Mutable, I_Serializable, I_StorageIdGenerator {
+public class User implements I_User, I_Mutable, I_Serializable, I_StorageIdGenerator {
 	/**
 	 * 
 	 */
@@ -51,7 +48,7 @@ public class User implements I_NamedId, I_Validateable, I_Mutable, I_Serializabl
 	 * 
 	 * adligo.com
 	 */
-	protected DomainName domain;
+	private DomainName domain;
 	private String password;
 	private EMail email;
 	private int hashCode;
@@ -64,17 +61,17 @@ public class User implements I_NamedId, I_Validateable, I_Mutable, I_Serializabl
 	 * @param p
 	 * @throws InvalidParameterException
 	 */
-	public User(User p) throws InvalidParameterException {
+	public User(I_User p) throws InvalidParameterException {
 		
 		//allow a null id for items that arn't yet stored
 		try {
-			if (p.id != null) {
-				id = new StorageIdentifier(p.id);
+			if (p.getId() != null) {
+				id = new StorageIdentifier(p.getId());
 			}
-			setDomainP(p.domain);
-			setPasswordP(p.password);
-			setNameP(p.name);
-			setEmailP(p.email);
+			setDomainP(p.getDomain());
+			setPasswordP(p.getPassword());
+			setNameP(p.getName());
+			setEmailP(p.getEmail());
 			hashCode = genHashCode();
 			
 		} catch (InvalidParameterException x) {
@@ -131,22 +128,38 @@ public class User implements I_NamedId, I_Validateable, I_Mutable, I_Serializabl
 			throw ipe;
 		}
 	}
+	
+	/* (non-Javadoc)
+	 * @see org.adligo.models.core.client.I_NamedId#getName()
+	 */
 	public String getName() {
 		return name;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.adligo.models.core.client.I_User#getDomain()
+	 */
 	public DomainName getDomain() {
 		return domain;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.adligo.models.core.client.I_User#getPassword()
+	 */
 	public String getPassword() {
 		return password;
 	}
 
-	public StorageIdentifier getId() {
+	/* (non-Javadoc)
+	 * @see org.adligo.models.core.client.I_NamedId#getId()
+	 */
+	public I_StorageIdentifier getId() {
 		return id;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.adligo.models.core.client.I_User#getEmail()
+	 */
 	public EMail getEmail() {
 		return email;
 	}
@@ -172,7 +185,7 @@ public class User implements I_NamedId, I_Validateable, I_Mutable, I_Serializabl
 		return sb.toString();
 	}
 	
-	protected void setNameP(String p_name) throws InvalidParameterException {
+	void setNameP(String p_name) throws InvalidParameterException {
 		if (StringUtils.isEmpty(p_name)) {
 			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getUserNoUserNameMessage(), SET_NAME);
@@ -185,8 +198,7 @@ public class User implements I_NamedId, I_Validateable, I_Mutable, I_Serializabl
 		this.name = p_name;
 	}
 
-	
-	protected void setDomainP(DomainName domain)  throws InvalidParameterException {
+	void setDomainP(String domain)  throws InvalidParameterException {
 		try {
 			this.domain = new DomainName(domain);
 		} catch (InvalidParameterException e) {
@@ -196,7 +208,19 @@ public class User implements I_NamedId, I_Validateable, I_Mutable, I_Serializabl
 			throw ipe;
 		}
 	}
-	protected void setPasswordP(String password) throws InvalidParameterException {
+	
+	void setDomainP(DomainName domain)  throws InvalidParameterException {
+		try {
+			this.domain = new DomainName(domain);
+		} catch (InvalidParameterException e) {
+			InvalidParameterException ipe = new InvalidParameterException(e.getMessage(), 
+					SET_DOMAIN);
+			ipe.initCause(e);
+			throw ipe;
+		}
+	}
+	
+	void setPasswordP(String password) throws InvalidParameterException {
 		if (StringUtils.isEmpty(password)) {
 			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getUserNoEmptyPasswordMessage(), SET_PASSWORD);
@@ -204,7 +228,7 @@ public class User implements I_NamedId, I_Validateable, I_Mutable, I_Serializabl
 		this.password = password;
 	}
 	
-	protected void setIdP(I_StorageIdentifier p_id) throws InvalidParameterException {
+	void setIdP(I_StorageIdentifier p_id) throws InvalidParameterException {
 		if (p_id == null) {
 			throw new InvalidParameterException(USER_ID_NULL, I_StorageMutant.SET_ID);
 		}
@@ -220,7 +244,19 @@ public class User implements I_NamedId, I_Validateable, I_Mutable, I_Serializabl
 	 * @param p_email
 	 * @throws InvalidParameterException
 	 */
-	protected void setEmailP(EMail p_email) throws InvalidParameterException {
+	void setEmailP(EMail p_email) throws InvalidParameterException {
+		try {
+			email = new EMail(p_email);
+		} catch (InvalidParameterException e) {
+			InvalidParameterException ipe = new InvalidParameterException(e.getMessage(), 
+					SET_EMAIL);
+			ipe.initCause(e);
+			throw ipe;
+		}
+		
+	}
+	
+	void setEmailP(String p_email) throws InvalidParameterException {
 		try {
 			email = new EMail(p_email);
 		} catch (InvalidParameterException e) {
@@ -233,13 +269,12 @@ public class User implements I_NamedId, I_Validateable, I_Mutable, I_Serializabl
 	}
 	
 	public String toString() {
-		StringBuffer sb = new StringBuffer();
-		sb.append(ClassUtils.getClassShortName(User.class));
-		appendFields(sb);
-		return sb.toString();
+		return toString(this.getClass());
 	}
 	
-	protected void appendFields(StringBuffer sb) {
+	public String toString(Class c) {	
+		StringBuffer sb = new StringBuffer();
+		sb.append(ClassUtils.getClassShortName(c));
 		sb.append(" [name=");
 		sb.append(this.name);
 		sb.append(",id=");
@@ -250,7 +285,9 @@ public class User implements I_NamedId, I_Validateable, I_Mutable, I_Serializabl
 		sb.append(this.domain);
 		//omit password!
 		sb.append("]");
+		return sb.toString();
 	}
+	
 
 	public boolean isMutable() {
 		return false;
@@ -272,7 +309,7 @@ public class User implements I_NamedId, I_Validateable, I_Mutable, I_Serializabl
 		return true;
 	}
 
-	protected int genHashCode() {
+	int genHashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((domain == null) ? 0 : domain.hashCode());
@@ -293,32 +330,32 @@ public class User implements I_NamedId, I_Validateable, I_Mutable, I_Serializabl
 			return true;
 		if (obj == null)
 			return false;
-		if (obj instanceof User) {
-			User other = (User) obj;
+		if (obj instanceof I_User) {
+			I_User other = (I_User) obj;
 			if (domain == null) {
-				if (other.domain != null)
+				if (other.getDomain() != null)
 					return false;
-			} else if (!domain.equals(other.domain))
+			} else if (!domain.equals(other.getDomain()))
 				return false;
 			if (email == null) {
-				if (other.email != null)
+				if (other.getEmail() != null)
 					return false;
-			} else if (!email.equals(other.email))
+			} else if (!email.equals(other.getEmail()))
 				return false;
 			if (id == null) {
-				if (other.id != null)
+				if (other.getId() != null)
 					return false;
-			} else if (!id.equals(other.id))
+			} else if (!id.equals(other.getId()))
 				return false;
 			if (name == null) {
-				if (other.name != null)
+				if (other.getName() != null)
 					return false;
-			} else if (!name.equals(other.name))
+			} else if (!name.equals(other.getName()))
 				return false;
 			if (password == null) {
-				if (other.password != null)
+				if (other.getPassword() != null)
 					return false;
-			} else if (!password.equals(other.password))
+			} else if (!password.equals(other.getPassword()))
 				return false;
 			return true;
 		}

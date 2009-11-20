@@ -4,7 +4,7 @@ import org.adligo.i.util.client.ClassUtils;
 import org.adligo.i.util.client.I_Serializable;
 import org.adligo.i.util.client.StringUtils;
 
-public class PhoneNumber implements I_Serializable, I_Validateable
+public class PhoneNumber implements I_Serializable, I_Validateable, I_PhoneNumber
 {
 	/**
 	 * 
@@ -15,19 +15,19 @@ public class PhoneNumber implements I_Serializable, I_Validateable
 	public static final String SET_NUMBER = "setNumber";
 	private static final String DIGITS = "0123456789";
 	
-	protected StorageIdentifier id;
-	protected String number;
+	private StorageIdentifier id;
+	private String number;
 	private int hashCode;
 	
 	public PhoneNumber() {}
 	
-	public PhoneNumber(PhoneNumber p) throws InvalidParameterException {
+	public PhoneNumber(I_PhoneNumber p) throws InvalidParameterException {
 		
 		try {
 			if (p.getId() != null) {
 				setIdP(p.getId());
 			}
-			setNumberP(p.number);
+			setNumberP(p.getNumber());
 			hashCode = genHashCode();
 		} catch (InvalidParameterException e) {
 			InvalidParameterException ipe = new InvalidParameterException(e.getMessage(), PHONE_NUMBER);
@@ -37,11 +37,11 @@ public class PhoneNumber implements I_Serializable, I_Validateable
 	}
 	
 	
-	public StorageIdentifier getId() {
+	public I_StorageIdentifier getId() {
 		return id;
 	}
 	
-	protected void setIdP(StorageIdentifier p) throws InvalidParameterException {
+	void setIdP(I_StorageIdentifier p) throws InvalidParameterException {
 		try {
 			id = new StorageIdentifier(p);
 		} catch (InvalidParameterException e) {
@@ -52,11 +52,14 @@ public class PhoneNumber implements I_Serializable, I_Validateable
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.adligo.models.core.client.I_PhoneNumber#getNumber()
+	 */
 	public String getNumber() {
 		return number;
 	}
 
-	protected void setNumberP(String p) throws InvalidParameterException {
+	void setNumberP(String p) throws InvalidParameterException {
 		
 		if (StringUtils.isEmpty(p)) {
 			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
@@ -84,7 +87,7 @@ public class PhoneNumber implements I_Serializable, I_Validateable
 		return false;
 	}
 
-	protected int genHashCode() {
+	int genHashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
@@ -101,17 +104,17 @@ public class PhoneNumber implements I_Serializable, I_Validateable
 			return true;
 		if (obj == null)
 			return false;
-		if (obj instanceof PhoneNumber) {
-			PhoneNumber other = (PhoneNumber) obj;
+		if (obj instanceof I_PhoneNumber) {
+			I_PhoneNumber other = (I_PhoneNumber) obj;
 			if (id == null) {
-				if (other.id != null)
+				if (other.getId() != null)
 					return false;
-			} else if (!id.equals(other.id))
+			} else if (!id.equals(other.getId()))
 				return false;
 			if (number == null) {
-				if (other.number != null)
+				if (other.getNumber() != null)
 					return false;
-			} else if (!number.equals(other.number))
+			} else if (!number.equals(other.getNumber()))
 				return false;
 			return true;
 		}
@@ -119,17 +122,18 @@ public class PhoneNumber implements I_Serializable, I_Validateable
 	}
 	
 	public String toString() {
-		StringBuffer sb = new StringBuffer();
-		sb.append(ClassUtils.getClassShortName(this.getClass()));
-		appendFields(sb);
-		return sb.toString();
+		return toString(this.getClass());
 	}
 	
-	protected void appendFields(StringBuffer sb) {
+	public String toString(Class c) {
+		StringBuffer sb = new StringBuffer();
+		sb.append(ClassUtils.getClassShortName(c));
 		sb.append(" [number=");
 		sb.append(number);
 		sb.append(",id=");
 		sb.append(id);
 		sb.append("]");
+		return sb.toString();
 	}
+	
 }

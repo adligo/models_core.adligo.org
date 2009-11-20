@@ -1,10 +1,11 @@
 package org.adligo.models.core.client;
 
+import org.adligo.i.util.client.ClassUtils;
 import org.adligo.i.util.client.I_Serializable;
 import org.adligo.i.util.client.StringUtils;
 
 
-public class Address implements I_Serializable, I_Validateable, I_Storable {
+public class Address implements I_Serializable, I_Validateable, I_Storable, I_Address {
 	/**
 	 * 
 	 */
@@ -16,34 +17,34 @@ public class Address implements I_Serializable, I_Validateable, I_Storable {
 	public static final String SET_COUNTRY_SUB_CODE = "setCountry_sub_code";
 	public static final String SET_COUNTRY_CODE = "setCountry_code";
 	
-	protected StorageIdentifier id;
-	protected String street_address;
-	protected String city;
+	private StorageIdentifier id;
+	private String street_address;
+	private String city;
 	/** this is the 2 letter ISO country code */
-	protected String country_code;
+	private String country_code;
 	/**
 	 * this is the iso country sub code ie.. IL is Illinois
 	 */
-	protected String country_sub_code;
+	private String country_sub_code;
 	/**
 	 * zip code for us 
 	 * each country seems to have there own
 	 * http://en.wikipedia.org/wiki/Postal_code
 	 */
-	protected String postal_code;
+	private String postal_code;
 	
 	private int hash_code;
 	
-	public Address(Address p) throws InvalidParameterException {
+	public Address(I_Address p) throws InvalidParameterException {
 		try {
-			if (p.id != null) {
-				setIdP(p.id);
+			if (p.getId() != null) {
+				setIdP(p.getId());
 			}
-			setStreetAddressP(p.street_address);
-			setCityP(p.city);
-			setCountry_codeP(p.country_code);
-			setCountry_sub_codeP(p.country_sub_code);
-			setPostalCodeP(p.postal_code);
+			setStreetAddressP(p.getStreet_address());
+			setCityP(p.getCity());
+			setCountry_codeP(p.getCountry_code());
+			setCountry_sub_codeP(p.getCountry_sub_code());
+			setPostalCodeP(p.getPostal_code());
 			hash_code = genHashCode();
 		} catch (InvalidParameterException x) {
 			InvalidParameterException ipe = new InvalidParameterException(x.getMessage(), ADDRESS);
@@ -57,26 +58,44 @@ public class Address implements I_Serializable, I_Validateable, I_Storable {
 	 */
 	public Address() {}
 	
-	public StorageIdentifier getId() {
+	/* (non-Javadoc)
+	 * @see org.adligo.models.core.client.I_Address#getId()
+	 */
+	public I_StorageIdentifier getId() {
 		return id;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.adligo.models.core.client.I_Address#getStreet_address()
+	 */
 	public String getStreet_address() {
 		return street_address;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.adligo.models.core.client.I_Address#getCity()
+	 */
 	public String getCity() {
 		return city;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.adligo.models.core.client.I_Address#getCountry_code()
+	 */
 	public String getCountry_code() {
 		return country_code;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.adligo.models.core.client.I_Address#getCountry_sub_code()
+	 */
 	public String getCountry_sub_code() {
 		return country_sub_code;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.adligo.models.core.client.I_Address#getPostal_code()
+	 */
 	public String getPostal_code() {
 		return postal_code;
 	}
@@ -85,13 +104,11 @@ public class Address implements I_Serializable, I_Validateable, I_Storable {
 		return hash_code;
 	}
 	
-
-	
-	protected void setIdP(StorageIdentifier p_id) throws InvalidParameterException{
+	void setIdP(I_StorageIdentifier p_id) throws InvalidParameterException{
 		id = new StorageIdentifier(p_id);
 	}
 	
-	protected void setCityP(String p) throws InvalidParameterException{
+	void setCityP(String p) throws InvalidParameterException{
 		if (StringUtils.isEmpty(p)) {
 			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getAddressEmptyCityError(),SET_CITY);
@@ -99,7 +116,7 @@ public class Address implements I_Serializable, I_Validateable, I_Storable {
 		city = p;
 	}
 	
-	protected void setStreetAddressP(String p) throws InvalidParameterException{
+	void setStreetAddressP(String p) throws InvalidParameterException{
 		if (StringUtils.isEmpty(p)) {
 			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getAddressEmptyStreetError(),SET_STREET_ADDRESS);
@@ -107,7 +124,7 @@ public class Address implements I_Serializable, I_Validateable, I_Storable {
 		street_address = p;
 	}
 	
-	protected void setPostalCodeP(String p) throws InvalidParameterException{
+	void setPostalCodeP(String p) throws InvalidParameterException{
 		if (StringUtils.isEmpty(p)) {
 			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getAddressEmptyPostalError(),SET_POSTAL_CODE);
@@ -115,7 +132,7 @@ public class Address implements I_Serializable, I_Validateable, I_Storable {
 		postal_code = p;
 	}
 	
-	protected void setCountry_codeP(String p) throws InvalidParameterException{
+	void setCountry_codeP(String p) throws InvalidParameterException{
 		if (StringUtils.isEmpty(p)) {
 			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getAddressEmptyCountryError(),SET_COUNTRY_CODE);
@@ -127,7 +144,7 @@ public class Address implements I_Serializable, I_Validateable, I_Storable {
 		country_code = p;
 	}
 
-	protected void setCountry_sub_codeP(String p) throws InvalidParameterException {
+	void setCountry_sub_codeP(String p) throws InvalidParameterException {
 		if (StringUtils.isEmpty(p)) {
 			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getAddressEmptySubCodeError(),
@@ -141,7 +158,7 @@ public class Address implements I_Serializable, I_Validateable, I_Storable {
 		country_sub_code = p;
 	}
 	
-	protected int genHashCode() {
+	int genHashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((city == null) ? 0 : city.hashCode());
@@ -161,33 +178,33 @@ public class Address implements I_Serializable, I_Validateable, I_Storable {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if ( !(obj instanceof I_Address))
 			return false;
-		final Address other = (Address) obj;
+		final I_Address other = (I_Address) obj;
 		if (city == null) {
-			if (other.city != null)
+			if (other.getCity() != null)
 				return false;
-		} else if (!city.equals(other.city))
+		} else if (!city.equals(other.getCity()))
 			return false;
 		if (country_code == null) {
-			if (other.country_code != null)
+			if (other.getCountry_code() != null)
 				return false;
-		} else if (!country_code.equals(other.country_code))
+		} else if (!country_code.equals(other.getCountry_code()))
 			return false;
 		if (country_sub_code == null) {
-			if (other.country_sub_code != null)
+			if (other.getCountry_sub_code() != null)
 				return false;
-		} else if (!country_sub_code.equals(other.country_sub_code))
+		} else if (!country_sub_code.equals(other.getCountry_sub_code()))
 			return false;
 		if (street_address == null) {
-			if (other.street_address != null)
+			if (other.getStreet_address() != null)
 				return false;
-		} else if (!street_address.equals(other.street_address))
+		} else if (!street_address.equals(other.getStreet_address()))
 			return false;
 		if (postal_code == null) {
-			if (other.postal_code != null)
+			if (other.getPostal_code() != null)
 				return false;
-		} else if (!postal_code.equals(other.postal_code))
+		} else if (!postal_code.equals(other.getPostal_code()))
 			return false;
 		return true;
 	}
@@ -202,5 +219,26 @@ public class Address implements I_Serializable, I_Validateable, I_Storable {
 		return false;
 	}
 
+	public String toString() {
+		return toString(this.getClass());
+	} 
 	
+	public String toString(Class c) {
+		StringBuffer sb = new StringBuffer();
+		sb.append(ClassUtils.getClassShortName(c));
+		sb.append(" [id=");
+		sb.append(id);
+		sb.append(",street_address=");
+		sb.append(street_address);
+		sb.append(",city=");
+		sb.append(city);
+		sb.append(",country_code=");
+		sb.append(country_code);
+		sb.append(",country_sub_code=");
+		sb.append(country_sub_code);
+		sb.append(",postal_code=");
+		sb.append(postal_code);
+		sb.append("]");
+		return sb.toString();
+	}
 }

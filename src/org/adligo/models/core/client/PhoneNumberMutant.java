@@ -2,30 +2,46 @@ package org.adligo.models.core.client;
 
 
 
-public class PhoneNumberMutant extends PhoneNumber {
+public class PhoneNumberMutant implements I_PhoneNumber {
+	private PhoneNumber wrapped;
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 	public PhoneNumberMutant() {
-		super();
+		wrapped = new PhoneNumber();
 	}
 	
-	public PhoneNumberMutant(PhoneNumber other) throws InvalidParameterException {
-		super(other);
+	public PhoneNumberMutant(I_PhoneNumber p) throws InvalidParameterException {
+		wrapped = new PhoneNumber(p);
 	}
 	
 	public void setId(StorageIdentifier p) throws InvalidParameterException {
-		super.setIdP(p);
+		wrapped.setIdP(p);
 	}
 	public void setNumber(String p) throws InvalidParameterException {
-		super.setNumberP(p);
+		wrapped.setNumberP(p);
 	}
 	
 	public int hashCode() {
-		return super.genHashCode();
+		return wrapped.genHashCode();
+	}
+
+	public boolean equals(Object obj) {
+		return wrapped.equals(obj);
+	}
+
+	public I_StorageIdentifier getId() {
+		return wrapped.getId();
+	}
+
+	public String getNumber() {
+		return wrapped.getNumber();
+	}
+
+	public boolean isValid() {
+		return wrapped.isValid();
+	}
+
+	public String toString() {
+		return wrapped.toString(this.getClass());
 	}
 	
 }

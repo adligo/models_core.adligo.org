@@ -1,50 +1,42 @@
 package org.adligo.models.core.client;
 
-import org.adligo.i.util.client.ClassUtils;
 
-public class UserMutant extends User {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class UserMutant implements I_User {
+	private User wrapped;
 
-	public UserMutant() {}
+	public UserMutant() {
+		wrapped = new User();
+	}
 	
-	public UserMutant(User p) throws InvalidParameterException {
-		super(p);
+	public UserMutant(I_User p) throws InvalidParameterException {
+		wrapped = new User(p);
 	}
 	
 	public void setName(String name) throws InvalidParameterException {
-		super.setNameP(name);
+		wrapped.setNameP(name);
 	}
 	public void setDomain(DomainName domain)  throws InvalidParameterException {
-		super.setDomainP(domain);
+		wrapped.setDomainP(domain);
 	}
+	
 	public void setDomain(String domain) throws InvalidParameterException {
-		try {
-			super.setDomainP(new DomainName(domain));
-		} catch (InvalidParameterException x) {
-			throw new InvalidParameterException(x.getMessage(), SET_DOMAIN);
-		}
+		wrapped.setDomainP(domain);
 	}
 	
 	public void setPassword(String password) throws InvalidParameterException {
-		super.setPasswordP(password);
+		wrapped.setPasswordP(password);
 	}
+	
 	public void setId(I_StorageIdentifier id) throws InvalidParameterException {
-		super.setIdP(id);
+		wrapped.setIdP(id);
 	}
 	
 	public void setEmail(String email) throws InvalidParameterException {
-		try {
-			super.setEmailP(new EMail(email));
-		} catch (InvalidParameterException x) {
-			throw new InvalidParameterException(x.getMessage(), SET_EMAIL);
-		}
+		wrapped.setEmailP(email);
 	}
+	
 	public void setEmail(EMail email) throws InvalidParameterException {
-		super.setEmailP(email);
+		wrapped.setEmailP(email);
 	}
 	
 	public boolean isMutable() {
@@ -52,13 +44,46 @@ public class UserMutant extends User {
 	}
 	
 	public int hashCode() {
-		return super.genHashCode();
+		return wrapped.genHashCode();
 	}
 	
 	public String toString() {
-		StringBuffer sb = new StringBuffer();
-		sb.append(ClassUtils.getClassShortName(UserMutant.class));
-		appendFields(sb);
-		return sb.toString();
+		return wrapped.toString(this.getClass());
+	}
+
+	public boolean equals(Object obj) {
+		return wrapped.equals(obj);
+	}
+
+	public StorageIdentifier generate() throws InvalidParameterException {
+		return wrapped.generate();
+	}
+
+	public String getDn() throws InvalidParameterException {
+		return wrapped.getDn();
+	}
+
+	public DomainName getDomain() {
+		return wrapped.getDomain();
+	}
+
+	public EMail getEmail() {
+		return wrapped.getEmail();
+	}
+
+	public I_StorageIdentifier getId() {
+		return wrapped.getId();
+	}
+
+	public String getName() {
+		return wrapped.getName();
+	}
+
+	public String getPassword() {
+		return wrapped.getPassword();
+	}
+
+	public boolean isValid() {
+		return wrapped.isValid();
 	}
 }

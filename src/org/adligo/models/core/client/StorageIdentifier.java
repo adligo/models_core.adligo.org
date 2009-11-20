@@ -87,14 +87,14 @@ public class StorageIdentifier implements I_Serializable, I_StorageIdentifier {
 		return id;
 	}
 	
-	protected void setKeyP(String p_key) throws InvalidParameterException {
+	void setKeyP(String p_key) throws InvalidParameterException {
 		if (StringUtils.isEmpty(p_key)) {
 			throw new InvalidParameterException(KEY_CANT_BE_SET_TO_EMPTY, SET_KEY);
 		}
 		key = p_key;
 	}
 
-	protected void setIdP(Long p_id) throws InvalidParameterException {
+	void setIdP(Long p_id) throws InvalidParameterException {
 		if (p_id == null) {
 			throw new InvalidParameterException(ID_CANT_BE_SET_TO_NULL, SET_ID);
 		}
