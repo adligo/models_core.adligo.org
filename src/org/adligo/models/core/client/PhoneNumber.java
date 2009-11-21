@@ -15,9 +15,9 @@ public class PhoneNumber implements I_Serializable, I_Validateable, I_PhoneNumbe
 	public static final String SET_NUMBER = "setNumber";
 	private static final String DIGITS = "0123456789";
 	
-	private StorageIdentifier id;
-	private String number;
-	private int hashCode;
+	protected StorageIdentifier id;
+	protected String number;
+	protected int hashCode;
 	
 	public PhoneNumber() {}
 	

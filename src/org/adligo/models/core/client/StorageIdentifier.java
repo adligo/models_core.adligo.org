@@ -33,14 +33,14 @@ public class StorageIdentifier implements I_Serializable, I_StorageIdentifier {
 	 * or on disk (filename for xml, json, exc)
 	 * 
 	 */
-	private String key;
+	protected String key;
 	/**
 	 * used to identify a model in a RDBMS (Database)
 	 * 
 	 * Long biggest common unit available on j2me, gwt and j2se
 	 */
-	private Long id;
-	private int hashCode;
+	protected Long id;
+	protected int hashCode;
 	
 	public StorageIdentifier() {
 	}

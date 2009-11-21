@@ -17,23 +17,23 @@ public class Address implements I_Serializable, I_Validateable, I_Storable, I_Ad
 	public static final String SET_COUNTRY_SUB_CODE = "setCountry_sub_code";
 	public static final String SET_COUNTRY_CODE = "setCountry_code";
 	
-	private StorageIdentifier id;
-	private String street_address;
-	private String city;
+	protected StorageIdentifier id;
+	protected String street_address;
+	protected String city;
 	/** this is the 2 letter ISO country code */
-	private String country_code;
+	protected String country_code;
 	/**
 	 * this is the iso country sub code ie.. IL is Illinois
 	 */
-	private String country_sub_code;
+	protected String country_sub_code;
 	/**
 	 * zip code for us 
 	 * each country seems to have there own
 	 * http://en.wikipedia.org/wiki/Postal_code
 	 */
-	private String postal_code;
+	protected String postal_code;
 	
-	private int hash_code;
+	protected int hash_code;
 	
 	public Address(I_Address p) throws InvalidParameterException {
 		try {

@@ -15,14 +15,14 @@ public class Organization implements I_Org, I_Serializable, I_Validateable {
 	public static final String SET_TYPE = "setType";
 	public static final String ORGANIZAITION = "Organization";
 	
-	private StorageIdentifier id;
-	private String name;
+	protected StorageIdentifier id;
+	protected String name;
 	/**
 	 * the type pertains to something like a School, Band, Company
 	 * to be defined depending on your problem domain 
 	 */
-	private NamedId type;
-	private int hash_code;
+	protected NamedId type;
+	protected int hash_code;
 	
 	public Organization(I_Org p) throws InvalidParameterException {
 		try {

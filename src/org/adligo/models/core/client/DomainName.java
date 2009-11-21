@@ -20,8 +20,8 @@ public class DomainName implements I_Serializable, I_NamedId, I_Mutable, I_Valid
 	
 	public static final String DOMAIN_NAME = "DomainName";
 	
-	private NamedId namedId;
-	private String[] components;
+	protected NamedId namedId;
+	protected String[] components;
 	
 	/**
 	 * mostly only for RPC Serilization

@@ -21,16 +21,16 @@ public class Person implements I_Serializable, I_Validateable, I_Person {
 	public static final String SET_LAST_NAME = "setLast_name";
 	public static final String PERSON = "Person";
 	
-	private StorageIdentifier id;
-	private String first_name;
-	private String middle_name;
-	private String last_name;
-	private Long birthday;
+	protected StorageIdentifier id;
+	protected String first_name;
+	protected String middle_name;
+	protected String last_name;
+	protected Long birthday;
 	/**
 	 * null means there alive
 	 */
-	private Long deceased;
-	private int hash_code;
+	protected Long deceased;
+	protected int hash_code;
 	
 	public Person(I_Person p) throws InvalidParameterException {
 		try {

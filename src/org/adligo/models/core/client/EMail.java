@@ -10,9 +10,9 @@ public class EMail implements I_Mutable, I_Validateable, I_Serializable, I_Named
 	private static final long serialVersionUID = 1L;
 	
 	public static final String EMAIL = "email";
-	private DomainName domainName;
-	private String userName;
-	private NamedId namedId;
+	protected DomainName domainName;
+	protected String userName;
+	protected NamedId namedId;
 	
 	/**
 	 * mostly only for RPC Serilization

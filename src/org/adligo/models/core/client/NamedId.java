@@ -16,9 +16,9 @@ public class NamedId implements I_NamedId, I_Serializable {
 	public static final String SET_ID = "setId";
 	public static final String SET_NAME = "setName";
 	
-	private StorageIdentifier id;
-	private String name;
-	private int hash_code;
+	protected StorageIdentifier id;
+	protected String name;
+	protected int hash_code;
 	
 	public NamedId(I_NamedId p) throws InvalidParameterException {
 		if (p == null) {

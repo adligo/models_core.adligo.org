@@ -22,7 +22,7 @@ public class User implements I_User, I_Mutable, I_Serializable, I_StorageIdGener
 	/**
 	 * the unique storage identifier
 	 */
-	private StorageIdentifier id;
+	protected StorageIdentifier id;
 	
 	/**
 	 * usually a email address
@@ -33,7 +33,7 @@ public class User implements I_User, I_Mutable, I_Serializable, I_StorageIdGener
 	 * for instance if the dn is uid=scott,dc=adligo,dc=com
 	 * it is just the value 'scott'
 	 */
-	private String name;
+	protected String name;
 	
 	/**
 	 * used to keep users in different organizations apart
@@ -48,10 +48,10 @@ public class User implements I_User, I_Mutable, I_Serializable, I_StorageIdGener
 	 * 
 	 * adligo.com
 	 */
-	private DomainName domain;
-	private String password;
-	private EMail email;
-	private int hashCode;
+	protected DomainName domain;
+	protected String password;
+	protected EMail email;
+	protected int hashCode;
 	
 	public User() {}
 	
