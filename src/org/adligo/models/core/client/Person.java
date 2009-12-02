@@ -30,7 +30,7 @@ public class Person implements I_Serializable, I_Validateable, I_Person {
 	 * null means there alive
 	 */
 	protected Long deceased;
-	protected int hash_code;
+	protected transient Integer hash_code;
 	
 	public Person(I_Person p) throws InvalidParameterException {
 		try {
@@ -42,8 +42,6 @@ public class Person implements I_Serializable, I_Validateable, I_Person {
 			setLast_nameP(p.getLast_name());
 			birthday = p.getBirthday();
 			deceased = p.getDeceased();
-			
-			hash_code = genHashCode();
 		} catch (InvalidParameterException ex) {
 			InvalidParameterException ipe = new InvalidParameterException(ex.getMessage(), PERSON);
 			ipe.initCause(ex);
@@ -125,6 +123,9 @@ public class Person implements I_Serializable, I_Validateable, I_Person {
 	}
 	
 	public int hashCode() {
+		if (hash_code == null) {
+			hash_code = genHashCode();
+		}
 		return hash_code;
 	}
 	

@@ -40,7 +40,7 @@ public class StorageIdentifier implements I_Serializable, I_StorageIdentifier {
 	 * Long biggest common unit available on j2me, gwt and j2se
 	 */
 	protected Long id;
-	protected int hashCode;
+	protected transient Integer hashCode;
 	
 	public StorageIdentifier() {
 	}
@@ -60,23 +60,19 @@ public class StorageIdentifier implements I_Serializable, I_StorageIdentifier {
 		} else {
 			throw new InvalidParameterException(NO_KEY_OR_A_ID, CLAZZ_SIMPLE_NAME);
 		}
-		genHashCode();
 	}
 	
 	public StorageIdentifier(Long id) throws InvalidParameterException {
 		setIdP(id);
-		genHashCode();
 	}
 	
 	public StorageIdentifier(String key) throws InvalidParameterException {
 		setKeyP(key);
-		genHashCode();
 	}
 	
 	public StorageIdentifier(Long id, String key) throws InvalidParameterException {
 		setKeyP(key);
 		setIdP(id);
-		genHashCode();
 	}
 	
 	public String getKey() {
@@ -100,18 +96,19 @@ public class StorageIdentifier implements I_Serializable, I_StorageIdentifier {
 		}
 		id = p_id;
 	}
-
 	
 	public int genHashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((key == null) ? 0 : key.hashCode());
-		hashCode = result;
 		return result;
 	}
 	
 	public int hashCode() {
+		if (hashCode == null) {
+			hashCode = genHashCode();
+		}
 		return hashCode;
 	}
 

@@ -22,7 +22,7 @@ public class Organization implements I_Org, I_Serializable, I_Validateable {
 	 * to be defined depending on your problem domain 
 	 */
 	protected NamedId type;
-	protected int hash_code;
+	protected transient Integer hash_code;
 	
 	public Organization(I_Org p) throws InvalidParameterException {
 		try {
@@ -36,7 +36,6 @@ public class Organization implements I_Org, I_Serializable, I_Validateable {
 			ipe.initCause(x);
 			throw ipe;
 		}
-		hash_code = genHashCode();
 	}
 	
 	protected void setIdP(I_StorageIdentifier p) throws InvalidParameterException {
@@ -95,6 +94,9 @@ public class Organization implements I_Org, I_Serializable, I_Validateable {
 	}
 	
 	public int hashCode() {
+		if (hash_code == null) {
+			hash_code = genHashCode();
+		}
 		return hash_code;
 	}
 	

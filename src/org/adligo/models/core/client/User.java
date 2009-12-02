@@ -51,7 +51,7 @@ public class User implements I_User, I_Mutable, I_Serializable, I_StorageIdGener
 	protected DomainName domain;
 	protected String password;
 	protected EMail email;
-	protected int hashCode;
+	protected transient Integer hashCode;
 	
 	public User() {}
 	
@@ -72,8 +72,6 @@ public class User implements I_User, I_Mutable, I_Serializable, I_StorageIdGener
 			setPasswordP(p.getPassword());
 			setNameP(p.getName());
 			setEmailP(p.getEmail());
-			hashCode = genHashCode();
-			
 		} catch (InvalidParameterException x) {
 			InvalidParameterException ipe = new InvalidParameterException(x.getMessage(), 
 					USER);
@@ -96,7 +94,6 @@ public class User implements I_User, I_Mutable, I_Serializable, I_StorageIdGener
 		try {
 			setDomainP(new DomainName(p_domain));
 			setNameP(p_name);
-			hashCode = genHashCode();
 		} catch (InvalidParameterException x) {
 			InvalidParameterException ipe = new InvalidParameterException(x.getMessage(), 
 					USER);
@@ -120,7 +117,6 @@ public class User implements I_User, I_Mutable, I_Serializable, I_StorageIdGener
 			setDomainP(new DomainName(p_domain));
 			setNameP(p_name);
 			setEmailP(new EMail(p_email));
-			hashCode = genHashCode();
 		} catch (InvalidParameterException x) {
 			InvalidParameterException ipe = new InvalidParameterException(x.getMessage(), 
 					USER);
@@ -322,6 +318,9 @@ public class User implements I_User, I_Mutable, I_Serializable, I_StorageIdGener
 	}
 	
 	public int hashCode() {
+		if (hashCode == null) {
+			hashCode = genHashCode();
+		}
 		return hashCode;
 	}
 

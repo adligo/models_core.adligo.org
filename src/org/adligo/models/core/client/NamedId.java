@@ -18,7 +18,7 @@ public class NamedId implements I_NamedId, I_Serializable {
 	
 	protected StorageIdentifier id;
 	protected String name;
-	protected int hash_code;
+	protected transient Integer hash_code;
 	
 	public NamedId(I_NamedId p) throws InvalidParameterException {
 		if (p == null) {
@@ -29,7 +29,6 @@ public class NamedId implements I_NamedId, I_Serializable {
 				setIdP(p.getId());
 			}
 			setNameP(p.getName());
-			hash_code = genHashCode();
 		} catch ( InvalidParameterException e) {
 			InvalidParameterException ipe = new InvalidParameterException(e.getMessage(), NAMED_ID);
 			ipe.initCause(e);
@@ -39,7 +38,6 @@ public class NamedId implements I_NamedId, I_Serializable {
 	
 	public NamedId(String p_name) throws InvalidParameterException {
 		setNameP(p_name);
-		hash_code = genHashCode();
 	}
 	
 	public NamedId(String p_name, StorageIdentifier p_id) throws InvalidParameterException {
@@ -65,6 +63,9 @@ public class NamedId implements I_NamedId, I_Serializable {
 	}
 
 	public int hashCode() {
+		if (hash_code == null) {
+			hash_code = genHashCode();
+		}
 		return hash_code;
 	}
 	

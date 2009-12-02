@@ -33,7 +33,7 @@ public class Address implements I_Serializable, I_Validateable, I_Storable, I_Ad
 	 */
 	protected String postal_code;
 	
-	protected int hash_code;
+	protected transient Integer hash_code;
 	
 	public Address(I_Address p) throws InvalidParameterException {
 		try {
@@ -45,7 +45,6 @@ public class Address implements I_Serializable, I_Validateable, I_Storable, I_Ad
 			setCountry_codeP(p.getCountry_code());
 			setCountry_sub_codeP(p.getCountry_sub_code());
 			setPostalCodeP(p.getPostal_code());
-			hash_code = genHashCode();
 		} catch (InvalidParameterException x) {
 			InvalidParameterException ipe = new InvalidParameterException(x.getMessage(), ADDRESS);
 			ipe.initCause(x);
@@ -101,6 +100,9 @@ public class Address implements I_Serializable, I_Validateable, I_Storable, I_Ad
 	}
 
 	public int hashCode() {
+		if (hash_code == null) {
+			hash_code = genHashCode();
+		}
 		return hash_code;
 	}
 	

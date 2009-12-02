@@ -17,7 +17,7 @@ public class PhoneNumber implements I_Serializable, I_Validateable, I_PhoneNumbe
 	
 	protected StorageIdentifier id;
 	protected String number;
-	protected int hashCode;
+	protected transient Integer hashCode;
 	
 	public PhoneNumber() {}
 	
@@ -28,7 +28,6 @@ public class PhoneNumber implements I_Serializable, I_Validateable, I_PhoneNumbe
 				setIdP(p.getId());
 			}
 			setNumberP(p.getNumber());
-			hashCode = genHashCode();
 		} catch (InvalidParameterException e) {
 			InvalidParameterException ipe = new InvalidParameterException(e.getMessage(), PHONE_NUMBER);
 			ipe.initCause(e);
@@ -96,6 +95,9 @@ public class PhoneNumber implements I_Serializable, I_Validateable, I_PhoneNumbe
 	}
 
 	public int hashCode() {
+		if (hashCode == null) {
+			hashCode = genHashCode();
+		}
 		return hashCode;
 	}
 	

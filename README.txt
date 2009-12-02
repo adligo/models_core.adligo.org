@@ -14,3 +14,12 @@ also there should NOT be any collections in this package as the relations should
 PersonRelations(Mutant) for instance in 
 models_core_relations (J2SE, GWT) or 
 models_core_j2me_relations (J2ME) packages
+
+lazy gen hashCodes in immutable objects, this is due to a 
+int overflow issue with gwt
+http://code.google.com/p/google-web-toolkit/issues/detail?id=4263#c0
+this field is not synchronized as it should not change, but 
+instead may be calculated two or three times if multiple threads call
+for a hash code on a object at the same time.  Since this is only on 'immutable'
+objects the hash code should always be calculated the same 
+(even if its calculated multiple times).
