@@ -17,4 +17,13 @@ public interface I_User extends I_NamedId, I_Validateable {
 	public EMail getEmail();
 	
 	public DomainName getDomain();
+	
+	/**
+	 * returns the LDAP distinguished name
+	 * of the user which is name + domain 
+	 * uid=guest,dc=adligo,dc=com
+	 * 
+	 * @return
+	 */
+	public String getDn() throws InvalidParameterException;
 }
