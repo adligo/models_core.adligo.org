@@ -3,7 +3,7 @@ package org.adligo.models.core.client;
 import org.adligo.i.util.client.I_Serializable;
 import org.adligo.i.util.client.StringUtils;
 
-public class EMail implements I_Mutable, I_Validateable, I_Serializable, I_NamedId {
+public class EMailAddress implements I_Mutable, I_Validateable, I_Serializable, I_NamedId {
 	/**
 	 * 
 	 */
@@ -18,9 +18,9 @@ public class EMail implements I_Mutable, I_Validateable, I_Serializable, I_Named
 	 * mostly only for RPC Serilization
 	 * as this class is immutable
 	 */
-	public EMail() {}
+	public EMailAddress() {}
 	
-	public EMail(EMail other) throws InvalidParameterException {
+	public EMailAddress(EMailAddress other) throws InvalidParameterException {
 
 		if (other == null) {
 			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
@@ -39,7 +39,7 @@ public class EMail implements I_Mutable, I_Validateable, I_Serializable, I_Named
 		userName = other.userName;
 	}
 
-	public EMail(String email) throws InvalidParameterException {
+	public EMailAddress(String email) throws InvalidParameterException {
 
 		if (StringUtils.isEmpty(email)) {
 			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
@@ -90,7 +90,7 @@ public class EMail implements I_Mutable, I_Validateable, I_Serializable, I_Named
 	}
 	
 	public static void validate(String email) throws InvalidParameterException {
-		new EMail(email);
+		new EMailAddress(email);
 	}
 
 	public DomainName getDomainName() {
@@ -123,8 +123,8 @@ public class EMail implements I_Mutable, I_Validateable, I_Serializable, I_Named
 			return true;
 		if (obj == null)
 			return false;
-		if (obj instanceof EMail) {
-			EMail other = (EMail) obj;
+		if (obj instanceof EMailAddress) {
+			EMailAddress other = (EMailAddress) obj;
 			if (namedId == null) {
 				if (other.namedId != null)
 					return false;

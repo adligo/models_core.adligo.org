@@ -50,7 +50,7 @@ public class User implements I_User, I_Mutable, I_Serializable, I_StorageIdGener
 	 */
 	protected DomainName domain;
 	protected String password;
-	protected EMail email;
+	protected EMailAddress email;
 	protected transient Integer hashCode;
 	
 	public User() {}
@@ -116,7 +116,7 @@ public class User implements I_User, I_Mutable, I_Serializable, I_StorageIdGener
 		try {
 			setDomainP(new DomainName(p_domain));
 			setNameP(p_name);
-			setEmailP(new EMail(p_email));
+			setEmailP(new EMailAddress(p_email));
 		} catch (InvalidParameterException x) {
 			InvalidParameterException ipe = new InvalidParameterException(x.getMessage(), 
 					USER);
@@ -156,7 +156,7 @@ public class User implements I_User, I_Mutable, I_Serializable, I_StorageIdGener
 	/* (non-Javadoc)
 	 * @see org.adligo.models.core.client.I_User#getEmail()
 	 */
-	public EMail getEmail() {
+	public EMailAddress getEmail() {
 		return email;
 	}
 
@@ -240,9 +240,9 @@ public class User implements I_User, I_Mutable, I_Serializable, I_StorageIdGener
 	 * @param p_email
 	 * @throws InvalidParameterException
 	 */
-	void setEmailP(EMail p_email) throws InvalidParameterException {
+	void setEmailP(EMailAddress p_email) throws InvalidParameterException {
 		try {
-			email = new EMail(p_email);
+			email = new EMailAddress(p_email);
 		} catch (InvalidParameterException e) {
 			InvalidParameterException ipe = new InvalidParameterException(e.getMessage(), 
 					SET_EMAIL);
@@ -254,7 +254,7 @@ public class User implements I_User, I_Mutable, I_Serializable, I_StorageIdGener
 	
 	void setEmailP(String p_email) throws InvalidParameterException {
 		try {
-			email = new EMail(p_email);
+			email = new EMailAddress(p_email);
 		} catch (InvalidParameterException e) {
 			InvalidParameterException ipe = new InvalidParameterException(e.getMessage(), 
 					SET_EMAIL);

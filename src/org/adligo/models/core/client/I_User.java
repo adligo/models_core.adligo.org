@@ -14,7 +14,7 @@ public interface I_User extends I_NamedId, I_Validateable {
 	
 	public String getPassword();
 
-	public EMail getEmail();
+	public EMailAddress getEmail();
 	
 	public DomainName getDomain();
 	

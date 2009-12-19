@@ -35,7 +35,7 @@ public class UserMutant implements I_User {
 		wrapped.setEmailP(email);
 	}
 	
-	public void setEmail(EMail email) throws InvalidParameterException {
+	public void setEmail(EMailAddress email) throws InvalidParameterException {
 		wrapped.setEmailP(email);
 	}
 	
@@ -67,7 +67,7 @@ public class UserMutant implements I_User {
 		return wrapped.getDomain();
 	}
 
-	public EMail getEmail() {
+	public EMailAddress getEmail() {
 		return wrapped.getEmail();
 	}
 
