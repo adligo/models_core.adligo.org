@@ -9,7 +9,6 @@ public interface I_ModelsCoreConstants {
 	public String getAddressEmptySubCodeError();
 	public String getAddressSubCodeTwoBigError();
 	
-	
 	public String getDomainNameEmptyError();
 	public String getDomainNameNoDotError();
 	public String getDomainNameToShortError();
@@ -18,14 +17,21 @@ public interface I_ModelsCoreConstants {
 	public String getDomainNameDotCantBeLast();
 	public String getDomainNameDotCantBeConsecutive();
 	
-	public String getEmailEmptyError();
-	public String getEmailNoAtError();
-	public String getEmailNoUserError();
-	public String getEmailNoDomainError();
-	public String getEmailToShortError();
-	public String getEmailNoSpaceError();
-	public String getEmailBadDomainError();
+	public String getEmailAddressEmptyError();
+	public String getEmailAddressNoAtError();
+	public String getEmailAddressNoUserError();
+	public String getEmailAddressNoDomainError();
+	public String getEmailAddressToShortError();
+	public String getEmailAddressNoSpaceError();
+	public String getEmaiAddressBadDomainError();
 	
+	public String getEMailRequiresAFromAddress();
+	public String getEMailRequiresAValidAddress();
+	public String getEMailRequiresAValidFromAddress();
+	public String getEMailRequiresADestAddress();
+	public String getEMailRequiresANonNullAttachemt();
+	public String getEMailRequiresAValidAttachemt();
+			
 	public String getOrgEmptyNameError();
 	public String getOrgEmptyTypeError();
 	

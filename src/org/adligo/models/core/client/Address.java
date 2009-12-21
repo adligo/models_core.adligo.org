@@ -1,11 +1,10 @@
 package org.adligo.models.core.client;
 
 import org.adligo.i.util.client.ClassUtils;
-import org.adligo.i.util.client.I_Serializable;
 import org.adligo.i.util.client.StringUtils;
 
 
-public class Address implements I_Serializable, I_Validateable, I_Storable, I_Address {
+public class Address implements I_SerializableAddress, I_Validateable, I_Storable {
 	/**
 	 * 
 	 */

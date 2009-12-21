@@ -4,7 +4,7 @@ import org.adligo.i.util.client.ClassUtils;
 import org.adligo.i.util.client.I_Serializable;
 
 
-public class NamedId implements I_NamedId, I_Serializable {
+public class NamedId implements I_SerializableNamedId {
 	/**
 	 * 
 	 */

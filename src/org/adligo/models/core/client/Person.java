@@ -12,7 +12,7 @@ import org.adligo.i.util.client.StringUtils;
  * @author scott
  *
  */
-public class Person implements I_Serializable, I_Validateable, I_Person {
+public class Person implements I_Validateable, I_SerializablePerson {
 	/**
 	 * 
 	 */

@@ -5,7 +5,7 @@ import org.adligo.i.util.client.I_Serializable;
 import org.adligo.i.util.client.StringUtils;
 
 
-public class Organization implements I_Org, I_Serializable, I_Validateable {
+public class Organization implements I_SerializableOrg, I_Validateable {
 	
 	/**
 	 * 

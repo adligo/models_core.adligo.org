@@ -1,7 +1,6 @@
 package org.adligo.models.core.client;
 
 import org.adligo.i.util.client.ClassUtils;
-import org.adligo.i.util.client.I_Serializable;
 import org.adligo.i.util.client.StringUtils;
 
 /**
@@ -14,7 +13,7 @@ import org.adligo.i.util.client.StringUtils;
  * @author scott
  *
  */
-public class StorageIdentifier implements I_Serializable, I_StorageIdentifier {
+public class StorageIdentifier implements I_SerializableStorageIdentifier {
 	/**
 	 * 
 	 */

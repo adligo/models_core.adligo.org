@@ -4,7 +4,7 @@ import org.adligo.i.util.client.ClassUtils;
 import org.adligo.i.util.client.I_Serializable;
 import org.adligo.i.util.client.StringUtils;
 
-public class User implements I_User, I_Mutable, I_Serializable, I_StorageIdGenerator {
+public class User implements I_SerializableUser, I_Mutable, I_StorageIdGenerator {
 	/**
 	 * 
 	 */

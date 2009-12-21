@@ -24,16 +24,16 @@ public class EMailAddress implements I_Mutable, I_Validateable, I_Serializable, 
 
 		if (other == null) {
 			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
-					.getEmailEmptyError(), EMAIL);
+					.getEmailAddressEmptyError(), EMAIL);
 		}
 		if (other.namedId == null) {
 			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
-					.getEmailEmptyError(), EMAIL);
+					.getEmailAddressEmptyError(), EMAIL);
 		}
 		namedId = new NamedId(other.namedId);
 		if (StringUtils.isEmpty(namedId.getName())) {
 			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
-					.getEmailEmptyError(), EMAIL);
+					.getEmailAddressEmptyError(), EMAIL);
 		}
 		domainName = other.domainName;
 		userName = other.userName;
@@ -43,12 +43,12 @@ public class EMailAddress implements I_Mutable, I_Validateable, I_Serializable, 
 
 		if (StringUtils.isEmpty(email)) {
 			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
-					.getEmailEmptyError(), EMAIL);
+					.getEmailAddressEmptyError(), EMAIL);
 		}	
 		email = email.trim();
 		if (email.length() < 6) {
 			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
-					.getEmailToShortError(), EMAIL);
+					.getEmailAddressToShortError(), EMAIL);
 		}
 		StringBuffer userB = new StringBuffer();
 		StringBuffer domainB = new StringBuffer();
@@ -60,7 +60,7 @@ public class EMailAddress implements I_Mutable, I_Validateable, I_Serializable, 
 				foundAt = true;
 			} else if (c == ' ') {
 				throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
-						.getEmailNoSpaceError(), EMAIL);
+						.getEmailAddressNoSpaceError(), EMAIL);
 			} else if (!foundAt) {
 				userB.append(c);
 			} else {
@@ -69,7 +69,7 @@ public class EMailAddress implements I_Mutable, I_Validateable, I_Serializable, 
 		}
 		if (!foundAt) {
 			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
-					.getEmailNoAtError(), EMAIL);
+					.getEmailAddressNoAtError(), EMAIL);
 		}
 		
 		userName = userB.toString();
@@ -78,13 +78,13 @@ public class EMailAddress implements I_Mutable, I_Validateable, I_Serializable, 
 		} catch (InvalidParameterException ex) {
 			InvalidParameterException toThrow = new InvalidParameterException(
 					ModelsCoreConstantsObtainer.getConstants()
-						.getEmailBadDomainError(), EMAIL);
+						.getEmaiAddressBadDomainError(), EMAIL);
 			toThrow.initCause(ex);
 			throw toThrow;
 		}
 		if (userName.length() == 0) {
 			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
-					.getEmailNoUserError(), EMAIL);
+					.getEmailAddressNoUserError(), EMAIL);
 		}
 		namedId = new NamedId(email);
 	}
