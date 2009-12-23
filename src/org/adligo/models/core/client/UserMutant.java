@@ -55,7 +55,7 @@ public class UserMutant implements I_User {
 		return wrapped.equals(obj);
 	}
 
-	public StorageIdentifier generate() throws InvalidParameterException {
+	public StringIdentifier generate() throws InvalidParameterException {
 		return wrapped.generate();
 	}
 

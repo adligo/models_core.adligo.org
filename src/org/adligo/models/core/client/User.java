@@ -10,9 +10,6 @@ public class User implements I_SerializableUser, I_Mutable, I_StorageIdGenerator
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public static final String USER_ID_NULL = "User id can't be set to null!";
-	public static final String USER_ID_EMPTY = "User id can't be set to a StorageIdentifier with out a value ";
-	
 	public static final String SET_EMAIL = "setEmail";
 	public static final String SET_DOMAIN = "setDomain";
 	public static final String USER = "User";
@@ -22,7 +19,7 @@ public class User implements I_SerializableUser, I_Mutable, I_StorageIdGenerator
 	/**
 	 * the unique storage identifier
 	 */
-	protected StorageIdentifier id;
+	protected I_SerializableStorageIdentifier id;
 	
 	/**
 	 * usually a email address
@@ -51,7 +48,7 @@ public class User implements I_SerializableUser, I_Mutable, I_StorageIdGenerator
 	protected DomainName domain;
 	protected String password;
 	protected EMailAddress email;
-	protected transient Integer hashCode;
+	protected transient Integer hash_code;
 	
 	public User() {}
 	
@@ -66,7 +63,7 @@ public class User implements I_SerializableUser, I_Mutable, I_StorageIdGenerator
 		//allow a null id for items that arn't yet stored
 		try {
 			if (p.getId() != null) {
-				id = new StorageIdentifier(p.getId());
+				setIdP(p.getId());
 			}
 			setDomainP(p.getDomain());
 			setPasswordP(p.getPassword());
@@ -225,13 +222,7 @@ public class User implements I_SerializableUser, I_Mutable, I_StorageIdGenerator
 	}
 	
 	void setIdP(I_StorageIdentifier p_id) throws InvalidParameterException {
-		if (p_id == null) {
-			throw new InvalidParameterException(USER_ID_NULL, I_StorageMutant.SET_ID);
-		}
-		if (!p_id.hasValue()) {
-			throw new InvalidParameterException(USER_ID_EMPTY, I_StorageMutant.SET_ID);
-		}
-		id = new StorageIdentifier(p_id);
+		id = CommonModel.getIdClone(p_id);
 	}
 
 	/**
@@ -318,10 +309,10 @@ public class User implements I_SerializableUser, I_Mutable, I_StorageIdGenerator
 	}
 	
 	public int hashCode() {
-		if (hashCode == null) {
-			hashCode = genHashCode();
+		if (hash_code == null) {
+			hash_code = new Integer(genHashCode());
 		}
-		return hashCode;
+		return hash_code.intValue();
 	}
 
 	public boolean equals(Object obj) {
@@ -361,7 +352,7 @@ public class User implements I_SerializableUser, I_Mutable, I_StorageIdGenerator
 		return false;
 	}
 
-	public StorageIdentifier generate() throws InvalidParameterException{
-		return new StorageIdentifier(getDn());
+	public StringIdentifier generate() throws InvalidParameterException{
+		return new StringIdentifier(getDn());
 	}
 }

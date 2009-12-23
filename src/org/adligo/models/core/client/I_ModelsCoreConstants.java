@@ -1,5 +1,11 @@
 package org.adligo.models.core.client;
 
+/**
+ * this is for i118 in GWT or other java apps (which would look up the users language from the local RAM memory cache)
+ *
+ * @author scott
+ *
+ */
 public interface I_ModelsCoreConstants {
 	public String getAddressEmptyCityError();
 	public String getAddressEmptyStreetError();

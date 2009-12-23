@@ -4,7 +4,7 @@ import org.adligo.i.util.client.ClassUtils;
 import org.adligo.i.util.client.I_Serializable;
 import org.adligo.i.util.client.StringUtils;
 
-public class PhoneNumber implements I_Serializable, I_Validateable, I_PhoneNumber
+public class PhoneNumber implements I_Validateable, I_SerializablePhoneNumber
 {
 	/**
 	 * 
@@ -15,9 +15,9 @@ public class PhoneNumber implements I_Serializable, I_Validateable, I_PhoneNumbe
 	public static final String SET_NUMBER = "setNumber";
 	private static final String DIGITS = "0123456789";
 	
-	protected StorageIdentifier id;
+	protected I_SerializableStorageIdentifier id;
 	protected String number;
-	protected transient Integer hashCode;
+	protected transient Integer hash_code;
 	
 	public PhoneNumber() {}
 	
@@ -41,14 +41,7 @@ public class PhoneNumber implements I_Serializable, I_Validateable, I_PhoneNumbe
 	}
 	
 	void setIdP(I_StorageIdentifier p) throws InvalidParameterException {
-		try {
-			id = new StorageIdentifier(p);
-		} catch (InvalidParameterException e) {
-			InvalidParameterException ipe = new InvalidParameterException(e.getMessage(), 
-					I_StorageMutant.SET_ID);
-			ipe.initCause(e);
-			throw ipe;
-		}
+		id = CommonModel.getIdClone(p);
 	}
 	
 	/* (non-Javadoc)
@@ -95,10 +88,10 @@ public class PhoneNumber implements I_Serializable, I_Validateable, I_PhoneNumbe
 	}
 
 	public int hashCode() {
-		if (hashCode == null) {
-			hashCode = genHashCode();
+		if (hash_code == null) {
+			hash_code = new Integer(genHashCode());
 		}
-		return hashCode;
+		return hash_code.intValue();
 	}
 	
 	public boolean equals(Object obj) {

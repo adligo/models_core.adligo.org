@@ -53,11 +53,11 @@ public class DomainName implements I_Serializable, I_NamedId, I_Mutable, I_Valid
 		setNameP(name, null);
 	}
 
-	public DomainName(String name, StorageIdentifier id) throws InvalidParameterException {
+	public DomainName(String name, StringIdentifier id) throws InvalidParameterException {
 		setNameP(name, id);
 	}
 	
-	private void setNameP(String p_name, StorageIdentifier id) throws InvalidParameterException {
+	private void setNameP(String p_name, StringIdentifier id) throws InvalidParameterException {
 		validate(p_name);
 		namedId = new NamedId(p_name, id);
 		

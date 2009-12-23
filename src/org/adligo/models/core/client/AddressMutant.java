@@ -35,7 +35,7 @@ public class AddressMutant implements I_Address, I_StorageMutant {
 		return wrapped.genHashCode();
 	}
 
-	public void setId(StorageIdentifier id) throws InvalidParameterException {
+	public void setId(I_StorageIdentifier id) throws InvalidParameterException {
 		wrapped.setIdP(id);
 	}
 

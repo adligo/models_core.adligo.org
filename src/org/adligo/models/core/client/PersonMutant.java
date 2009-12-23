@@ -13,7 +13,7 @@ public class PersonMutant implements I_Person  {
 		wrapped = new Person(p);
 	}
 	
-	public void setId(StorageIdentifier id) throws InvalidParameterException {
+	public void setId(StringIdentifier id) throws InvalidParameterException {
 		wrapped.setIdP(id);
 	}
 

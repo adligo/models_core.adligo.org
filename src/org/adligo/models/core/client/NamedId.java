@@ -1,7 +1,9 @@
 package org.adligo.models.core.client;
 
+import org.adligo.i.adi.client.I_CheckedInvoker;
+import org.adligo.i.adi.client.InvocationException;
+import org.adligo.i.adi.client.Registry;
 import org.adligo.i.util.client.ClassUtils;
-import org.adligo.i.util.client.I_Serializable;
 
 
 public class NamedId implements I_SerializableNamedId {
@@ -9,14 +11,12 @@ public class NamedId implements I_SerializableNamedId {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public static final String ID_NULL = "You set the id to null?";
-	public static final String ID_EMPTY = "You called set id with a invalid object.";
+
 	public static final String NULL_TO_CONSTRUCTOR =  "you passed null to NamedId";
 	public static final String NAMED_ID = "NamedId";
-	public static final String SET_ID = "setId";
 	public static final String SET_NAME = "setName";
 	
-	protected StorageIdentifier id;
+	protected I_SerializableStorageIdentifier id;
 	protected String name;
 	protected transient Integer hash_code;
 	
@@ -40,13 +40,13 @@ public class NamedId implements I_SerializableNamedId {
 		setNameP(p_name);
 	}
 	
-	public NamedId(String p_name, StorageIdentifier p_id) throws InvalidParameterException {
+	public NamedId(String p_name, StringIdentifier p_id) throws InvalidParameterException {
 		try {
 			setNameP(p_name);
 			if (p_id != null) {
 				setIdP(p_id);
 			}
-			hash_code = genHashCode();
+			hash_code = new Integer(genHashCode());
 		} catch ( InvalidParameterException e) {
 			InvalidParameterException ipe = new InvalidParameterException(e.getMessage(), NAMED_ID);
 			ipe.initCause(e);
@@ -64,9 +64,9 @@ public class NamedId implements I_SerializableNamedId {
 
 	public int hashCode() {
 		if (hash_code == null) {
-			hash_code = genHashCode();
+			hash_code = new Integer(genHashCode());
 		}
-		return hash_code;
+		return hash_code.intValue();
 	}
 	
 	/**
@@ -76,14 +76,10 @@ public class NamedId implements I_SerializableNamedId {
 	 * @throws InvalidParameterException
 	 */
 	void setIdP(I_StorageIdentifier p_id) throws InvalidParameterException {
-		if (p_id == null) {
-			throw new InvalidParameterException(ID_NULL, I_StorageMutant.SET_ID);
-		}
-		if (!p_id.hasValue()) {
-			throw new InvalidParameterException(ID_EMPTY, I_StorageMutant.SET_ID);
-		}
-		id = new StorageIdentifier(p_id);
+		id = CommonModel.getIdClone(p_id);
 	}
+
+
 	
 	void setNameP(String p_name) throws InvalidParameterException {
 		name = p_name;

@@ -1,9 +1,19 @@
 package org.adligo.models.core.client;
 
-
+/**
+ * marker interfaces actual impls should also 
+ * be a I_StringIdentifier (for LDAP dns or Filesystem uris)
+ * ,I_VersionedIdentifier (optimistic locking with values big enough for most databases)
+ * 
+ * @author scott
+ *
+ */
 public interface I_StorageIdentifier {
 
-	public String getKey();
-	public Long getId();
+	/**
+	 * should return true if the value has been used on the storage system
+	 * should return false if the value has not been used
+	 * @return
+	 */
 	public boolean hasValue();
 }

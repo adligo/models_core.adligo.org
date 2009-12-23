@@ -21,7 +21,7 @@ public class Person implements I_Validateable, I_SerializablePerson {
 	public static final String SET_LAST_NAME = "setLast_name";
 	public static final String PERSON = "Person";
 	
-	protected StorageIdentifier id;
+	protected I_SerializableStorageIdentifier id;
 	protected String first_name;
 	protected String middle_name;
 	protected String last_name;
@@ -59,14 +59,7 @@ public class Person implements I_Validateable, I_SerializablePerson {
 	}
 	
 	protected void setIdP(I_StorageIdentifier p) throws InvalidParameterException {
-		try {
-			id = new StorageIdentifier(p);
-		} catch (InvalidParameterException e) {
-			InvalidParameterException ipe = new InvalidParameterException(e.getMessage(), 
-					I_StorageMutant.SET_ID);
-			ipe.initCause(e);
-			throw ipe;
-		}
+		id = CommonModel.getIdClone(p);
 	}
 	/* (non-Javadoc)
 	 * @see org.adligo.models.core.client.I_Person#getName()
@@ -124,9 +117,9 @@ public class Person implements I_Validateable, I_SerializablePerson {
 	
 	public int hashCode() {
 		if (hash_code == null) {
-			hash_code = genHashCode();
+			hash_code = new Integer(genHashCode());
 		}
-		return hash_code;
+		return hash_code.intValue();
 	}
 	
 	int genHashCode() {

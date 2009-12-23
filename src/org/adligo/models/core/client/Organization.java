@@ -1,12 +1,10 @@
 package org.adligo.models.core.client;
 
 import org.adligo.i.util.client.ClassUtils;
-import org.adligo.i.util.client.I_Serializable;
 import org.adligo.i.util.client.StringUtils;
 
 
 public class Organization implements I_SerializableOrg, I_Validateable {
-	
 	/**
 	 * 
 	 */
@@ -15,7 +13,7 @@ public class Organization implements I_SerializableOrg, I_Validateable {
 	public static final String SET_TYPE = "setType";
 	public static final String ORGANIZAITION = "Organization";
 	
-	protected StorageIdentifier id;
+	protected I_SerializableStorageIdentifier id;
 	protected String name;
 	/**
 	 * the type pertains to something like a School, Band, Company
@@ -39,14 +37,8 @@ public class Organization implements I_SerializableOrg, I_Validateable {
 	}
 	
 	protected void setIdP(I_StorageIdentifier p) throws InvalidParameterException {
-		try {
-			id = new StorageIdentifier(p);
-		} catch (InvalidParameterException e) {
-			InvalidParameterException ipe = new InvalidParameterException(e.getMessage(), 
-					I_StorageMutant.SET_ID);
-			ipe.initCause(e);
-			throw ipe;
-		}
+		id = CommonModel.getIdClone(p);
+		
 	}
 	/**
 	 * for gwt serialization
@@ -95,9 +87,9 @@ public class Organization implements I_SerializableOrg, I_Validateable {
 	
 	public int hashCode() {
 		if (hash_code == null) {
-			hash_code = genHashCode();
+			hash_code = new Integer(genHashCode());
 		}
-		return hash_code;
+		return hash_code.intValue();
 	}
 	
 	protected int genHashCode() {

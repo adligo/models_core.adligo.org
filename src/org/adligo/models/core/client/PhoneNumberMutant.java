@@ -13,7 +13,7 @@ public class PhoneNumberMutant implements I_PhoneNumber {
 		wrapped = new PhoneNumber(p);
 	}
 	
-	public void setId(StorageIdentifier p) throws InvalidParameterException {
+	public void setId(StringIdentifier p) throws InvalidParameterException {
 		wrapped.setIdP(p);
 	}
 	public void setNumber(String p) throws InvalidParameterException {

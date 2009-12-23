@@ -13,7 +13,7 @@ public class OrganizationMutant implements I_Org {
 		wrapped = new Organization(other);
 	}
 	
-	public void setId(StorageIdentifier p)  throws InvalidParameterException {
+	public void setId(StringIdentifier p)  throws InvalidParameterException {
 		wrapped.setIdP(p);
 	}
 	

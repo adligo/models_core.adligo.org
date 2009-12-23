@@ -16,7 +16,7 @@ public class Address implements I_SerializableAddress, I_Validateable, I_Storabl
 	public static final String SET_COUNTRY_SUB_CODE = "setCountry_sub_code";
 	public static final String SET_COUNTRY_CODE = "setCountry_code";
 	
-	protected StorageIdentifier id;
+	protected I_SerializableStorageIdentifier id;
 	protected String street_address;
 	protected String city;
 	/** this is the 2 letter ISO country code */
@@ -100,13 +100,13 @@ public class Address implements I_SerializableAddress, I_Validateable, I_Storabl
 
 	public int hashCode() {
 		if (hash_code == null) {
-			hash_code = genHashCode();
+			hash_code = new Integer(genHashCode());
 		}
-		return hash_code;
+		return hash_code.intValue();
 	}
 	
 	void setIdP(I_StorageIdentifier p_id) throws InvalidParameterException{
-		id = new StorageIdentifier(p_id);
+		id = CommonModel.getIdClone(p_id);;
 	}
 	
 	void setCityP(String p) throws InvalidParameterException{
