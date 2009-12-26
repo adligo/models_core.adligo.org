@@ -14,27 +14,27 @@ public class PersonMutant implements I_Person  {
 	}
 	
 	public void setId(StringIdentifier id) throws InvalidParameterException {
-		wrapped.setIdP(id);
+		wrapped.setId(id);
 	}
 
 	public void setFirst_name(String first_name) {
-		wrapped.setFirst_nameP(first_name);
+		wrapped.setFirst_name(first_name);
 	}
 
 	public void setMiddle_name(String middle_name) {
-		wrapped.setMiddle_nameP(middle_name);
+		wrapped.setMiddle_name(middle_name);
 	}
 	
 	public void setLast_name(String last_name) throws InvalidParameterException {
-		wrapped.setLast_nameP(last_name);
+		wrapped.setLast_name(last_name);
 	}
 	
 	public void setBirthday(Long bday) {
-		wrapped.setBirthdayP(bday);
+		wrapped.setBirthday(bday);
 	}
 	
 	public void setDeceased(Long p_deceased) {
-		wrapped.setDeceasedP(p_deceased);
+		wrapped.setDeceased(p_deceased);
 	}
 	public int hashCode() {
 		return wrapped.genHashCode();

@@ -55,36 +55,36 @@ public class VersionedIdentifier implements I_SerializableStorageIdentifier {
 					, CLAZZ_SIMPLE_NAME);
 		}
 		if (other.getVersion() != null && other.getId() != null) {
-			setVersionP(other.getVersion());
-			setIdP(other.getId());
+			setVersion(other.getVersion());
+			setId(other.getId());
 		} else {
 			throw new InvalidParameterException(NO_VERSION_OR_A_ID, CLAZZ_SIMPLE_NAME);
 		}
 	}
 	
 	public VersionedIdentifier(Integer id) throws InvalidParameterException {
-		setIdP(new Long(id.longValue()));
+		setId(new Long(id.longValue()));
 	}
 	
 	public VersionedIdentifier(Long id) throws InvalidParameterException {
-		setIdP(id);
+		setId(id);
 	}
 	
 	public VersionedIdentifier(Integer id, Integer version) throws InvalidParameterException {
-		setVersionP(version);
-		setIdP(new Long(id.longValue()));
+		setVersion(version);
+		setId(new Long(id.longValue()));
 	}
 	
 	public VersionedIdentifier(Long id, Integer version) throws InvalidParameterException {
-		setVersionP(version);
-		setIdP(id);
+		setVersion(version);
+		setId(id);
 	}
 	
 	public Long getId() {
 		return id;
 	}
 
-	void setIdP(Long p_id) throws InvalidParameterException {
+	void setId(Long p_id) throws InvalidParameterException {
 		if (p_id == null) {
 			throw new InvalidParameterException(ID_CANT_BE_SET_TO_NULL, SET_ID);
 		}
@@ -95,7 +95,7 @@ public class VersionedIdentifier implements I_SerializableStorageIdentifier {
 		return version;
 	}
 	
-	void setVersionP(Integer p_version) throws InvalidParameterException {
+	void setVersion(Integer p_version) throws InvalidParameterException {
 		if (p_version == null) {
 			throw new InvalidParameterException(VERSION_CANT_BE_SET_TO_NULL, SET_VERSION);
 		}

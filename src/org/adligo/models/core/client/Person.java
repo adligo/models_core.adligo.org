@@ -35,11 +35,11 @@ public class Person implements I_Validateable, I_SerializablePerson {
 	public Person(I_Person p) throws InvalidParameterException {
 		try {
 			if (p.getId() != null) {
-				setIdP(p.getId());
+				setId(p.getId());
 			}
 			first_name = p.getFirst_name();
 			middle_name = p.getMiddle_name();
-			setLast_nameP(p.getLast_name());
+			setLast_name(p.getLast_name());
 			birthday = p.getBirthday();
 			deceased = p.getDeceased();
 		} catch (InvalidParameterException ex) {
@@ -58,7 +58,7 @@ public class Person implements I_Validateable, I_SerializablePerson {
 		return id;
 	}
 	
-	protected void setIdP(I_StorageIdentifier p) throws InvalidParameterException {
+	protected void setId(I_StorageIdentifier p) throws InvalidParameterException {
 		id = CommonModel.getIdClone(p);
 	}
 	/* (non-Javadoc)
@@ -107,7 +107,7 @@ public class Person implements I_Validateable, I_SerializablePerson {
 		return last_name;
 	}
 
-	void setLast_nameP(String p) throws InvalidParameterException {
+	void setLast_name(String p) throws InvalidParameterException {
 		if (StringUtils.isEmpty(p)) {
 			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getPersonNoNameError(), SET_LAST_NAME);
@@ -223,7 +223,7 @@ public class Person implements I_Validateable, I_SerializablePerson {
 		return birthday;
 	}
 
-	void setBirthdayP(Long p_birthday) {
+	void setBirthday(Long p_birthday) {
 		birthday = p_birthday;
 	}
 
@@ -231,15 +231,15 @@ public class Person implements I_Validateable, I_SerializablePerson {
 		return deceased;
 	}
 
-	void setDeceasedP(Long p_deceased) {
+	void setDeceased(Long p_deceased) {
 		deceased = p_deceased;
 	}
 
-	void setFirst_nameP(String p_firstName) {
+	void setFirst_name(String p_firstName) {
 		first_name = p_firstName;
 	}
 
-	void setMiddle_nameP(String p_middleName) {
+	void setMiddle_name(String p_middleName) {
 		middle_name = p_middleName;
 	}
 
@@ -249,4 +249,5 @@ public class Person implements I_Validateable, I_SerializablePerson {
 		}
 		return false;
 	}
+
 }

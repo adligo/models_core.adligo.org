@@ -22,15 +22,15 @@ public class VersionedIdentifierMutant implements I_VersionedIdentifier {
 	}
 	
 	public void setVersion(Integer version) throws InvalidParameterException {
-		wrapped.setVersionP(version);
+		wrapped.setVersion(version);
 	}
 
 	public void setId(Long id) throws InvalidParameterException {
-		wrapped.setIdP(id);
+		wrapped.setId(id);
 	}
 
 	public void setId(Integer id) throws InvalidParameterException {
-		wrapped.setIdP(new Long(id.longValue())); 
+		wrapped.setId(new Long(id.longValue())); 
 	}
 	
 	public boolean equals(Object obj) {
