@@ -24,7 +24,7 @@ public class CommonModel {
 	 * @return
 	 * @throws InvalidParameterException
 	 */
-	public static I_SerializableStorageIdentifier getIdClone(I_StorageIdentifier p)
+	public static I_StorageIdentifier getIdClone(I_StorageIdentifier p)
 			throws InvalidParameterException {
 		
 		if (p == null) {
@@ -34,7 +34,7 @@ public class CommonModel {
 			throw new InvalidParameterException(ID_EMPTY, I_StorageMutant.SET_ID);
 		}
 		try {
-			return (I_SerializableStorageIdentifier) STORAGE_IDENTIFIER_FACTORY.invoke(p);
+			return (I_StorageIdentifier) STORAGE_IDENTIFIER_FACTORY.invoke(p);
 		} catch (InvocationException ix) {
 			Throwable t = ix.getCause();
 			if (t instanceof InvalidParameterException) {

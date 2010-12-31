@@ -40,7 +40,7 @@ public class ModelsCoreEnglishConstants implements I_ModelsCoreConstants {
 	public static final String ORG_EMPTY_TYPE = "The type field can not be empty.";
 	public static final String ORG_EMPTY_NAME = "The name field can not be empty.";
 
-	public static final String PERSON_A_NAME_LAST_NAME_IS_REQUIRED = "A name (last name) is required.";
+	public static final String PERSON_A_NAME_IS_REQUIRED = "A name is required.";
 
 	public static final String PHONE_NUMBER_MAY_ONLY_HAVE_ARABIC_NUMERALS = "A phone number may only have Arabic numerals ie (0-9).";
 	public static final String PHONE_NUMBER_CAN_NOT_BE_EMPTY = "A phone number can not be empty.";
@@ -150,7 +150,7 @@ public class ModelsCoreEnglishConstants implements I_ModelsCoreConstants {
 	}
 	
 	public String getPersonNoNameError() {
-		return PERSON_A_NAME_LAST_NAME_IS_REQUIRED;
+		return PERSON_A_NAME_IS_REQUIRED;
 	}
 
 	public String getPhoneEmptyError() {

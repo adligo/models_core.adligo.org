@@ -1,10 +1,9 @@
 package org.adligo.models.core.client;
 
 import org.adligo.i.util.client.ClassUtils;
-import org.adligo.i.util.client.I_Serializable;
 import org.adligo.i.util.client.StringUtils;
 
-public class PhoneNumber implements I_Validateable, I_SerializablePhoneNumber
+public class PhoneNumber implements I_Validateable, I_PhoneNumber
 {
 	/**
 	 * 
@@ -15,7 +14,7 @@ public class PhoneNumber implements I_Validateable, I_SerializablePhoneNumber
 	public static final String SET_NUMBER = "setNumber";
 	private static final String DIGITS = "0123456789";
 	
-	protected I_SerializableStorageIdentifier id;
+	protected I_StorageIdentifier id;
 	protected String number;
 	protected transient Integer hash_code;
 	

@@ -25,5 +25,5 @@ public interface I_User extends I_NamedId, I_Validateable {
 	 * 
 	 * @return
 	 */
-	public String getDn() throws InvalidParameterException;
+	public String getDn();
 }

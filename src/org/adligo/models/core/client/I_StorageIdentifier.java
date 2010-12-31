@@ -1,5 +1,7 @@
 package org.adligo.models.core.client;
 
+import java.io.Serializable;
+
 /**
  * marker interfaces actual impls should also 
  * be a I_StringIdentifier (for LDAP dns or Filesystem uris)
@@ -8,7 +10,7 @@ package org.adligo.models.core.client;
  * @author scott
  *
  */
-public interface I_StorageIdentifier {
+public interface I_StorageIdentifier extends Serializable {
 
 	/**
 	 * should return true if the value has been used on the storage system

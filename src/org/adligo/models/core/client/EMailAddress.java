@@ -1,9 +1,8 @@
 package org.adligo.models.core.client;
 
-import org.adligo.i.util.client.I_Serializable;
 import org.adligo.i.util.client.StringUtils;
 
-public class EMailAddress implements I_Mutable, I_Validateable, I_Serializable, I_NamedId {
+public class EMailAddress implements I_Mutable, I_Validateable, I_NamedId {
 	/**
 	 * 
 	 */

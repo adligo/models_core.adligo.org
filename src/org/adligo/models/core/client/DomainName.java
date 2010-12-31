@@ -2,7 +2,6 @@ package org.adligo.models.core.client;
 
 import org.adligo.i.log.client.Log;
 import org.adligo.i.log.client.LogFactory;
-import org.adligo.i.util.client.I_Serializable;
 import org.adligo.i.util.client.StringUtils;
 
 /**
@@ -10,7 +9,7 @@ import org.adligo.i.util.client.StringUtils;
  * @author scott
  *
  */
-public class DomainName implements I_Serializable, I_NamedId, I_Mutable, I_Validateable {
+public class DomainName implements I_NamedId, I_Mutable, I_Validateable {
 	/**
 	 * 
 	 */

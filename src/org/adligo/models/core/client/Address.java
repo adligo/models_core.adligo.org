@@ -4,7 +4,7 @@ import org.adligo.i.util.client.ClassUtils;
 import org.adligo.i.util.client.StringUtils;
 
 
-public class Address implements I_SerializableAddress, I_Validateable, I_Storable {
+public class Address implements I_Address, I_Validateable, I_Storable {
 	/**
 	 * 
 	 */
@@ -16,7 +16,7 @@ public class Address implements I_SerializableAddress, I_Validateable, I_Storabl
 	public static final String SET_COUNTRY_SUB_CODE = "setCountry_sub_code";
 	public static final String SET_COUNTRY_CODE = "setCountry_code";
 	
-	protected I_SerializableStorageIdentifier id;
+	protected I_StorageIdentifier id;
 	protected String street_address;
 	protected String city;
 	/** this is the 2 letter ISO country code */

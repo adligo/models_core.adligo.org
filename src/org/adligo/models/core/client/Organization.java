@@ -4,7 +4,7 @@ import org.adligo.i.util.client.ClassUtils;
 import org.adligo.i.util.client.StringUtils;
 
 
-public class Organization implements I_SerializableOrg, I_Validateable {
+public class Organization implements I_Org, I_Validateable {
 	/**
 	 * 
 	 */
@@ -13,7 +13,7 @@ public class Organization implements I_SerializableOrg, I_Validateable {
 	public static final String SET_TYPE = "setType";
 	public static final String ORGANIZAITION = "Organization";
 	
-	protected I_SerializableStorageIdentifier id;
+	protected I_StorageIdentifier id;
 	protected String name;
 	/**
 	 * the type pertains to something like a School, Band, Company

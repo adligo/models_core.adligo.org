@@ -1,10 +1,9 @@
 package org.adligo.models.core.client;
 
 import org.adligo.i.util.client.ClassUtils;
-import org.adligo.i.util.client.I_Serializable;
 import org.adligo.i.util.client.StringUtils;
 
-public class User implements I_SerializableUser, I_Mutable, I_StorageIdGenerator {
+public class User implements I_User, I_Mutable, I_StorageIdGenerator {
 	/**
 	 * 
 	 */
@@ -19,7 +18,7 @@ public class User implements I_SerializableUser, I_Mutable, I_StorageIdGenerator
 	/**
 	 * the unique storage identifier
 	 */
-	protected I_SerializableStorageIdentifier id;
+	protected I_StorageIdentifier id;
 	
 	/**
 	 * usually a email address
@@ -48,7 +47,6 @@ public class User implements I_SerializableUser, I_Mutable, I_StorageIdGenerator
 	protected DomainName domain;
 	protected String password;
 	protected EMailAddress email;
-	protected transient Integer hash_code;
 	
 	public User() {}
 	
@@ -161,20 +159,20 @@ public class User implements I_SerializableUser, I_Mutable, I_StorageIdGenerator
 	 * returns a LDAP dn (for i_netOrgUser entries)
 	 * @return
 	 */
-	public String getDn() throws InvalidParameterException {
-		if (domain == null) {
-			throw new InvalidParameterException("No Domain Name","getDn");
-		}
-		
-		if (name == null) {
-			throw new InvalidParameterException("No User Name","getDn");
-		}
-		
+	public String getDn() {
 		StringBuffer sb = new StringBuffer();
 		sb.append("uid=");
 		sb.append(name);
 		sb.append(",");
-		sb.append(DomainName.toDn(domain.toString()));
+		if (domain != null) {
+			try {
+				sb.append(DomainName.toDn(domain.toString()));
+			} catch (InvalidParameterException x) {
+				sb.append("dc=unknown");
+			}
+		} else {
+			sb.append("dc=unknown");
+		}
 		return sb.toString();
 	}
 	
@@ -309,10 +307,7 @@ public class User implements I_SerializableUser, I_Mutable, I_StorageIdGenerator
 	}
 	
 	public int hashCode() {
-		if (hash_code == null) {
-			hash_code = new Integer(genHashCode());
-		}
-		return hash_code.intValue();
+		return genHashCode();
 	}
 
 	public boolean equals(Object obj) {

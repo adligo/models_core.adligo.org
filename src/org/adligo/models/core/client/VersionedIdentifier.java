@@ -13,7 +13,7 @@ import org.adligo.i.util.client.StringUtils;
  * @author scott
  *
  */
-public class VersionedIdentifier implements I_SerializableStorageIdentifier {
+public class VersionedIdentifier implements I_StorageIdentifier, I_VersionedIdentifier {
 	public static final String YOU_PASSED_A_NULL_TO_THE_VERSIONED_IDENTIFIER_CONSTRUCTOR = "You passed a null to the VersionedIdentifier constructor.";
 
 	/**

@@ -15,7 +15,7 @@ import org.adligo.i.util.client.StringUtils;
  * @author scott
  *
  */
-public class StringIdentifier implements I_SerializableStringIdentifier {
+public class StringIdentifier implements I_StringIdentifier {
 	/**
 	 * 
 	 */

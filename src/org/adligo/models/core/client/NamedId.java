@@ -6,7 +6,7 @@ import org.adligo.i.adi.client.Registry;
 import org.adligo.i.util.client.ClassUtils;
 
 
-public class NamedId implements I_SerializableNamedId {
+public class NamedId implements I_NamedId {
 	/**
 	 * 
 	 */
@@ -16,7 +16,7 @@ public class NamedId implements I_SerializableNamedId {
 	public static final String NAMED_ID = "NamedId";
 	public static final String SET_NAME = "setName";
 	
-	protected I_SerializableStorageIdentifier id;
+	protected I_StorageIdentifier id;
 	protected String name;
 	protected transient Integer hash_code;
 	

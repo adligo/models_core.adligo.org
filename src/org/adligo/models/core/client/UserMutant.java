@@ -59,7 +59,7 @@ public class UserMutant implements I_User {
 		return wrapped.generate();
 	}
 
-	public String getDn() throws InvalidParameterException {
+	public String getDn() {
 		return wrapped.getDn();
 	}
 

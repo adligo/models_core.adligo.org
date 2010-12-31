@@ -1,16 +1,39 @@
 package org.adligo.models.core.client;
 
 public interface I_Person extends I_NamedId, I_Validateable {
-	public abstract String getFirst_name();
-	public abstract String getMiddle_name();
-	public abstract String getLast_name();
-	public abstract Long getBirthday();
+	public static final Character GENDER_MALE = 'M';
+	public static final Character GENDER_FEMALE = 'F'; 
+	public static final Character GENDER_OTHER = 'O';
+	
+	public String getFirst_name();
+	public String getMiddle_name();
+	public String getLast_name();
+	public String getNickname();
+	public Long getBirthday();
 	/**
 	 * null means there not dead yet
 	 *   should also be nullable in case info is found to be incorrect
 	 * @return
 	 */
-	public abstract Long getDeceased();
-	public boolean isAlive();
-
+	public Long getDeceased();
+	/**
+	 * may return null if the system doesn't know 
+	 * if the person is alive or not
+	 * (although it generally assumes they are, unless told they are dead)
+	 * 
+	 * @return
+	 */
+	public Boolean isAlive();
+	
+	/**
+	 * the gender of the person (use constants in this interface 
+	 * GENDER_MALE, GENDER_FEMALE, GENDER_OTHER)
+	 * @return
+	 */
+	public Character getGender();
+	/**
+	 * the height of the person in Meters
+	 * @return
+	 */
+	public Double getHeight();
 }
