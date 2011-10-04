@@ -2,6 +2,7 @@ package org.adligo.models.core.client;
 
 import org.adligo.i.log.client.Log;
 import org.adligo.i.log.client.LogFactory;
+import org.adligo.i.util.client.StringUtils;
 
 /**
  * immutable Class to represent a domain name ie adligo.com
@@ -66,5 +67,16 @@ public class DomainName implements I_NamedId, I_Mutable, I_Validateable {
 		return wrapped.getName();
 	}
 
+	public static void validate(String domain) throws InvalidParameterException {
+		DomainNameMutant.validate(domain);
+	}
+	
+	public static String toDn(String domain) throws InvalidParameterException {
+		return DomainNameMutant.toDn(domain);
+	}
+	
+	public static String fromDn(String dn) throws InvalidParameterException {
+		return DomainNameMutant.fromDn(dn);
+	}
 	
 }
