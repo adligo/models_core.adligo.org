@@ -4,7 +4,7 @@ import org.adligo.i.log.client.Log;
 import org.adligo.i.log.client.LogFactory;
 import org.adligo.i.util.client.StringUtils;
 
-public class DomainNameMutant implements I_NamedId, I_Validateable, I_Mutable {
+public class DomainNameMutant implements I_DomainNameMutant, I_Validateable, I_Mutable {
 	/**
 	 * 
 	 */

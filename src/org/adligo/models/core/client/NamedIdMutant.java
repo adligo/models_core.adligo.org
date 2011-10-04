@@ -1,10 +1,9 @@
 package org.adligo.models.core.client;
 
 import org.adligo.i.util.client.ClassUtils;
-import org.adligo.i.util.client.StringUtils;
 
 
-public class NamedIdMutant implements I_NamedId, I_Validateable {
+public class NamedIdMutant implements I_NamedIdMutant, I_Validateable {
 	public static final String NULL_TO_CONSTRUCTOR =  "a null was passed to the NamedIdMutant constructor ";
 	/**
 	 * 

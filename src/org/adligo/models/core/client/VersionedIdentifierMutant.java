@@ -2,7 +2,7 @@ package org.adligo.models.core.client;
 
 import java.lang.Long;
 
-public class VersionedIdentifierMutant implements I_VersionedIdentifier {
+public class VersionedIdentifierMutant implements I_VersionedIdentifierMutant {
 	private VersionedIdentifier wrapped;
 	
 	public VersionedIdentifierMutant() {

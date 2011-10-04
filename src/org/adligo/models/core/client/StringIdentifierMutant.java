@@ -1,7 +1,7 @@
 package org.adligo.models.core.client;
 
 
-public class StringIdentifierMutant implements I_StringIdentifier {
+public class StringIdentifierMutant implements I_StringIdentifierMutant {
 	private StringIdentifier wrapped;
 	
 	public StringIdentifierMutant() {
