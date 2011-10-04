@@ -8,84 +8,22 @@ public class EMailAddress implements I_Mutable, I_Validateable, I_NamedId {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public static final String EMAIL = "email";
-	protected DomainName domainName;
-	protected String userName;
-	protected NamedId namedId;
+	private EMailAddressMutant mutant;
 	
 	/**
 	 * mostly only for RPC Serilization
 	 * as this class is immutable
 	 */
-	public EMailAddress() {}
+	public EMailAddress() {
+		mutant = new EMailAddressMutant();
+	}
 	
-	public EMailAddress(EMailAddress other) throws InvalidParameterException {
-
-		if (other == null) {
-			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
-					.getEmailAddressEmptyError(), EMAIL);
-		}
-		if (other.namedId == null) {
-			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
-					.getEmailAddressEmptyError(), EMAIL);
-		}
-		namedId = new NamedId(other.namedId);
-		if (StringUtils.isEmpty(namedId.getName())) {
-			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
-					.getEmailAddressEmptyError(), EMAIL);
-		}
-		domainName = other.domainName;
-		userName = other.userName;
+	public EMailAddress(I_NamedId other) throws InvalidParameterException {
+		mutant = new EMailAddressMutant(other);
 	}
 
 	public EMailAddress(String email) throws InvalidParameterException {
-
-		if (StringUtils.isEmpty(email)) {
-			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
-					.getEmailAddressEmptyError(), EMAIL);
-		}	
-		email = email.trim();
-		if (email.length() < 6) {
-			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
-					.getEmailAddressToShortError(), EMAIL);
-		}
-		StringBuffer userB = new StringBuffer();
-		StringBuffer domainB = new StringBuffer();
-		boolean foundAt = false;
-		char [] chars = email.toCharArray();
-		for (int i = 0; i < chars.length; i++) {
-			char c = chars[i];
-			if (c == '@') {
-				foundAt = true;
-			} else if (c == ' ') {
-				throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
-						.getEmailAddressNoSpaceError(), EMAIL);
-			} else if (!foundAt) {
-				userB.append(c);
-			} else {
-				domainB.append(c);
-			}
-		}
-		if (!foundAt) {
-			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
-					.getEmailAddressNoAtError(), EMAIL);
-		}
-		
-		userName = userB.toString();
-		try {
-			domainName = new DomainName(domainB.toString());
-		} catch (InvalidParameterException ex) {
-			InvalidParameterException toThrow = new InvalidParameterException(
-					ModelsCoreConstantsObtainer.getConstants()
-						.getEmaiAddressBadDomainError(), EMAIL);
-			toThrow.initCause(ex);
-			throw toThrow;
-		}
-		if (userName.length() == 0) {
-			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
-					.getEmailAddressNoUserError(), EMAIL);
-		}
-		namedId = new NamedId(email);
+		mutant = new EMailAddressMutant(email);
 	}
 	
 	public static void validate(String email) throws InvalidParameterException {
@@ -93,45 +31,19 @@ public class EMailAddress implements I_Mutable, I_Validateable, I_NamedId {
 	}
 
 	public DomainName getDomainName() {
-		return domainName;
+		return mutant.getDomainName();
 	}
 
 	public String getUserName() {
-		return userName;
-	}
-	
-	public String toString() {
-		if (namedId == null) {
-			return "'empty email'";
-		}
-		if (namedId.getName() == null) {
-			return "'empty email'";
-		}
-		return namedId.getName();
+		return mutant.getUserName();
 	}
 
 	public int hashCode() {
-		if (namedId == null) {
-			return 0;
-		}
-		return namedId.hashCode();
+		return mutant.hashCode();
 	}
 
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (obj instanceof EMailAddress) {
-			EMailAddress other = (EMailAddress) obj;
-			if (namedId == null) {
-				if (other.namedId != null)
-					return false;
-			} else if (!namedId.equals(other.namedId))
-				return false;
-			return true;
-		}
-		return false;
+		return mutant.equals(obj);
 	}
 
 	public boolean isMutable() {
@@ -139,27 +51,18 @@ public class EMailAddress implements I_Mutable, I_Validateable, I_NamedId {
 	}
 
 	public boolean isValid() {
-		if (namedId == null) {
-			return false;
-		}
-		if (StringUtils.isEmpty(namedId.getName())) {
-			return false;
-		}
-		return true;
+		return mutant.isValid();
 	}
 
 	public I_StorageIdentifier getId() {
-		if (namedId != null) {
-			return namedId.getId();
-		}
-		return null;
+		return mutant.getId();
 	}
 
 	public String getName() {
-		if (namedId != null) {
-			return namedId.getName();
-		}
-		return null;
+		return mutant.getName();
 	}
-	
+
+	public String toString() {
+		return mutant.toString();
+	}
 }
