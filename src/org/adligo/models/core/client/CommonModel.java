@@ -12,7 +12,7 @@ public class CommonModel {
 	public static final String ID_EMPTY = "You called set id with a invalid object.";
 	
 	/**
-	 * exception catching code so you 
+	 * exception generating code so you 
 	 * don't need this in every model
 	 * 
 	 * Note the key factory is put into the adi Registry

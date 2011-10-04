@@ -166,7 +166,7 @@ public class User implements I_User, I_Mutable, I_StorageIdGenerator {
 		sb.append(",");
 		if (domain != null) {
 			try {
-				sb.append(DomainName.toDn(domain.toString()));
+				sb.append(DomainNameMutant.toDn(domain.toString()));
 			} catch (InvalidParameterException x) {
 				sb.append("dc=unknown");
 			}
