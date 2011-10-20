@@ -1,8 +1,7 @@
 package org.adligo.models.core.client;
 
-import org.adligo.i.util.client.StringUtils;
 
-public class EMailAddress implements I_Mutable, I_Validateable, I_NamedId {
+public class EMailAddress implements I_EMailAddress {
 	/**
 	 * 
 	 */
@@ -18,8 +17,13 @@ public class EMailAddress implements I_Mutable, I_Validateable, I_NamedId {
 		mutant = new EMailAddressMutant();
 	}
 	
-	public EMailAddress(I_NamedId other) throws InvalidParameterException {
-		mutant = new EMailAddressMutant(other);
+	public EMailAddress(I_EMailAddress address) throws InvalidParameterException {
+		if (address == null) {
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
+					.getEmailAddressEmptyError(), EMailAddressMutant.EMAIL);
+		}
+		String email = address.getEMail();
+		mutant = new EMailAddressMutant(email);
 	}
 
 	public EMailAddress(String email) throws InvalidParameterException {
@@ -54,15 +58,12 @@ public class EMailAddress implements I_Mutable, I_Validateable, I_NamedId {
 		return mutant.isValid();
 	}
 
-	public I_StorageIdentifier getId() {
-		return mutant.getId();
-	}
-
-	public String getName() {
-		return mutant.getName();
-	}
-
 	public String toString() {
 		return mutant.toString();
+	}
+
+	@Override
+	public String getEMail() {
+		return mutant.getEMail();
 	}
 }

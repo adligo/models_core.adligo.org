@@ -2,7 +2,7 @@ package org.adligo.models.core.client;
 
 import org.adligo.i.util.client.StringUtils;
 
-public class EMailAddressMutant implements I_Mutable, I_Validateable, I_NamedId {
+public class EMailAddressMutant implements I_EMailAddressMutant {
 	/**
 	 * 
 	 */
@@ -11,28 +11,18 @@ public class EMailAddressMutant implements I_Mutable, I_Validateable, I_NamedId 
 	public static final String EMAIL = "email";
 	private DomainName domainName;
 	private String userName;
-	private NamedIdMutant namedId;
+	private String email;
 	
 	/**
 	 * mostly only for RPC Serilization
 	 * as this class is immutable
 	 */
 	public EMailAddressMutant() {
-		namedId = new NamedIdMutant();
 	}
 	
-	public EMailAddressMutant(I_NamedId other) throws InvalidParameterException {
-
-		if (other == null) {
-			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
-					.getEmailAddressEmptyError(), EMAIL);
-		}
-		namedId = new NamedIdMutant(other);
-		setName(other.getName());
-	}
 
 	public EMailAddressMutant(String email) throws InvalidParameterException {
-		namedId = new NamedIdMutant();
+		this.email = email;
 		setName(email);
 	}
 	
@@ -49,14 +39,14 @@ public class EMailAddressMutant implements I_Mutable, I_Validateable, I_NamedId 
 	}
 	
 	public String toString() {
-		if (namedId.getName() == null) {
-			return "'empty email'";
-		}
-		return namedId.getName();
+		return email;
 	}
 
 	public int hashCode() {
-		return namedId.hashCode();
+		if (email == null) {
+			return 0;
+		}
+		return email.hashCode();
 	}
 
 	public boolean equals(Object obj) {
@@ -64,9 +54,9 @@ public class EMailAddressMutant implements I_Mutable, I_Validateable, I_NamedId 
 			return true;
 		if (obj == null)
 			return false;
-		if (obj instanceof I_NamedId) {
-			I_NamedId other = (I_NamedId) obj;
-			if (namedId.equals(other)) {
+		if (obj instanceof I_EMailAddress) {
+			I_EMailAddress other = (I_EMailAddress) obj;
+			if (email.equals(other.getEMail())) {
 				return true;
 			}
 		}
@@ -78,30 +68,12 @@ public class EMailAddressMutant implements I_Mutable, I_Validateable, I_NamedId 
 	}
 
 	public boolean isValid() {
-		if (StringUtils.isEmpty(namedId.getName())) {
+		if (StringUtils.isEmpty(email)) {
 			return false;
 		}
 		return true;
 	}
 
-	public I_StorageIdentifier getId() {
-		if (namedId != null) {
-			return namedId.getId();
-		}
-		return null;
-	}
-
-	public void setId(I_StorageIdentifier id) throws InvalidParameterException {
-		namedId.setId(id);
-	}
-	
-	public String getName() {
-		if (namedId != null) {
-			return namedId.getName();
-		}
-		return null;
-	}
-	
 	public void setName(String email) throws InvalidParameterException {
 
 		if (StringUtils.isEmpty(email)) {
@@ -149,7 +121,18 @@ public class EMailAddressMutant implements I_Mutable, I_Validateable, I_NamedId 
 			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getEmailAddressNoUserError(), EMAIL);
 		}
-		namedId.setName(email);
+		this.email = email;
+	}
+
+
+	@Override
+	public String getEMail() {
+		return email;
+	}
+	
+	@Override
+	public void setEMail(String p) throws InvalidParameterException {
+		setName(p);
 	}
 	
 }
