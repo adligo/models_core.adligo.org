@@ -200,7 +200,7 @@ public class UserMutant implements I_UserMutant2, I_Mutable, I_StorageIdGenerato
 		}
 	}
 	
-	public void setDomain(DomainName domain)  throws InvalidParameterException {
+	public void setDomain(I_DomainName domain)  throws InvalidParameterException {
 		try {
 			this.domain = new DomainName(domain);
 		} catch (InvalidParameterException e) {
@@ -229,7 +229,7 @@ public class UserMutant implements I_UserMutant2, I_Mutable, I_StorageIdGenerato
 	 * @param p_email
 	 * @throws InvalidParameterException
 	 */
-	public void setEmail(EMailAddress p_email) throws InvalidParameterException {
+	public void setEmail(I_EMailAddress p_email) throws InvalidParameterException {
 		try {
 			email = new EMailAddress(p_email);
 		} catch (InvalidParameterException e) {
@@ -350,5 +350,6 @@ public class UserMutant implements I_UserMutant2, I_Mutable, I_StorageIdGenerato
 	public StringIdentifier generate() throws InvalidParameterException{
 		return new StringIdentifier(getDn());
 	}
+
 
 }

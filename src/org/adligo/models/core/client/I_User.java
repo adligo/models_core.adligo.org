@@ -14,9 +14,9 @@ public interface I_User extends I_NamedId, I_Validateable {
 	
 	public String getPassword();
 
-	public EMailAddress getEmail();
+	public I_EMailAddress getEmail();
 	
-	public DomainName getDomain();
+	public I_DomainName getDomain();
 	
 	/**
 	 * returns the LDAP distinguished name
