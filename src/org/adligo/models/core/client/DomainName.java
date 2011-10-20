@@ -2,14 +2,13 @@ package org.adligo.models.core.client;
 
 import org.adligo.i.log.client.Log;
 import org.adligo.i.log.client.LogFactory;
-import org.adligo.i.util.client.StringUtils;
 
 /**
  * immutable Class to represent a domain name ie adligo.com
  * @author scott
  *
  */
-public class DomainName implements I_NamedId, I_Mutable, I_Validateable {
+public class DomainName implements I_DomainName, I_Mutable, I_Validateable {
 	/**
 	 * 
 	 */
@@ -26,29 +25,21 @@ public class DomainName implements I_NamedId, I_Mutable, I_Validateable {
 	public DomainName() {
 		wrapped = new DomainNameMutant();
 	}
-	
-	public DomainName(I_NamedId other) throws InvalidParameterException {
-		wrapped = new DomainNameMutant(other);
+
+	public DomainName(I_DomainName name) throws InvalidParameterException {
+		String dn = "";
+		if (name != null) {
+			dn = name.getName();
+		}
+		wrapped = new DomainNameMutant(dn);
 	}
 	
 	public DomainName(String name) throws InvalidParameterException {
 		wrapped = new DomainNameMutant(name);
 	}
 
-	public DomainName(String name, I_StorageIdentifier id) throws InvalidParameterException {
-		wrapped = new DomainNameMutant(name, id);
-	}
-
 	public boolean equals(Object obj) {
 		return wrapped.equals(obj);
-	}
-
-	public I_StorageIdentifier getId() {
-		return wrapped.getId();
-	}
-
-	public String getName() {
-		return wrapped.getName();
 	}
 
 	public int hashCode() {
@@ -64,7 +55,7 @@ public class DomainName implements I_NamedId, I_Mutable, I_Validateable {
 	}
 	
 	public String toString() {
-		return wrapped.getName();
+		return wrapped.toString();
 	}
 
 	public static void validate(String domain) throws InvalidParameterException {
@@ -77,6 +68,11 @@ public class DomainName implements I_NamedId, I_Mutable, I_Validateable {
 	
 	public static String fromDn(String dn) throws InvalidParameterException {
 		return DomainNameMutant.fromDn(dn);
+	}
+
+	@Override
+	public String getName() {
+		return wrapped.getName();
 	}
 	
 }

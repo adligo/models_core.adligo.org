@@ -15,8 +15,8 @@ public class DomainNameMutant implements I_DomainNameMutant, I_Validateable, I_M
 
 	public static final String DOMAIN_NAME = "DomainName";
 	
-	private NamedIdMutant namedId = new NamedIdMutant();
 	private String[] components;
+	private String asString;
 	
 	/**
 	 * mostly only for RPC Serilization
@@ -24,33 +24,11 @@ public class DomainNameMutant implements I_DomainNameMutant, I_Validateable, I_M
 	 */
 	public DomainNameMutant() {
 	}
-	
-	public DomainNameMutant(I_NamedId other) throws InvalidParameterException {
 
-		if (other == null) {
-			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
-					.getDomainNameEmptyError(), DOMAIN_NAME);
-		}
-		setName(other.getName());
-		I_StorageIdentifier id = other.getId();
-		if (id != null) {
-			setId(other.getId());
-		}
-	}
 	
 	public DomainNameMutant(String name) throws InvalidParameterException {
 		setName(name);
 	}
-
-	public DomainNameMutant(String name, I_StorageIdentifier id) throws InvalidParameterException {
-		setName(name);
-		if (id != null) {
-			setId(id);
-		}
-	}
-	
-	
-	
 	
 	public static void validate(String domain) throws InvalidParameterException {
 		
@@ -97,7 +75,7 @@ public class DomainNameMutant implements I_DomainNameMutant, I_Validateable, I_M
 
 	public boolean isValid() {
 		try {
-			DomainNameMutant o = new DomainNameMutant(this);
+			DomainNameMutant o = new DomainNameMutant(this.toString());
 		} catch (InvalidParameterException x) {
 			return false;
 		}
@@ -170,22 +148,8 @@ public class DomainNameMutant implements I_DomainNameMutant, I_Validateable, I_M
 		return sb.toString();
 	}
 
-	public I_StorageIdentifier getId() {
-		return namedId.getId();
-	}
-
-	public void setId(I_StorageIdentifier p_id)
-			throws InvalidParameterException {
-		namedId.setId(p_id);
-	}
-
-	public String getName() {
-		return namedId.getName();
-	}
-
 	public void setName(String p_name) throws InvalidParameterException {
 		validate(p_name);
-		namedId.setName(p_name);
 		
 		char [] chars = p_name.toCharArray();
 		StringBuffer sb = new StringBuffer();
@@ -199,6 +163,7 @@ public class DomainNameMutant implements I_DomainNameMutant, I_Validateable, I_M
 			}
 		}
 		addComponent(sb);
+		asString = p_name;
 	}
 
 	private void addComponent(StringBuffer sb) {
@@ -219,15 +184,38 @@ public class DomainNameMutant implements I_DomainNameMutant, I_Validateable, I_M
 		
 	}
 
+	@Override
 	public int hashCode() {
-		return namedId.hashCode();
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((asString == null) ? 0 : asString.hashCode());
+		return result;
 	}
 
-	public boolean equals(Object obj) {
-		return namedId.equals(obj);
-	}
 	
 	public String toString() {
-		return namedId.getName();
+		return asString;
+	}
+
+	@Override
+	public String getName() {
+		return asString;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj instanceof I_DomainName) {
+			I_DomainName other = (I_DomainName) obj;
+			if (asString == null) {
+				if (other.getName() != null)
+					return false;
+			} else if (asString.equals(other.getName()))
+				return true;
+		}
+		return false;
 	}
 }
