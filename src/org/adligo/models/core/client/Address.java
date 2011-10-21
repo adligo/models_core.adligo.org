@@ -54,4 +54,9 @@ public class Address implements I_Address {
 	public String toString() {
 		return wrapped.toString(this.getClass());
 	}
+
+	@Override
+	public boolean isMutable() {
+		return false;
+	}
 }

@@ -242,4 +242,9 @@ public class AddressMutant implements I_AddressMutant {
 		sb.append("]");
 		return sb.toString();
 	}
+	
+	@Override
+	public boolean isMutable() {
+		return true;
+	}
 }
