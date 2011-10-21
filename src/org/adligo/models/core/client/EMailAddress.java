@@ -34,7 +34,7 @@ public class EMailAddress implements I_EMailAddress {
 		new EMailAddress(email);
 	}
 
-	public DomainName getDomainName() {
+	public I_DomainName getDomainName() {
 		return mutant.getDomainName();
 	}
 

@@ -30,7 +30,7 @@ public class EMailAddressMutant implements I_EMailAddressMutant {
 		new EMailAddressMutant(email);
 	}
 
-	public DomainName getDomainName() {
+	public I_DomainName getDomainName() {
 		return domainName;
 	}
 

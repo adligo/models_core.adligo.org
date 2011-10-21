@@ -3,7 +3,7 @@ package org.adligo.models.core.client;
 import org.adligo.i.util.client.ClassUtils;
 import org.adligo.i.util.client.StringUtils;
 
-public class UserMutant implements I_UserMutant2, I_Mutable, I_StorageIdGenerator {
+public class UserMutant implements I_UserMutant, I_Mutable, I_StorageIdGenerator {
 	/**
 	 * 
 	 */
