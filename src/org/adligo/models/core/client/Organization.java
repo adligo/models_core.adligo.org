@@ -4,7 +4,7 @@ import org.adligo.i.util.client.ClassUtils;
 import org.adligo.i.util.client.StringUtils;
 
 
-public class Organization implements I_Org, I_Validateable {
+public class Organization implements I_Organization, I_Validateable {
 	/**
 	 * 
 	 */
@@ -22,7 +22,7 @@ public class Organization implements I_Org, I_Validateable {
 	protected NamedId type;
 	protected transient Integer hash_code;
 	
-	public Organization(I_Org p) throws InvalidParameterException {
+	public Organization(I_Organization p) throws InvalidParameterException {
 		try {
 			if (p.getId() != null) {
 				setIdP(p.getId());
@@ -105,8 +105,8 @@ public class Organization implements I_Org, I_Validateable {
 			return true;
 		if (obj == null)
 			return false;
-		if (obj instanceof I_Org) {
-			final I_Org other = (I_Org) obj;
+		if (obj instanceof I_Organization) {
+			final I_Organization other = (I_Organization) obj;
 			if (name == null) {
 				if (other.getName() != null)
 					return false;

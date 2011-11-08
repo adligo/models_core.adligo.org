@@ -3,7 +3,7 @@ package org.adligo.models.core.client;
 import org.adligo.i.util.client.ClassUtils;
 import org.adligo.i.util.client.CommonTime;
 
-public class PersonMutant implements I_Person  {
+public class PersonMutant implements I_PersonMutant  {
 	/**
 	 * 
 	 */

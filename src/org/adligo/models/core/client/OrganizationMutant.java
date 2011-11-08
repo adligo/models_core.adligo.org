@@ -2,18 +2,22 @@ package org.adligo.models.core.client;
 
 
 
-public class OrganizationMutant implements I_Org {
+public class OrganizationMutant implements I_OrganizationMutant {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Organization wrapped;
 
 	public OrganizationMutant() {
 		wrapped = new Organization();
 	}
 	
-	public OrganizationMutant(I_Org other) throws InvalidParameterException {
+	public OrganizationMutant(I_Organization other) throws InvalidParameterException {
 		wrapped = new Organization(other);
 	}
 	
-	public void setId(StringIdentifier p)  throws InvalidParameterException {
+	public void setId(I_StorageIdentifier p)  throws InvalidParameterException {
 		wrapped.setIdP(p);
 	}
 	
@@ -21,7 +25,7 @@ public class OrganizationMutant implements I_Org {
 		wrapped.setNameP(p);
 	}
 	
-	public void setType(NamedId p) throws InvalidParameterException {
+	public void setType(I_NamedId p) throws InvalidParameterException {
 		wrapped.setTypeP(p);
 	}
 
