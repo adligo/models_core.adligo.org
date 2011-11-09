@@ -2,7 +2,7 @@ package org.adligo.models.core.client;
 
 
 
-public interface I_User extends I_NamedId, I_Validateable {
+public interface I_User extends I_NamedId {
 	
 	/** 
 	 * @return the users name for things like
