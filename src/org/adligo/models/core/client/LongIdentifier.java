@@ -2,6 +2,10 @@ package org.adligo.models.core.client;
 
 public class LongIdentifier implements I_LongIdentifier {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private LongIdentifierMutant mutant;
 	
 	public LongIdentifier() {}
@@ -25,6 +29,14 @@ public class LongIdentifier implements I_LongIdentifier {
 
 	public String toString() {
 		return mutant.toString();
+	}
+
+	@Override
+	public boolean hasValue() {
+		if (mutant == null) {
+			return false;
+		}
+		return true;
 	}
 
 }

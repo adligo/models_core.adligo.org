@@ -3,6 +3,10 @@ package org.adligo.models.core.client;
 import java.lang.Long;
 
 public class LongIdentifierMutant implements I_LongIdentifierMutant {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static final String SET_ID = "setId";
 	public static final String CLAZZ_SIMPLE_NAME = "LongIdentifier";
 	public static final String ID_CANT_BE_SET_TO_NULL = "LongIdentifier id can't be set to null!";
@@ -55,6 +59,14 @@ public class LongIdentifierMutant implements I_LongIdentifierMutant {
 
 	public Long getId() {
 		return id;
+	}
+
+	@Override
+	public boolean hasValue() {
+		if (id == null) {
+			return false;
+		}
+		return true;
 	}
 
 
