@@ -2,6 +2,9 @@ package org.adligo.models.core.client;
 
 import org.adligo.i.util.client.ClassUtils;
 import org.adligo.i.util.client.StringUtils;
+import org.adligo.models.core.client.ids.I_StorageIdGenerator;
+import org.adligo.models.core.client.ids.I_StorageIdentifier;
+import org.adligo.models.core.client.ids.StringIdentifier;
 
 public class UserMutant implements I_UserMutant, I_Mutable, I_StorageIdGenerator {
 	/**

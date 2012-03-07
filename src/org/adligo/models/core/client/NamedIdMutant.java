@@ -1,6 +1,7 @@
 package org.adligo.models.core.client;
 
 import org.adligo.i.util.client.ClassUtils;
+import org.adligo.models.core.client.ids.I_StorageIdentifier;
 
 
 public class NamedIdMutant implements I_NamedIdMutant, I_Validateable {

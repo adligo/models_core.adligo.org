@@ -1,5 +1,7 @@
 package org.adligo.models.core.client;
 
+import org.adligo.models.core.client.ids.I_StorageIdentifier;
+
 public class NamedId implements I_NamedId {
 	/**
 	 * 

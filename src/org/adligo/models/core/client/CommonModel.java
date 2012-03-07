@@ -3,6 +3,7 @@ package org.adligo.models.core.client;
 import org.adligo.i.adi.client.I_CheckedInvoker;
 import org.adligo.i.adi.client.InvocationException;
 import org.adligo.i.adi.client.Registry;
+import org.adligo.models.core.client.ids.I_StorageIdentifier;
 
 public class CommonModel {
 

@@ -1,8 +1,9 @@
-package org.adligo.models.core.client;
+package org.adligo.models.core.client.ids;
 
 import org.adligo.i.adi.client.I_CheckedInvoker;
 import org.adligo.i.adi.client.InvocationException;
 import org.adligo.i.util.client.ClassUtils;
+import org.adligo.models.core.client.InvalidParameterException;
 
 public class DefaultStorageIdentifierFactory implements I_CheckedInvoker {
 

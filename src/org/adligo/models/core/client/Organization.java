@@ -2,6 +2,7 @@ package org.adligo.models.core.client;
 
 import org.adligo.i.util.client.ClassUtils;
 import org.adligo.i.util.client.StringUtils;
+import org.adligo.models.core.client.ids.I_StorageIdentifier;
 
 
 public class Organization implements I_Organization, I_Validateable {

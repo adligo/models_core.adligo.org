@@ -1,7 +1,8 @@
-package org.adligo.models.core.client;
+package org.adligo.models.core.client.ids;
 
 import org.adligo.i.util.client.ClassUtils;
 import org.adligo.i.util.client.StringUtils;
+import org.adligo.models.core.client.InvalidParameterException;
 
 /**
  * this provides a unique identifier for a stored model

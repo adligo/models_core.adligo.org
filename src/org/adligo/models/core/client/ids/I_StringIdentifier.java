@@ -1,4 +1,5 @@
-package org.adligo.models.core.client;
+package org.adligo.models.core.client.ids;
+
 
 public interface I_StringIdentifier extends I_StorageIdentifier {
 	/**

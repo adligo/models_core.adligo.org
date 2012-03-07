@@ -1,5 +1,8 @@
 package org.adligo.models.core.client;
 
+import org.adligo.models.core.client.ids.I_StorageIdentifier;
+import org.adligo.models.core.client.ids.StringIdentifier;
+
 
 public class User implements I_User {
 	private UserMutant wrapped;

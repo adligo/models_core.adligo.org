@@ -1,4 +1,6 @@
-package org.adligo.models.core.client;
+package org.adligo.models.core.client.ids;
+
+import org.adligo.models.core.client.InvalidParameterException;
 
 public class LongIdentifier implements I_LongIdentifier {
 
