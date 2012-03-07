@@ -89,7 +89,6 @@ public class StringIdentifierMutant implements I_StringIdentifierMutant {
 		return true;
 	}
 
-	@Override
 	public String getType() {
 		return TYPE;
 	}

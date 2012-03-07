@@ -35,7 +35,6 @@ public class LongIdentifierMutant implements I_LongIdentifierMutant {
 		id = p;
 	}
 
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -43,7 +42,6 @@ public class LongIdentifierMutant implements I_LongIdentifierMutant {
 		return result;
 	}
 
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -60,7 +58,6 @@ public class LongIdentifierMutant implements I_LongIdentifierMutant {
 		return false;
 	}
 
-	@Override
 	public String toString() {
 		return toString(this.getClass());
 	}
@@ -78,7 +75,6 @@ public class LongIdentifierMutant implements I_LongIdentifierMutant {
 		return id;
 	}
 
-	@Override
 	public boolean hasValue() {
 		if (id == null) {
 			return false;
@@ -86,7 +82,6 @@ public class LongIdentifierMutant implements I_LongIdentifierMutant {
 		return true;
 	}
 
-	@Override
 	public String getType() {
 		return LongIdentifierMutant.TYPE;
 	}

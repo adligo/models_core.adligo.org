@@ -21,7 +21,6 @@ public class ModifyEMailListMutant implements I_ModifyEMailListMutant {
 	/* (non-Javadoc)
 	 * @see org.adligo.models.core.client.I_EMailListSignupRequestMutant#setMailListName(java.lang.String)
 	 */
-	@Override
 	public void setMailListName(String mailListName) {
 		this.mailListName = mailListName;
 	}
@@ -31,7 +30,6 @@ public class ModifyEMailListMutant implements I_ModifyEMailListMutant {
 	/* (non-Javadoc)
 	 * @see org.adligo.models.core.client.I_EMailListSignupRequestMutant#setAddress(org.adligo.models.core.client.I_EMailAddress)
 	 */
-	@Override
 	public void setAddress(I_EMailAddress address) {
 		this.address = address;
 	}

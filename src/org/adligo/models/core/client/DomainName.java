@@ -70,7 +70,6 @@ public class DomainName implements I_DomainName, I_Mutable, I_Validateable {
 		return DomainNameMutant.fromDn(dn);
 	}
 
-	@Override
 	public String getName() {
 		return wrapped.getName();
 	}

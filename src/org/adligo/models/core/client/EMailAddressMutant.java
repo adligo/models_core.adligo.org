@@ -125,12 +125,10 @@ public class EMailAddressMutant implements I_EMailAddressMutant {
 	}
 
 
-	@Override
 	public String getEMail() {
 		return email;
 	}
 	
-	@Override
 	public void setEMail(String p) throws InvalidParameterException {
 		setName(p);
 	}

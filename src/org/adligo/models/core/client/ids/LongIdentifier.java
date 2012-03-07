@@ -17,7 +17,6 @@ public class LongIdentifier implements I_LongIdentifier {
 		mutant = new LongIdentifierMutant(p);
 	}
 	
-	@Override
 	public Long getId() {
 		return mutant.getId();
 	}
@@ -34,7 +33,6 @@ public class LongIdentifier implements I_LongIdentifier {
 		return mutant.toString(this.getClass());
 	}
 
-	@Override
 	public boolean hasValue() {
 		if (mutant == null) {
 			return false;
@@ -42,7 +40,6 @@ public class LongIdentifier implements I_LongIdentifier {
 		return true;
 	}
 
-	@Override
 	public String getType() {
 		return LongIdentifierMutant.TYPE;
 	}

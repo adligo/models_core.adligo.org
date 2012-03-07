@@ -83,7 +83,6 @@ public class DomainNameMutant implements I_DomainNameMutant, I_Validateable, I_M
 	}
 
 
-	@Override
 	public boolean isMutable() {
 		return true;
 	}
@@ -184,7 +183,6 @@ public class DomainNameMutant implements I_DomainNameMutant, I_Validateable, I_M
 		
 	}
 
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -198,13 +196,11 @@ public class DomainNameMutant implements I_DomainNameMutant, I_Validateable, I_M
 		return asString;
 	}
 
-	@Override
 	public String getName() {
 		return asString;
 	}
 
 
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;

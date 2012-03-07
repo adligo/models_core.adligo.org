@@ -168,7 +168,6 @@ public class PersonMutant implements I_PersonMutant  {
 		this.gender = gender;
 	}
 
-	@Override
 	public String getName() {
 		//jme doesn't have StringBuilder
 		StringBuffer sb = new StringBuffer();
@@ -198,7 +197,6 @@ public class PersonMutant implements I_PersonMutant  {
 		return sb.toString();
 	}
 
-	@Override
 	public boolean isValid()  throws ValidationException { 
 		// a PersonMutant needs a name of some sort at least
 		if (first_name == null && 
@@ -214,12 +212,10 @@ public class PersonMutant implements I_PersonMutant  {
 		return true;
 	}
 
-	@Override
 	public String getNickname() {
 		return nick_name;
 	}
 
-	@Override
 	public Boolean isAlive() {
 		if (deceased != null) {
 			return true;
@@ -273,7 +269,6 @@ public class PersonMutant implements I_PersonMutant  {
 		return sb.toString();
 	}
 
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -295,7 +290,6 @@ public class PersonMutant implements I_PersonMutant  {
 		return result;
 	}
 
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;

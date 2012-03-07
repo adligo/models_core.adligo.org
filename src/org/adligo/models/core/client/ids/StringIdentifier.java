@@ -51,7 +51,7 @@ public class StringIdentifier implements I_StringIdentifier {
 	public boolean hasValue() {
 		return mutant.hasValue();
 	}
-	@Override
+	
 	public String getType() {
 		return StringIdentifierMutant.TYPE;
 	}
