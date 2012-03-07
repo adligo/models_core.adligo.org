@@ -31,7 +31,7 @@ public class LongIdentifier implements I_LongIdentifier {
 	}
 
 	public String toString() {
-		return mutant.toString();
+		return mutant.toString(this.getClass());
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public class LongIdentifier implements I_LongIdentifier {
 
 	@Override
 	public String getType() {
-		return LongIdentifierMutant.CLAZZ_SIMPLE_NAME;
+		return LongIdentifierMutant.TYPE;
 	}
 
 }

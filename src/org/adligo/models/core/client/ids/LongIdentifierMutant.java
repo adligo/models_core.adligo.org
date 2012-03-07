@@ -2,29 +2,35 @@ package org.adligo.models.core.client.ids;
 
 import java.lang.Long;
 
+import org.adligo.i.util.client.ClassUtils;
 import org.adligo.models.core.client.InvalidParameterException;
 
 public class LongIdentifierMutant implements I_LongIdentifierMutant {
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	public static final String SET_ID = "setId";
-	public static final String CLAZZ_SIMPLE_NAME = "LongIdentifier";
+	public static final String TYPE = "LongIdentifier";
 	public static final String ID_CANT_BE_SET_TO_NULL = "LongIdentifier id can't be set to null!";
-	
+	public static final String CONSTRUCTOR = "Constructor";
 	
 	private Long id;
 	
 	public LongIdentifierMutant() {}
 	
 	public LongIdentifierMutant(I_LongIdentifier p) throws InvalidParameterException {
+		if (p == null) {
+			throw new InvalidParameterException(TYPE, CONSTRUCTOR);
+		}
 		setId(p.getId());
+		
 	}
 
 	public void setId(Long p) throws InvalidParameterException {
 		if (p == null) {
-			throw new InvalidParameterException(CLAZZ_SIMPLE_NAME, ID_CANT_BE_SET_TO_NULL);
+			throw new InvalidParameterException(TYPE, ID_CANT_BE_SET_TO_NULL);
 		}
 		id = p;
 	}
@@ -56,9 +62,18 @@ public class LongIdentifierMutant implements I_LongIdentifierMutant {
 
 	@Override
 	public String toString() {
-		return "" + id;
+		return toString(this.getClass());
 	}
 
+	String toString(Class c) {
+		StringBuffer sb = new StringBuffer();
+		sb.append(ClassUtils.getClassShortName(c));
+		sb.append(" [id=");
+		sb.append(id);
+		sb.append("]");
+		return sb.toString();
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -73,7 +88,7 @@ public class LongIdentifierMutant implements I_LongIdentifierMutant {
 
 	@Override
 	public String getType() {
-		return LongIdentifierMutant.CLAZZ_SIMPLE_NAME;
+		return LongIdentifierMutant.TYPE;
 	}
 
 }

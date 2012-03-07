@@ -21,101 +21,42 @@ public class StringIdentifier implements I_StringIdentifier {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	public static final String SET_KEY = "setKey";
-	public static final String TYPE = "StringIdentifier";
-	public static final String KEY_CANT_BE_SET_TO_EMPTY = "StringIdentifier key can't be set to empty!";
-	public static final String NO_KEY_OR_A_ID = "A StringIdentifier must have a key!";
-	
-	/**
-	 * 
-	 * used to identify a model in a LDAP server (distinguished name)
-	 * or on disk (filename for xml, json, exc)
-	 * 
-	 */
-	protected String key;
+	private StringIdentifierMutant mutant;
 	
 	public StringIdentifier() {
+		mutant = new StringIdentifierMutant();
 	}
 	
+	public StringIdentifier(String p) throws InvalidParameterException {
+		mutant = new StringIdentifierMutant(p);
+	}
 	
 	public StringIdentifier(I_StringIdentifier other) throws InvalidParameterException {
-		if (other == null) {
-			throw new InvalidParameterException(NO_KEY_OR_A_ID, TYPE);
-		}
-		if (other.getKey() != null) {
-			if (other.getKey() != null) {
-				setKeyP(other.getKey());
-			} 
-		} else {
-			throw new InvalidParameterException(NO_KEY_OR_A_ID, TYPE);
-		}
+		mutant = new StringIdentifierMutant(other);
 	}
 	
-	public StringIdentifier(String key) throws InvalidParameterException {
-		setKeyP(key);
-	}
 	
 	public String getKey() {
-		return key;
-	}
-
-	void setKeyP(String p_key) throws InvalidParameterException {
-		if (StringUtils.isEmpty(p_key)) {
-			throw new InvalidParameterException(KEY_CANT_BE_SET_TO_EMPTY, SET_KEY);
-		}
-		key = p_key;
+		return mutant.getKey();
 	}
 
 	public int hashCode() {
-		if (key == null) {
-			return 0;
-		}
-		return key.hashCode();
+		return mutant.hashCode();
 	}
 
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		//allow extensions to equal
-		I_StringIdentifier other = null;
-		if (obj instanceof I_StringIdentifier) {
-			other = (I_StringIdentifier) obj;
-		}
-		if (other == null) {
-			return false;
-		}
-		if (key == null) {
-			if (other.getKey() != null)
-				return false;
-		} else if (!key.equals(other.getKey()))
-			return false;
-		return true;
+		return mutant.equals(obj);
 	}
 	
 	public boolean hasValue() {
-		if (key == null) {
-			return false;
-		}
-		return true;
+		return mutant.hasValue();
 	}
 	@Override
 	public String getType() {
-		return StringIdentifier.TYPE;
+		return StringIdentifierMutant.TYPE;
 	}
 	
 	public String toString() {
-		return toString(this.getClass());
-	}
-	
-	public String toString(Class c) {
-		StringBuffer sb = new StringBuffer();
-		sb.append(ClassUtils.getClassShortName(c));
-		sb.append(" [key=");
-		sb.append(key);
-		sb.append("]");
-		return sb.toString();
+		return mutant.toString(this.getClass());
 	}
 }
