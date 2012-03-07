@@ -71,6 +71,9 @@ public class LongIdentifierMutant implements I_LongIdentifierMutant {
 		return true;
 	}
 
-
+	@Override
+	public String getType() {
+		return LongIdentifierMutant.CLAZZ_SIMPLE_NAME;
+	}
 
 }

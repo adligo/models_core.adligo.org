@@ -23,7 +23,7 @@ public class StringIdentifier implements I_StringIdentifier {
 	private static final long serialVersionUID = 1L;
 	
 	public static final String SET_KEY = "setKey";
-	public static final String CLAZZ_SIMPLE_NAME = "StringIdentifier";
+	public static final String TYPE = "StringIdentifier";
 	public static final String KEY_CANT_BE_SET_TO_EMPTY = "StringIdentifier key can't be set to empty!";
 	public static final String NO_KEY_OR_A_ID = "A StringIdentifier must have a key!";
 	
@@ -41,14 +41,14 @@ public class StringIdentifier implements I_StringIdentifier {
 	
 	public StringIdentifier(I_StringIdentifier other) throws InvalidParameterException {
 		if (other == null) {
-			throw new InvalidParameterException(NO_KEY_OR_A_ID, CLAZZ_SIMPLE_NAME);
+			throw new InvalidParameterException(NO_KEY_OR_A_ID, TYPE);
 		}
 		if (other.getKey() != null) {
 			if (other.getKey() != null) {
 				setKeyP(other.getKey());
 			} 
 		} else {
-			throw new InvalidParameterException(NO_KEY_OR_A_ID, CLAZZ_SIMPLE_NAME);
+			throw new InvalidParameterException(NO_KEY_OR_A_ID, TYPE);
 		}
 	}
 	
@@ -100,6 +100,10 @@ public class StringIdentifier implements I_StringIdentifier {
 			return false;
 		}
 		return true;
+	}
+	@Override
+	public String getType() {
+		return StringIdentifier.TYPE;
 	}
 	
 	public String toString() {

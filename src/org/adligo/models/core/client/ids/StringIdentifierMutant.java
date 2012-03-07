@@ -30,6 +30,11 @@ public class StringIdentifierMutant implements I_StringIdentifierMutant {
 		return wrapped.hasValue();
 	}
 
+	@Override
+	public String getType() {
+		return StringIdentifier.TYPE;
+	}
+	
 	public String toString() {
 		return wrapped.toString(this.getClass());
 	}

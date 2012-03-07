@@ -18,4 +18,12 @@ public interface I_StorageIdentifier extends Serializable {
 	 * @return
 	 */
 	public boolean hasValue();
+	/**
+	 * this returns the type ie (LongIdentifier, StringIdentifier)
+	 * for the type pair to optimize the DefaultStorageIdentiferFactory and DefaultStorageIdentifierMutantFactory
+	 * through use of a map lookup
+	 * 
+	 * @return
+	 */
+	public String getType();
 }

@@ -151,6 +151,11 @@ public class VersionedIdentifier implements I_VersionedIdentifier {
 		return true;
 	}
 	
+	@Override
+	public String getType() {
+		return VersionedIdentifierMutant.TYPE;
+	}
+	
 	public String toString() {
 		return toString(this.getClass());
 	}

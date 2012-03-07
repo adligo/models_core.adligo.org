@@ -8,6 +8,7 @@ public class LongIdentifier implements I_LongIdentifier {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	private LongIdentifierMutant mutant;
 	
 	public LongIdentifier() {}
@@ -39,6 +40,11 @@ public class LongIdentifier implements I_LongIdentifier {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public String getType() {
+		return LongIdentifierMutant.CLAZZ_SIMPLE_NAME;
 	}
 
 }

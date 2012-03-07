@@ -5,6 +5,8 @@ import java.lang.Long;
 import org.adligo.models.core.client.InvalidParameterException;
 
 public class VersionedIdentifierMutant implements I_VersionedIdentifierMutant {
+	public static final String TYPE = "VersionedIdentifier";
+	
 	private VersionedIdentifier wrapped;
 	
 	public VersionedIdentifierMutant() {
@@ -47,6 +49,11 @@ public class VersionedIdentifierMutant implements I_VersionedIdentifierMutant {
 		return wrapped.hasValue();
 	}
 
+	@Override
+	public String getType() {
+		return TYPE;
+	}
+	
 	public String toString() {
 		return wrapped.toString(this.getClass());
 	}
