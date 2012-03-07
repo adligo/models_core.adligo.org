@@ -40,7 +40,7 @@ public class NamedIdMutant implements I_NamedIdMutant, I_Validateable {
 	 * @throws InvalidParameterException
 	 */
 	public void setId(I_StorageIdentifier p_id) throws InvalidParameterException {
-		id = CommonModel.getIdClone(p_id);
+		id = CommonModel.getIdMutantClone(p_id);
 	}
 
 	public String getName() {
@@ -61,16 +61,16 @@ public class NamedIdMutant implements I_NamedIdMutant, I_Validateable {
 
 
 	public String toString() {
-		return toString(this.getClass());
+		return toString(this.getClass(), id);
 	}
 
-	protected String toString(Class c) {
+	protected String toString(Class c, I_StorageIdentifier p_id) {
 		StringBuffer sb = new StringBuffer();
 		sb.append(ClassUtils.getClassShortName(c));
 		sb.append(" [name=");
 		sb.append(name);
 		sb.append(",id=");
-		sb.append(id);
+		sb.append(p_id);
 		sb.append("]");
 		return sb.toString();
 	}

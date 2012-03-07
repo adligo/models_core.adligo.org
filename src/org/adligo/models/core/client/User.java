@@ -5,18 +5,45 @@ import org.adligo.models.core.client.ids.StringIdentifier;
 
 
 public class User implements I_User {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private UserMutant wrapped;
-
+	/**
+	 * keep seperate for immutability
+	 */
+	private I_StorageIdentifier id;
+	private I_DomainName domain;
+	private I_EMailAddress emailAddress;
+	
 	public User() {
 		wrapped = new UserMutant();
 	}
 	
 	public User(String userId, String domain ) throws InvalidParameterException {
 		wrapped = new UserMutant(userId, domain);
+		setImmutables();
 	}
 	
 	public User(I_User p) throws InvalidParameterException {
 		wrapped = new UserMutant(p);
+		setImmutables();
+	}
+	
+	private void setImmutables() throws InvalidParameterException {
+		I_StorageIdentifier otherId = wrapped.getId();
+		if (otherId != null) {
+			id = CommonModel.getIdClone(otherId);
+		}
+		I_DomainName dn = wrapped.getDomain();
+		if (dn != null) {
+			domain = new DomainName(dn);
+		}
+		I_EMailAddress otherEmail = wrapped.getEmail();
+		if (otherEmail != null) {
+			emailAddress = new EMailAddress(otherEmail);
+		}
 	}
 	
 	public boolean isMutable() {
@@ -24,35 +51,40 @@ public class User implements I_User {
 	}
 	
 	public int hashCode() {
-		return wrapped.genHashCode();
+		return UserMutant.genHashCode(this);
 	}
 	
 	public String toString() {
-		return wrapped.toString(this.getClass());
+		return wrapped.toString(this.getClass(), this);
 	}
 
 	public boolean equals(Object obj) {
-		return wrapped.equals(obj);
-	}
-
-	public StringIdentifier generate() throws InvalidParameterException {
-		return wrapped.generate();
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		try {
+			return UserMutant.equals(this, (I_User) obj);
+		} catch (ClassCastException x) {
+			//eat get doesn't impl instance of
+		}
+		return false;
 	}
 
 	public String getDn() {
-		return wrapped.getDn();
+		return UserMutant.getDn(this);
 	}
 
-	public DomainName getDomain() {
-		return wrapped.getDomain();
+	public I_DomainName getDomain() {
+		return domain;
 	}
 
-	public EMailAddress getEmail() {
-		return wrapped.getEmail();
+	public I_EMailAddress getEmail() {
+		return emailAddress;
 	}
 
 	public I_StorageIdentifier getId() {
-		return wrapped.getId();
+		return id;
 	}
 
 	public String getName() {
@@ -64,6 +96,6 @@ public class User implements I_User {
 	}
 
 	public boolean isValid() {
-		return wrapped.isValid();
+		return UserMutant.isValid(this);
 	}
 }

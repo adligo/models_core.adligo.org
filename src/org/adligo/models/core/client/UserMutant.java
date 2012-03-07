@@ -163,6 +163,12 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 	 * @return
 	 */
 	public String getDn() {
+		return getDn(this);
+	}
+	
+	public static String getDn(I_User user) {
+		String name = user.getName();
+		I_DomainName domain = user.getDomain();
 		StringBuffer sb = new StringBuffer();
 		sb.append("uid=");
 		sb.append(name);
@@ -223,7 +229,7 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 	}
 	
 	public void setId(I_StorageIdentifier p_id) throws InvalidParameterException {
-		id = CommonModel.getIdClone(p_id);
+		id = CommonModel.getIdMutantClone(p_id);
 	}
 
 	/**
@@ -257,20 +263,20 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 	}
 	
 	public String toString() {
-		return toString(this.getClass());
+		return toString(this.getClass(), this);
 	}
 	
-	public String toString(Class c) {	
+	public String toString(Class c, I_User p) {	
 		StringBuffer sb = new StringBuffer();
 		sb.append(ClassUtils.getClassShortName(c));
 		sb.append(" [name=");
-		sb.append(this.name);
+		sb.append(p.getName());
 		sb.append(",id=");
-		sb.append(this.id);
+		sb.append(p.getId());
 		sb.append(",email=");
-		sb.append(this.email);
+		sb.append(p.getEmail());
 		sb.append(",domain=");
-		sb.append(this.domain);
+		sb.append(p.getDomain());
 		//omit password!
 		sb.append("]");
 		return sb.toString();
@@ -282,6 +288,15 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 	}
 
 	public boolean isValid() {
+		return isValid(this);
+	}
+	
+	public static boolean isValid(I_User user) {
+		I_DomainName domain = user.getDomain();
+		I_EMailAddress email = user.getEmail();
+		String name = user.getName();
+		String password = user.getPassword();
+		
 		if (domain == null) {
 			return false;
 		} 
@@ -297,9 +312,15 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 		return true;
 	}
 
-	int genHashCode() {
+	static int genHashCode(I_User user) {
 		final int prime = 31;
 		int result = 1;
+		I_DomainName domain = user.getDomain();
+		I_EMailAddress email = user.getEmail();
+		I_StorageIdentifier id = user.getId();
+		String name = user.getName();
+		String password = user.getPassword();
+		
 		result = prime * result + ((domain == null) ? 0 : domain.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
@@ -310,7 +331,7 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 	}
 	
 	public int hashCode() {
-		return genHashCode();
+		return genHashCode(this);
 	}
 
 	public boolean equals(Object obj) {
@@ -318,36 +339,47 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 			return true;
 		if (obj == null)
 			return false;
-		if (obj instanceof I_User) {
-			I_User other = (I_User) obj;
-			if (domain == null) {
-				if (other.getDomain() != null)
-					return false;
-			} else if (!domain.equals(other.getDomain()))
-				return false;
-			if (email == null) {
-				if (other.getEmail() != null)
-					return false;
-			} else if (!email.equals(other.getEmail()))
-				return false;
-			if (id == null) {
-				if (other.getId() != null)
-					return false;
-			} else if (!id.equals(other.getId()))
-				return false;
-			if (name == null) {
-				if (other.getName() != null)
-					return false;
-			} else if (!name.equals(other.getName()))
-				return false;
-			if (password == null) {
-				if (other.getPassword() != null)
-					return false;
-			} else if (!password.equals(other.getPassword()))
-				return false;
-			return true;
+		try {
+			return equals(this, (I_User) obj);
+		} catch (ClassCastException x) {
+			//eat get doesn't impl instance of
 		}
 		return false;
+	}
+
+	public static boolean equals(I_User user, I_User other) {
+		I_DomainName domain = user.getDomain();
+		I_EMailAddress email = user.getEmail();
+		I_StorageIdentifier id = user.getId();
+		String name = user.getName();
+		String password = user.getPassword();
+		
+		if (domain == null) {
+			if (other.getDomain() != null)
+				return false;
+		} else if (!domain.equals(other.getDomain()))
+			return false;
+		if (email == null) {
+			if (other.getEmail() != null)
+				return false;
+		} else if (!email.equals(other.getEmail()))
+			return false;
+		if (id == null) {
+			if (other.getId() != null)
+				return false;
+		} else if (!id.equals(other.getId()))
+			return false;
+		if (name == null) {
+			if (other.getName() != null)
+				return false;
+		} else if (!name.equals(other.getName()))
+			return false;
+		if (password == null) {
+			if (other.getPassword() != null)
+				return false;
+		} else if (!password.equals(other.getPassword()))
+			return false;
+		return true;
 	}
 
 	public StringIdentifier generate() throws InvalidParameterException{

@@ -10,9 +10,18 @@ public class NamedId implements I_NamedId {
 
 	
 	private NamedIdMutant mutant;
+	/**
+	 * keep a variable for the
+	 * id to keep it immutable
+	 */
+	private I_StorageIdentifier id;
 	
 	public NamedId(I_NamedId p) throws InvalidParameterException {
 		mutant = new NamedIdMutant(p);
+		I_StorageIdentifier otherId = p.getId();
+		if (otherId != null) {
+			id = CommonModel.getIdClone(otherId);
+		}
 	}
 	
 	public NamedId(String p_name) throws InvalidParameterException {
@@ -23,7 +32,7 @@ public class NamedId implements I_NamedId {
 	public NamedId(String p_name, I_StorageIdentifier p_id) throws InvalidParameterException {
 		mutant = new NamedIdMutant();
 		mutant.setName(p_name);
-		mutant.setId(p_id);
+		id = CommonModel.getIdClone(p_id);
 	}
 	
 	public NamedId() {
@@ -31,7 +40,7 @@ public class NamedId implements I_NamedId {
 	}
 
 	public I_StorageIdentifier getId() {
-		return mutant.getId();
+		return id;
 	}
 
 	public String getName() {
@@ -39,7 +48,7 @@ public class NamedId implements I_NamedId {
 	}
 
 	public String toString() {
-		return mutant.toString(this.getClass());
+		return mutant.toString(this.getClass(), id);
 	}
 
 	public boolean isValid() throws ValidationException {

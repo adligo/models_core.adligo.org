@@ -107,7 +107,7 @@ public class AddressMutant implements I_AddressMutant {
 	}
 	
 	public void setId(I_StorageIdentifier p_id) throws InvalidParameterException{
-		id = CommonModel.getIdClone(p_id);;
+		id = CommonModel.getIdMutantClone(p_id);
 	}
 	
 	public void setCity(String p) throws InvalidParameterException{

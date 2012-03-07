@@ -84,8 +84,8 @@ public class PersonMutant implements I_PersonMutant  {
 		return id;
 	}
 
-	public void setId(I_StorageIdentifier id)  throws InvalidParameterException {
-		this.id = CommonModel.getIdClone(id);
+	public void setId(I_StorageIdentifier p_id)  throws InvalidParameterException {
+		this.id = CommonModel.getIdMutantClone(p_id);
 	}
 
 	public String getFirst_name() {

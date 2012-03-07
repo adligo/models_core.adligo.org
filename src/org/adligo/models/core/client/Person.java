@@ -17,8 +17,11 @@ public class Person implements I_Validateable, I_Person {
 	private static final long serialVersionUID = 1L;
 	
 	public static final String PERSON = "Person";
-	protected PersonMutant mutant = new PersonMutant();
-
+	private PersonMutant mutant = new PersonMutant();
+	/**
+	 * keep a immutable id or null
+	 */
+	private I_StorageIdentifier id;
 	/**
 	 * do nothing for GWT Serialization
 	 */
@@ -26,6 +29,10 @@ public class Person implements I_Validateable, I_Person {
 	
 	public Person(I_Person p) throws InvalidParameterException {
 		mutant = new PersonMutant(p);
+		I_StorageIdentifier otherId = mutant.getId();
+		if (otherId != null) {
+			id = CommonModel.getIdClone(otherId);
+		}
 	}
 	
 	/* (non-Javadoc)
@@ -40,7 +47,7 @@ public class Person implements I_Validateable, I_Person {
 	}
 
 	public I_StorageIdentifier getId() {
-		return mutant.getId();
+		return id;
 	}
 
 
