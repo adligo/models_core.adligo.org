@@ -1,7 +1,7 @@
 package org.adligo.models.core.client;
 
 import org.adligo.i.util.client.ClassUtils;
-import org.adligo.i.util.client.CommonTime;
+import org.adligo.i.util.client.DateTime;
 import org.adligo.models.core.client.ids.I_StorageIdentifier;
 
 public class PersonMutant implements I_PersonMutant  {
@@ -243,13 +243,13 @@ public class PersonMutant implements I_PersonMutant  {
 		
 		sb.append(",birthday=");
 		if (birthday != null) {
-			sb.append(CommonTime.formatDateTime(birthday.longValue()));
+			sb.append(new DateTime(birthday));
 		} else {
 			sb.append("null");
 		}
 		sb.append(",deceased=");
 		if (deceased != null) {
-			sb.append(CommonTime.formatDateTime(deceased.longValue()));
+			sb.append(new DateTime(deceased));
 		} else {
 			sb.append("null");
 		}
