@@ -35,5 +35,5 @@ public interface I_Person extends I_NamedId, I_Validateable, I_Changeable {
 	 * @see I_CustomInfo
 	 * @return
 	 */
-	public I_CustomInfo getCustomInfo();
+	//public I_CustomInfo getCustomInfo();
 }
