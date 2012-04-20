@@ -42,6 +42,11 @@ public interface I_ModelsCoreConstants {
 	public String getOrgEmptyTypeError();
 	
 	public String getPersonNoNameError();
+	public String getPersonNoFirstNameError();
+	public String getPersonNoMiddleNameError();
+	public String getPersonNoLastNameError();
+	public String getPersonNoNickNameError();
+	public String getPersonMustBeAKnownGenderType();
 	
 	public String getPhoneEmptyError();
 	public String getPhoneInvalidCharacterError();

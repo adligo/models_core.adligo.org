@@ -71,10 +71,7 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 			setName(p.getName());
 			setEmail(p.getEmail());
 		} catch (InvalidParameterException x) {
-			InvalidParameterException ipe = new InvalidParameterException(x.getMessage(), 
-					USER);
-			ipe.initCause(x);
-			throw ipe;
+			throw new InvalidParameterException(x.getMessage(), USER, x);
 		}
 	}
 	
@@ -94,8 +91,7 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 			setName(p_name);
 		} catch (InvalidParameterException x) {
 			InvalidParameterException ipe = new InvalidParameterException(x.getMessage(), 
-					USER);
-			ipe.initCause(x);
+					USER,x);
 			throw ipe;
 		}
 	}
@@ -116,10 +112,7 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 			setName(p_name);
 			setEmail(new EMailAddress(p_email));
 		} catch (InvalidParameterException x) {
-			InvalidParameterException ipe = new InvalidParameterException(x.getMessage(), 
-					USER);
-			ipe.initCause(x);
-			throw ipe;
+			throw new InvalidParameterException(x.getMessage(), USER, x);
 		}
 	}
 	
@@ -202,10 +195,8 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 		try {
 			this.domain = new DomainName(domain);
 		} catch (InvalidParameterException e) {
-			InvalidParameterException ipe = new InvalidParameterException(e.getMessage(), 
-					SET_DOMAIN);
-			ipe.initCause(e);
-			throw ipe;
+			throw new InvalidParameterException(e.getMessage(), 
+					SET_DOMAIN, e);
 		}
 	}
 	
@@ -213,10 +204,8 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 		try {
 			this.domain = new DomainName(domain);
 		} catch (InvalidParameterException e) {
-			InvalidParameterException ipe = new InvalidParameterException(e.getMessage(), 
-					SET_DOMAIN);
-			ipe.initCause(e);
-			throw ipe;
+			throw new InvalidParameterException(e.getMessage(), 
+					SET_DOMAIN, e);
 		}
 	}
 	
@@ -242,10 +231,8 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 		try {
 			email = new EMailAddress(p_email);
 		} catch (InvalidParameterException e) {
-			InvalidParameterException ipe = new InvalidParameterException(e.getMessage(), 
-					SET_EMAIL);
-			ipe.initCause(e);
-			throw ipe;
+			throw new InvalidParameterException(e.getMessage(), 
+					SET_EMAIL, e);
 		}
 		
 	}
@@ -254,10 +241,8 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 		try {
 			email = new EMailAddress(p_email);
 		} catch (InvalidParameterException e) {
-			InvalidParameterException ipe = new InvalidParameterException(e.getMessage(), 
+			throw new InvalidParameterException(e.getMessage(), 
 					SET_EMAIL);
-			ipe.initCause(e);
-			throw ipe;
 		}
 		
 	}

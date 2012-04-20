@@ -1,19 +1,18 @@
 package org.adligo.models.core.client;
 
-public class InvalidParameterException extends Exception {
+public class InvalidParameterException extends ChainedFieldException {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String methodName;
-	
-	public InvalidParameterException(String p, String methodName) {
-		super(p);
-		this.methodName = methodName;
+
+
+	public InvalidParameterException(String message, String methodName) {
+		super(message, methodName);
 	}
 
-	public String getMethodName() {
-		return methodName;
+	public InvalidParameterException(String message, String methodName, ChainedFieldException cause) {
+		super(message, methodName, cause);
 	}
 }

@@ -37,8 +37,8 @@ public class OrganizationMutant implements I_OrganizationMutant {
 			setName(p.getName());
 			setType(p.getType());
 		} catch (InvalidParameterException x) {
-			InvalidParameterException ipe = new InvalidParameterException(x.getMessage(), ORGANIZAITION);
-			ipe.initCause(x);
+			InvalidParameterException ipe = new InvalidParameterException(
+					x.getMessage(), ORGANIZAITION, x);
 			throw ipe;
 		}
 	}

@@ -5,6 +5,21 @@ import org.adligo.i.util.client.DateTime;
 import org.adligo.models.core.client.ids.I_StorageIdentifier;
 
 public class PersonMutant implements I_PersonMutant  {
+
+	public static final String CUSTOM_INFO_MUST_NOT_BE_NULL = "CustomInfo must not be null";
+	public static final String SET_GENDER = "setGender";
+	public static final String SET_HEIGHT = "setHeight";
+	public static final String SET_NICKNAME = "setNickname";
+	public static final String SET_LAST_NAME = "setLastName";
+	public static final String SET_MIDDLE_NAME = "setMiddleName";
+	public static final String PERSON = "Person";
+	public static final String SET_FIRST_NAME = "setFirstName";
+	/**
+	 * although there is no actual name field to set,
+	 * this is for general no name errors
+	 */
+	public static final String SET_NAME = "setName";
+	
 	/**
 	 * 
 	 */
@@ -13,6 +28,10 @@ public class PersonMutant implements I_PersonMutant  {
 	 * a null storage identifier means it hasn't been stored yet
 	 */
 	private I_StorageIdentifier id;
+	/**
+	 * the version number for optimistic locking
+	 */
+	private Integer version;
 	/**
 	 * null is allowed
 	 */
@@ -52,6 +71,10 @@ public class PersonMutant implements I_PersonMutant  {
 	 * or something
 	 */
 	private Boolean alive = null;
+	/**
+	 * custom info specific to your system
+	 */
+	private I_CustomInfo customInfo;
 	
 	public PersonMutant() {}
 	
@@ -60,24 +83,43 @@ public class PersonMutant implements I_PersonMutant  {
 			p.isValid();
 			copy(this, p);
 		} catch (ValidationException x) {
-			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
-					.getPersonNoNameError(), Person.PERSON);
+			throw new InvalidParameterException(getConstants().getPersonNoNameError(), PERSON, x);
 		}
 	}
 	
+	private I_ModelsCoreConstants getConstants() {
+		return ModelsCoreConstantsObtainer.getConstants();
+	}
 
 	public static void copy(PersonMutant dest, I_Person source) throws InvalidParameterException {
-		if (source.getId() != null) {
-			dest.setId(source.getId());
+		I_StorageIdentifier idCopy = source.getId();
+		if (idCopy != null) {
+			dest.setId(idCopy);
 		}
-		dest.setFirst_name(source.getFirst_name());
-		dest.setMiddle_name(source.getMiddle_name());
-		dest.setLast_name(source.getLast_name());
-		dest.setNickname(source.getNickname());
+		
+		String firstNameCopy = source.getFirst_name();
+		if (firstNameCopy != null) {
+			dest.setFirst_name(firstNameCopy);
+		} 
+		
+		String middleNameCopy = source.getMiddle_name();
+		if (middleNameCopy != null) {
+			dest.setMiddle_name(middleNameCopy);
+		} 
+		
+		String lastNameCopy = source.getLast_name();
+		if (lastNameCopy != null) {
+			dest.setLast_name(lastNameCopy);
+		} 
+		
+		String nickNameCopy = source.getNickname();
+		if (nickNameCopy != null) {
+			dest.setNickname(nickNameCopy);
+		} 
+		
 		dest.setBirthday(source.getBirthday());
 		dest.setDeceased(source.getDeceased());
 		dest.setGender(source.getGender());
-		dest.setHeight(source.getHeight());
 	}
 	
 	public I_StorageIdentifier getId() {
@@ -92,12 +134,12 @@ public class PersonMutant implements I_PersonMutant  {
 		return first_name;
 	}
 
-	public void setFirst_name(String first_name) {
-		if (first_name != null) {
-			this.first_name = first_name.trim();
-			if (this.first_name.length() == 0) {
-				this.first_name = null;
-			}
+	public void setFirst_name(String p) throws InvalidParameterException {
+		if (p == null) {
+			throw new InvalidParameterException(getConstants().getPersonNoFirstNameError(), SET_FIRST_NAME);
+		} else {
+			//allow empty strings
+			first_name = p.trim();
 		} 
 	}
 
@@ -105,12 +147,12 @@ public class PersonMutant implements I_PersonMutant  {
 		return middle_name;
 	}
 
-	public void setMiddle_name(String middle_name) {
-		if (middle_name != null) {
-			this.middle_name = middle_name.trim();
-			if (this.middle_name.length() == 0) {
-				this.middle_name = null;
-			}
+	public void setMiddle_name(String p) throws InvalidParameterException {
+		if (p == null) {
+			throw new InvalidParameterException(getConstants().getPersonNoMiddleNameError(), SET_MIDDLE_NAME);
+		} else {
+			//allow empty strings
+			middle_name = p.trim();
 		} 
 	}
 
@@ -118,12 +160,12 @@ public class PersonMutant implements I_PersonMutant  {
 		return last_name;
 	}
 
-	public void setLast_name(String last_name) {
-		if (last_name != null) {
-			this.last_name = last_name.trim();
-			if (this.last_name.length() == 0) {
-				this.last_name = null;
-			}
+	public void setLast_name(String p) throws InvalidParameterException {
+		if (p == null) {
+			throw new InvalidParameterException(getConstants().getPersonNoLastNameError(), SET_LAST_NAME);
+		} else {
+			//allow empty strings
+			last_name = p.trim();
 		} 
 	}
 
@@ -131,24 +173,26 @@ public class PersonMutant implements I_PersonMutant  {
 		return birthday;
 	}
 
-	public void setBirthday(Long birthday) {
-		this.birthday = birthday;
+	public void setBirthday(Long p) throws InvalidParameterException {
+		birthday = p;
+		//TODO if birthday and deceased are not null, make sure there with in 150 years of each other
 	}
 
 	public Long getDeceased() {
 		return deceased;
 	}
 
-	public void setDeceased(Long deceased) {
+	public void setDeceased(Long deceased)  throws InvalidParameterException {
 		this.deceased = deceased;
+		//TODO if birthday and deceased are not null, make sure there with in 150 years of each other
 	}
 
-	public void setNickname(String nickname) {
-		if (nickname != null) {
-			nick_name = nickname.trim();
-			if (this.nick_name.length() == 0) {
-				this.nick_name = null;
-			}
+	public void setNickname(String p) throws InvalidParameterException {
+		if (p == null) {
+			throw new InvalidParameterException(getConstants().getPersonNoNickNameError(), SET_NICKNAME);
+		} else {
+			//allow empty strings
+			nick_name = p.trim();
 		} 
 	}
 
@@ -156,16 +200,19 @@ public class PersonMutant implements I_PersonMutant  {
 		return height;
 	}
 
-	public void setHeight(Double height) {
-		this.height = height;
-	}
-
 	public Character getGender() {
 		return gender;
 	}
 
-	public void setGender(Character gender) {
-		this.gender = gender;
+	public void setGender(Character p) throws InvalidParameterException {
+		if (p == null) {} //do nothing, don't know the gender
+		else if (I_Person.GENDER_FEMALE == p) {}   //do nothing, its a girl
+		else if (I_Person.GENDER_MALE == p) {}  //do nothing, its a boy
+		else if (I_Person.GENDER_OTHER == p) {} //do nothing, its a something else
+		else {
+			throw new InvalidParameterException(getConstants().getPersonMustBeAKnownGenderType(), SET_GENDER);
+		}
+		gender = p;
 	}
 
 	public String getName() {
@@ -179,14 +226,24 @@ public class PersonMutant implements I_PersonMutant  {
 		} 
 		if (middle_name != null) {
 			if (first_name != null) {
-				sb.append(" ");
+				if (first_name.length() > 0) {
+					sb.append(" ");
+				}
 			}
 			sb.append(middle_name);
 			hadRealName = true;
 		}
 		if (last_name != null) {
 			if (first_name != null || middle_name != null) {
-				sb.append(" ");
+				if (first_name != null) {
+					if (first_name.length() > 0) {
+						sb.append(" ");
+					}
+				} else if (middle_name != null) {
+					if (middle_name.length() > 0) {
+						sb.append(" ");
+					}
+				}
 			}
 			sb.append(last_name);
 			hadRealName = true;
@@ -205,9 +262,13 @@ public class PersonMutant implements I_PersonMutant  {
 			nick_name == null ) {
 			
 			ValidationException validationException = new ValidationException(
-					ModelsCoreConstantsObtainer.getConstants()
-					.getPersonNoNameError());
+					getConstants().getPersonNoNameError(), SET_NAME);
 			throw validationException;
+		}
+		if (customInfo != null) {
+			if (customInfo.isValidatable()) {
+				((I_Validateable) customInfo).isValid();
+			}
 		}
 		return true;
 	}
@@ -240,6 +301,8 @@ public class PersonMutant implements I_PersonMutant  {
 		sb.append(nick_name);
 		sb.append(",id=");
 		sb.append(id);
+		sb.append(",version=");
+		sb.append(version);
 		
 		sb.append(",birthday=");
 		if (birthday != null) {
@@ -265,6 +328,8 @@ public class PersonMutant implements I_PersonMutant  {
 		} else {
 			sb.append("null");
 		}
+		sb.append(",customInfo=");
+		sb.append(customInfo);
 		sb.append("]");
 		return sb.toString();
 	}
@@ -317,11 +382,6 @@ public class PersonMutant implements I_PersonMutant  {
 					return false;
 			} else if (!gender.equals(other.getGender()))
 				return false;
-			if (height == null) {
-				if (other.getHeight() != null)
-					return false;
-			} else if (!height.equals(other.getHeight()))
-				return false;
 			if (id == null) {
 				if (other.getId() != null)
 					return false;
@@ -346,5 +406,35 @@ public class PersonMutant implements I_PersonMutant  {
 			return false;
 		}
 		return true;
+	}
+
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+
+	public I_CustomInfo getCustomInfo() {
+		return customInfo;
+	}
+
+	public void setCustomInfo(I_CustomInfo p) throws InvalidParameterException {
+		if (p == null) {
+			throw new NullPointerException(CUSTOM_INFO_MUST_NOT_BE_NULL);
+		}
+		if (p.isValidatable()) {
+			I_Validateable v = (I_Validateable) p;
+			try {
+				v.isValid();
+			} catch (ValidationException x) {
+				//chain to the field in the custom info
+				String methodName = x.getMethodName();
+				String message = x.getMessage();
+				throw new InvalidParameterException(message, methodName);
+			}
+		}
+		customInfo = p;
 	}
 }

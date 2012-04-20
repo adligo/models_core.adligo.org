@@ -1,6 +1,6 @@
 package org.adligo.models.core.client;
 
-public interface I_Person extends I_NamedId, I_Validateable {
+public interface I_Person extends I_NamedId, I_Validateable, I_Changeable {
 	public static final Character GENDER_MALE = 'M';
 	public static final Character GENDER_FEMALE = 'F'; 
 	public static final Character GENDER_OTHER = 'O';
@@ -32,8 +32,8 @@ public interface I_Person extends I_NamedId, I_Validateable {
 	 */
 	public Character getGender();
 	/**
-	 * the height of the person in Meters
+	 * @see I_CustomInfo
 	 * @return
 	 */
-	public Double getHeight();
+	public I_CustomInfo getCustomInfo();
 }

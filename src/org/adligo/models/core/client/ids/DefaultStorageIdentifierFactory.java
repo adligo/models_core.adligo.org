@@ -12,7 +12,6 @@ public class DefaultStorageIdentifierFactory implements I_CheckedInvoker {
 	private static I_Map getTypesToGenerators() {
 		I_Map toRet = MapFactory.create();
 		toRet.put(StringIdentifierMutant.TYPE, new StringIdentifierFactory());
-		toRet.put(VersionedIdentifierMutant.TYPE, new VersionedIdentifierFactory());
 		toRet.put(LongIdentifierMutant.TYPE, new LongIdentifierFactory());
 		return toRet;
 	}

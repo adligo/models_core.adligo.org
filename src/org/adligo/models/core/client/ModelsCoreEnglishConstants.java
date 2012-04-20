@@ -41,7 +41,13 @@ public class ModelsCoreEnglishConstants implements I_ModelsCoreConstants {
 	public static final String ORG_EMPTY_NAME = "The name field can not be empty.";
 
 	public static final String PERSON_A_NAME_IS_REQUIRED = "A name is required.";
-
+	public static final String PERSON_A_FIRST_NAME_IS_REQUIRED = "A first name is required.";
+	public static final String PERSON_A_MIDDLE_NAME_IS_REQUIRED = "A middle name is required.";
+	public static final String PERSON_A_LAST_NAME_IS_REQUIRED = "A last name is required.";
+	public static final String PERSON_A_NICK_NAME_IS_REQUIRED = "A nick name is required.";
+	public static final String PERSON_GENDER_IS_NOT_VALID = "The gender must be one of (Male, Female, Other).";
+	
+	
 	public static final String PHONE_NUMBER_MAY_ONLY_HAVE_ARABIC_NUMERALS = "A phone number may only have Arabic numerals ie (0-9).";
 	public static final String PHONE_NUMBER_CAN_NOT_BE_EMPTY = "A phone number can not be empty.";
 	
@@ -211,6 +217,34 @@ public class ModelsCoreEnglishConstants implements I_ModelsCoreConstants {
 
 	public String getEMailRequiresAValidAttachemt() {
 		return EMAIL_ATTACHMENT_MAY_NOT_BE_EMPTY;
+	}
+
+	@Override
+	public String getPersonNoFirstNameError() {
+		return PERSON_A_FIRST_NAME_IS_REQUIRED;
+	}
+
+	@Override
+	public String getPersonNoMiddleNameError() {
+		return PERSON_A_MIDDLE_NAME_IS_REQUIRED;
+	}
+
+	@Override
+	public String getPersonNoLastNameError() {
+		return PERSON_A_LAST_NAME_IS_REQUIRED;
+	}
+
+	@Override
+	public String getPersonNoNickNameError() {
+		// TODO Auto-generated method stub
+		return PERSON_A_NICK_NAME_IS_REQUIRED;
+	}
+
+
+	@Override
+	public String getPersonMustBeAKnownGenderType() {
+		// TODO Auto-generated method stub
+		return PERSON_GENDER_IS_NOT_VALID;
 	}
 
 }

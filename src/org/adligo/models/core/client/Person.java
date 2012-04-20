@@ -16,12 +16,12 @@ public class Person implements I_Validateable, I_Person {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public static final String PERSON = "Person";
 	private PersonMutant mutant = new PersonMutant();
 	/**
-	 * keep a immutable id or null
+	 * keep a immutable id or null copy
 	 */
 	private I_StorageIdentifier id;
+	private I_CustomInfo customInfo;
 	/**
 	 * do nothing for GWT Serialization
 	 */
@@ -32,6 +32,10 @@ public class Person implements I_Validateable, I_Person {
 		I_StorageIdentifier otherId = mutant.getId();
 		if (otherId != null) {
 			id = CommonModel.getIdClone(otherId);
+		}
+		I_CustomInfo otherInfo = mutant.getCustomInfo();
+		if (otherInfo != null) {
+			customInfo = otherInfo.createImmutableClone();
 		}
 	}
 	
@@ -105,6 +109,14 @@ public class Person implements I_Validateable, I_Person {
 	
 	public boolean equals(Object obj) {
 		return mutant.equals(obj);
+	}
+
+	public Integer getVersion() {
+		return mutant.getVersion();
+	}
+
+	public I_CustomInfo getCustomInfo() {
+		return customInfo;
 	}
 	
 

@@ -19,13 +19,10 @@ public class PhoneNumberMutant implements I_Validateable, I_PhoneNumberMutant
 	public PhoneNumberMutant() {}
 	
 	public PhoneNumberMutant(I_PhoneNumber p) throws InvalidParameterException {
-		
 		try {
 			setNumber(p.getNumber());
 		} catch (InvalidParameterException e) {
-			InvalidParameterException ipe = new InvalidParameterException(e.getMessage(), PHONE_NUMBER);
-			ipe.initCause(e);
-			throw ipe;
+			throw new InvalidParameterException(e.getMessage(), PHONE_NUMBER, e);
 		}
 	}
 	

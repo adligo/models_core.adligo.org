@@ -113,8 +113,7 @@ public class EMailAddressMutant implements I_EMailAddressMutant {
 		} catch (InvalidParameterException ex) {
 			InvalidParameterException toThrow = new InvalidParameterException(
 					ModelsCoreConstantsObtainer.getConstants()
-						.getEmaiAddressBadDomainError(), EMAIL);
-			toThrow.initCause(ex);
+						.getEmaiAddressBadDomainError(), EMAIL, ex);
 			throw toThrow;
 		}
 		if (userName.length() == 0) {

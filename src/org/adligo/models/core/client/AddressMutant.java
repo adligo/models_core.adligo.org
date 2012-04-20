@@ -46,9 +46,7 @@ public class AddressMutant implements I_AddressMutant {
 			setCountrySubCode(p.getCountrySubCode());
 			setPostalCode(p.getPostalCode());
 		} catch (InvalidParameterException x) {
-			InvalidParameterException ipe = new InvalidParameterException(x.getMessage(), ADDRESS);
-			ipe.initCause(x);
-			throw ipe;
+			throw new InvalidParameterException(x.getMessage(), ADDRESS, x);
 		}
 	}
 	

@@ -7,17 +7,19 @@ package org.adligo.models.core.client;
  * @author scott
  *
  */
-public class ValidationException extends Exception {
-
+public class ValidationException extends ChainedFieldException {
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	
-	public ValidationException() {}
-	
-	public ValidationException(String message) {
-		super(message);
+	private static final long serialVersionUID = 2L;
+
+	public ValidationException(String message, String methodName) {
+		super(message, methodName);
 	}
 
+	public ValidationException(String message, String methodName, ChainedFieldException cause) {
+		super(message, methodName, cause);
+	}
+	
 }
