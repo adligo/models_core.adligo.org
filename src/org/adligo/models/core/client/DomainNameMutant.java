@@ -15,7 +15,7 @@ public class DomainNameMutant implements I_DomainNameMutant, I_Validateable, I_M
 
 	public static final String DOMAIN_NAME = "DomainName";
 	
-	private String[] components;
+	String[] components;
 	private String asString;
 	
 	/**

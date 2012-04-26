@@ -16,7 +16,7 @@ import java.io.Serializable;
  */
 public interface I_CustomInfo extends Serializable {
 	/**
-	 * This method should provide the immutable interface class
+	 * This method should provide the immutable/immutable interface class
 	 * which provides field specific information about this instance ie;
 	 * getEdited (the timestamp this instance was changed)
 	 * getEditedBy (the user id who changed this instance)

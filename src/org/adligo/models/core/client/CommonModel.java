@@ -55,9 +55,7 @@ public class CommonModel {
 			if (t instanceof InvalidParameterException) {
 				throw (InvalidParameterException) t;
 			}
-			InvalidParameterException ipe = new InvalidParameterException(ix.getMessage(), I_StorageMutant.SET_ID);
-			ipe.initCause(ix);
-			throw ipe;
+			throw new InvalidParameterException(ix.getMessage(), I_StorageMutant.SET_ID);
 		}
 	}
 }
