@@ -15,8 +15,8 @@ public class DomainNameMutant implements I_DomainNameMutant, I_Validateable, I_M
 
 	public static final String DOMAIN_NAME = "DomainName";
 	
-	String[] components;
-	private String asString;
+	private transient String[] components;
+	private String name;
 	
 	/**
 	 * mostly only for RPC Serilization
@@ -162,7 +162,7 @@ public class DomainNameMutant implements I_DomainNameMutant, I_Validateable, I_M
 			}
 		}
 		addComponent(sb);
-		asString = p_name;
+		name = p_name;
 	}
 
 	private void addComponent(StringBuffer sb) {
@@ -187,17 +187,17 @@ public class DomainNameMutant implements I_DomainNameMutant, I_Validateable, I_M
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((asString == null) ? 0 : asString.hashCode());
+				+ ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
 
 	
 	public String toString() {
-		return asString;
+		return name;
 	}
 
 	public String getName() {
-		return asString;
+		return name;
 	}
 
 
@@ -206,12 +206,20 @@ public class DomainNameMutant implements I_DomainNameMutant, I_Validateable, I_M
 			return true;
 		if (obj instanceof I_DomainName) {
 			I_DomainName other = (I_DomainName) obj;
-			if (asString == null) {
+			if (name == null) {
 				if (other.getName() != null)
 					return false;
-			} else if (asString.equals(other.getName()))
+			} else if (name.equals(other.getName()))
 				return true;
 		}
 		return false;
+	}
+	
+	public int getComponentSize() {
+		return components.length;
+	}
+	
+	public String getComponent(int whichOne) {
+		return components[whichOne];
 	}
 }

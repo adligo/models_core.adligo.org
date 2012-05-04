@@ -18,22 +18,20 @@ public class AddressMutant implements I_AddressMutant {
 	public static final String SET_COUNTRY_CODE = "setCountry_code";
 	
 	protected I_StorageIdentifier id;
-	protected String street_address;
+	protected String streetAddress;
 	protected String city;
 	/** this is the 2 letter ISO country code */
-	protected String country_code;
+	protected String countryCode;
 	/**
 	 * this is the iso country sub code ie.. IL is Illinois
 	 */
-	protected String country_sub_code;
+	protected String countrySubCode;
 	/**
 	 * zip code for us 
 	 * each country seems to have there own
 	 * http://en.wikipedia.org/wiki/Postal_code
 	 */
-	protected String postal_code;
-	
-	protected transient Integer hash_code;
+	protected String postalCode;
 	
 	public AddressMutant(I_Address p) throws InvalidParameterException {
 		try {
@@ -66,7 +64,7 @@ public class AddressMutant implements I_AddressMutant {
 	 * @see org.adligo.models.core.client.I_Address#getStreetAddress()
 	 */
 	public String getStreetAddress() {
-		return street_address;
+		return streetAddress;
 	}
 
 	/* (non-Javadoc)
@@ -80,28 +78,25 @@ public class AddressMutant implements I_AddressMutant {
 	 * @see org.adligo.models.core.client.I_Address#getCountryCode()
 	 */
 	public String getCountryCode() {
-		return country_code;
+		return countryCode;
 	}
 
 	/* (non-Javadoc)
 	 * @see org.adligo.models.core.client.I_Address#getCountrySubCode()
 	 */
 	public String getCountrySubCode() {
-		return country_sub_code;
+		return countrySubCode;
 	}
 
 	/* (non-Javadoc)
 	 * @see org.adligo.models.core.client.I_Address#getPostalCode()
 	 */
 	public String getPostalCode() {
-		return postal_code;
+		return postalCode;
 	}
 
 	public int hashCode() {
-		if (hash_code == null) {
-			hash_code = new Integer(genHashCode());
-		}
-		return hash_code.intValue();
+		return genHashCode();
 	}
 	
 	public void setId(I_StorageIdentifier p_id) throws InvalidParameterException{
@@ -121,7 +116,7 @@ public class AddressMutant implements I_AddressMutant {
 			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getAddressEmptyStreetError(),SET_STREET_ADDRESS);
 		}
-		street_address = p;
+		streetAddress = p;
 	}
 	
 	public void setPostalCode(String p) throws InvalidParameterException{
@@ -129,7 +124,7 @@ public class AddressMutant implements I_AddressMutant {
 			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getAddressEmptyPostalError(),SET_POSTAL_CODE);
 		}
-		postal_code = p;
+		postalCode = p;
 	}
 	
 	public void setCountryCode(String p) throws InvalidParameterException{
@@ -141,7 +136,7 @@ public class AddressMutant implements I_AddressMutant {
 			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getAddressCountryCodeWrongSizeError(),SET_COUNTRY_CODE);
 		}
-		country_code = p;
+		countryCode = p;
 	}
 
 	public void setCountrySubCode(String p) throws InvalidParameterException {
@@ -155,7 +150,7 @@ public class AddressMutant implements I_AddressMutant {
 					.getAddressSubCodeTwoBigError(),
 					SET_COUNTRY_SUB_CODE);
 		}
-		country_sub_code = p;
+		countrySubCode = p;
 	}
 	
 	int genHashCode() {
@@ -163,13 +158,13 @@ public class AddressMutant implements I_AddressMutant {
 		int result = 1;
 		result = prime * result + ((city == null) ? 0 : city.hashCode());
 		result = prime * result
-				+ ((country_code == null) ? 0 : country_code.hashCode());
+				+ ((countryCode == null) ? 0 : countryCode.hashCode());
 		result = prime
 				* result
-				+ ((country_sub_code == null) ? 0 : country_sub_code.hashCode());
+				+ ((countrySubCode == null) ? 0 : countrySubCode.hashCode());
 		result = prime * result
-				+ ((street_address == null) ? 0 : street_address.hashCode());
-		result = prime * result + ((postal_code == null) ? 0 : postal_code.hashCode());
+				+ ((streetAddress == null) ? 0 : streetAddress.hashCode());
+		result = prime * result + ((postalCode == null) ? 0 : postalCode.hashCode());
 		return result;
 	}
 
@@ -186,25 +181,25 @@ public class AddressMutant implements I_AddressMutant {
 				return false;
 		} else if (!city.equals(other.getCity()))
 			return false;
-		if (country_code == null) {
+		if (countryCode == null) {
 			if (other.getCountryCode() != null)
 				return false;
-		} else if (!country_code.equals(other.getCountryCode()))
+		} else if (!countryCode.equals(other.getCountryCode()))
 			return false;
-		if (country_sub_code == null) {
+		if (countrySubCode == null) {
 			if (other.getCountrySubCode() != null)
 				return false;
-		} else if (!country_sub_code.equals(other.getCountrySubCode()))
+		} else if (!countrySubCode.equals(other.getCountrySubCode()))
 			return false;
-		if (street_address == null) {
+		if (streetAddress == null) {
 			if (other.getStreetAddress() != null)
 				return false;
-		} else if (!street_address.equals(other.getStreetAddress()))
+		} else if (!streetAddress.equals(other.getStreetAddress()))
 			return false;
-		if (postal_code == null) {
+		if (postalCode == null) {
 			if (other.getPostalCode() != null)
 				return false;
-		} else if (!postal_code.equals(other.getPostalCode()))
+		} else if (!postalCode.equals(other.getPostalCode()))
 			return false;
 		return true;
 	}
@@ -229,15 +224,15 @@ public class AddressMutant implements I_AddressMutant {
 		sb.append(" [id=");
 		sb.append(id);
 		sb.append(",street_address=");
-		sb.append(street_address);
+		sb.append(streetAddress);
 		sb.append(",city=");
 		sb.append(city);
 		sb.append(",country_code=");
-		sb.append(country_code);
+		sb.append(countryCode);
 		sb.append(",country_sub_code=");
-		sb.append(country_sub_code);
+		sb.append(countrySubCode);
 		sb.append(",postal_code=");
-		sb.append(postal_code);
+		sb.append(postalCode);
 		sb.append("]");
 		return sb.toString();
 	}
