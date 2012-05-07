@@ -2,7 +2,6 @@ package org.adligo.models.core.client;
 
 import org.adligo.i.util.client.ClassUtils;
 import org.adligo.i.util.client.StringUtils;
-import org.adligo.models.core.client.ids.I_StorageIdGenerator;
 import org.adligo.models.core.client.ids.I_StorageIdentifier;
 import org.adligo.models.core.client.ids.StringIdentifier;
 
@@ -11,7 +10,7 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+	public static final String SET_ID = "setId";
 	public static final String SET_EMAIL = "setEmail";
 	public static final String SET_DOMAIN = "setDomain";
 	public static final String USER = "User";
@@ -32,7 +31,7 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 	 * for instance if the dn is uid=scott,dc=adligo,dc=com
 	 * it is just the value 'scott'
 	 */
-	protected String name;
+	private String name;
 	
 	/**
 	 * used to keep users in different organizations apart
@@ -47,9 +46,9 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 	 * 
 	 * adligo.com
 	 */
-	protected DomainName domain;
-	protected String password;
-	protected EMailAddress email;
+	private I_DomainName domain;
+	private String password;
+	private I_EMailAddress email;
 	
 	public UserMutant() {}
 	
@@ -126,7 +125,7 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 	/* (non-Javadoc)
 	 * @see org.adligo.models.core.client.I_User#getDomain()
 	 */
-	public DomainName getDomain() {
+	public I_DomainName getDomain() {
 		return domain;
 	}
 	
@@ -147,7 +146,7 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 	/* (non-Javadoc)
 	 * @see org.adligo.models.core.client.I_User#getEmail()
 	 */
-	public EMailAddress getEmail() {
+	public I_EMailAddress getEmail() {
 		return email;
 	}
 
@@ -168,7 +167,7 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 		sb.append(",");
 		if (domain != null) {
 			try {
-				sb.append(DomainNameMutant.toDn(domain.toString()));
+				sb.append(DomainName.toDn(domain.toString()));
 			} catch (InvalidParameterException x) {
 				sb.append("dc=unknown");
 			}
@@ -218,7 +217,14 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 	}
 	
 	public void setId(I_StorageIdentifier p_id) throws InvalidParameterException {
-		id = CommonModel.getIdMutantClone(p_id);
+		if (p_id == null) {
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
+					.getStorageIdRequired(),SET_ID);
+		} else if (!p_id.hasValue()) {
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
+					.getStorageIdRequired(),SET_ID);
+		}
+		id = p_id.toMutant();
 	}
 
 	/**
@@ -370,6 +376,4 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 	public StringIdentifier generate() throws InvalidParameterException{
 		return new StringIdentifier(getDn());
 	}
-
-
 }

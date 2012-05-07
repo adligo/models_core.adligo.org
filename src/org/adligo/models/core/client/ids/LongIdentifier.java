@@ -1,8 +1,9 @@
 package org.adligo.models.core.client.ids;
 
+import org.adligo.i.util.client.I_Immutable;
 import org.adligo.models.core.client.InvalidParameterException;
 
-public class LongIdentifier implements I_LongIdentifier {
+public class LongIdentifier implements I_LongIdentifier, I_Immutable {
 
 	/**
 	 * 
@@ -44,4 +45,24 @@ public class LongIdentifier implements I_LongIdentifier {
 		return LongIdentifierMutant.TYPE;
 	}
 
+	@Override
+	public String getImmutableFieldName() {
+		return "mutant";
+	}
+
+	public I_StorageIdentifier toImmutable() {
+		try {
+			return new LongIdentifier(this);
+		} catch (InvalidParameterException x) {
+			throw new IllegalStateException(x);
+		}
+	}
+
+	public I_StorageIdentifier toMutant() {
+		try {
+			return new LongIdentifierMutant(this);
+		} catch (InvalidParameterException x) {
+			throw new IllegalStateException(x);
+		}
+	}
 }

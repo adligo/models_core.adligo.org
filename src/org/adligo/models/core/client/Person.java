@@ -1,5 +1,6 @@
 package org.adligo.models.core.client;
 
+import org.adligo.i.util.client.I_Immutable;
 import org.adligo.models.core.client.ids.I_StorageIdentifier;
 
 
@@ -10,7 +11,7 @@ import org.adligo.models.core.client.ids.I_StorageIdentifier;
  * @author scott
  *
  */
-public class Person implements I_Validateable, I_Person {
+public class Person implements I_Validateable, I_Person, I_Immutable {
 	/**
 	 * 
 	 */
@@ -20,8 +21,8 @@ public class Person implements I_Validateable, I_Person {
 	/**
 	 * keep a immutable id or null copy
 	 */
-	private I_StorageIdentifier id;
-	private I_CustomInfo customInfo;
+	private transient I_StorageIdentifier id;
+	private transient I_CustomInfo customInfo;
 	/**
 	 * do nothing for GWT Serialization
 	 */
@@ -31,7 +32,7 @@ public class Person implements I_Validateable, I_Person {
 		mutant = new PersonMutant(p);
 		I_StorageIdentifier otherId = mutant.getId();
 		if (otherId != null) {
-			id = CommonModel.getIdClone(otherId);
+			id = otherId.toImmutable();
 		}
 		I_CustomInfo otherInfo = mutant.getCustomInfo();
 		if (otherInfo != null) {
@@ -117,6 +118,11 @@ public class Person implements I_Validateable, I_Person {
 
 	public I_CustomInfo getCustomInfo() {
 		return customInfo;
+	}
+
+	@Override
+	public String getImmutableFieldName() {
+		return "mutant";
 	}
 	
 

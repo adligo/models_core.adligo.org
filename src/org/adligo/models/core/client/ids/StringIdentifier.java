@@ -1,6 +1,7 @@
 package org.adligo.models.core.client.ids;
 
 import org.adligo.i.util.client.ClassUtils;
+import org.adligo.i.util.client.I_Immutable;
 import org.adligo.i.util.client.StringUtils;
 import org.adligo.models.core.client.InvalidParameterException;
 
@@ -16,7 +17,7 @@ import org.adligo.models.core.client.InvalidParameterException;
  * @author scott
  *
  */
-public class StringIdentifier implements I_StringIdentifier {
+public class StringIdentifier implements I_StringIdentifier, I_Immutable {
 	/**
 	 * 
 	 */
@@ -58,5 +59,26 @@ public class StringIdentifier implements I_StringIdentifier {
 	
 	public String toString() {
 		return mutant.toString(this.getClass());
+	}
+
+	@Override
+	public String getImmutableFieldName() {
+		return "mutant";
+	}
+	
+	public I_StorageIdentifier toImmutable() {
+		try {
+			return new StringIdentifier(this);
+		} catch (InvalidParameterException x) {
+			throw new IllegalStateException(x);
+		}
+	}
+	
+	public I_StorageIdentifier toMutant() {
+		try {
+			return new StringIdentifierMutant(this);
+		} catch (InvalidParameterException x) {
+			throw new IllegalStateException(x);
+		}
 	}
 }

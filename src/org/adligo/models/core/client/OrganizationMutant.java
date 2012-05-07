@@ -15,13 +15,13 @@ public class OrganizationMutant implements I_OrganizationMutant {
 	public static final String SET_TYPE = "setType";
 	public static final String ORGANIZAITION = "Organization";
 	
-	protected I_StorageIdentifier id;
-	protected String name;
+	private I_StorageIdentifier id;
+	private String name;
 	/**
 	 * the type pertains to something like a School, Band, Company
 	 * to be defined depending on your problem domain 
 	 */
-	protected NamedId type;
+	private I_NamedId type;
 	
 	
 	/**
@@ -43,9 +43,12 @@ public class OrganizationMutant implements I_OrganizationMutant {
 		}
 	}
 
-	public void setId(I_StorageIdentifier p) throws InvalidParameterException {
-		id = CommonModel.getIdMutantClone(p);
-		
+	public void setId(I_StorageIdentifier p_id) throws InvalidParameterException {
+		if (p_id == null) {
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
+					.getStorageIdRequired(),SET_ID);
+		}
+		id = p_id.toMutant();
 	}
 
 	

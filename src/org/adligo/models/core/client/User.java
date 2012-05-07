@@ -1,10 +1,10 @@
 package org.adligo.models.core.client;
 
+import org.adligo.i.util.client.I_Immutable;
 import org.adligo.models.core.client.ids.I_StorageIdentifier;
-import org.adligo.models.core.client.ids.StringIdentifier;
 
 
-public class User implements I_User {
+public class User implements I_User, I_Immutable {
 	/**
 	 * 
 	 */
@@ -13,9 +13,9 @@ public class User implements I_User {
 	/**
 	 * keep seperate for immutability
 	 */
-	private I_StorageIdentifier id;
-	private I_DomainName domain;
-	private I_EMailAddress emailAddress;
+	private transient I_StorageIdentifier id;
+	private transient I_DomainName domain;
+	private transient I_EMailAddress emailAddress;
 	
 	public User() {
 		wrapped = new UserMutant();
@@ -34,7 +34,7 @@ public class User implements I_User {
 	private void setImmutables() throws InvalidParameterException {
 		I_StorageIdentifier otherId = wrapped.getId();
 		if (otherId != null) {
-			id = CommonModel.getIdClone(otherId);
+			id = otherId.toImmutable();
 		}
 		I_DomainName dn = wrapped.getDomain();
 		if (dn != null) {
@@ -97,5 +97,10 @@ public class User implements I_User {
 
 	public boolean isValid() {
 		return UserMutant.isValid(this);
+	}
+
+	@Override
+	public String getImmutableFieldName() {
+		return "wrapped";
 	}
 }

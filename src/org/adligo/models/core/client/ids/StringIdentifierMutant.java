@@ -106,4 +106,20 @@ public class StringIdentifierMutant implements I_StringIdentifierMutant {
 		sb.append("]");
 		return sb.toString();
 	}
+	
+	public I_StorageIdentifier toImmutable() {
+		try {
+			return new StringIdentifier(this);
+		} catch (InvalidParameterException x) {
+			throw new IllegalStateException(x);
+		}
+	}
+	
+	public I_StorageIdentifier toMutant() {
+		try {
+			return new StringIdentifierMutant(this);
+		} catch (InvalidParameterException x) {
+			throw new IllegalStateException(x);
+		}
+	}
 }

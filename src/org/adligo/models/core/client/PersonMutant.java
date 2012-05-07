@@ -55,7 +55,7 @@ public class PersonMutant implements I_PersonMutant  {
 	/**
 	 * null is allowed
 	 */
-	private String nick_name;
+	private String nickname;
 	/**
 	 * null is allowed one of the constants in I_Person may be extended
 	 */
@@ -127,7 +127,14 @@ public class PersonMutant implements I_PersonMutant  {
 	}
 
 	public void setId(I_StorageIdentifier p_id)  throws InvalidParameterException {
-		this.id = CommonModel.getIdMutantClone(p_id);
+		if (p_id == null) {
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
+					.getStorageIdRequired(),SET_ID);
+		} else if (!p_id.hasValue()) {
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
+					.getStorageIdRequired(),SET_ID);
+		}
+		id = p_id.toMutant();
 	}
 
 	public String getFirst_name() {
@@ -192,7 +199,7 @@ public class PersonMutant implements I_PersonMutant  {
 			throw new InvalidParameterException(getConstants().getPersonNoNickNameError(), SET_NICKNAME);
 		} else {
 			//allow empty strings
-			nick_name = p.trim();
+			nickname = p.trim();
 		} 
 	}
 
@@ -248,8 +255,8 @@ public class PersonMutant implements I_PersonMutant  {
 			sb.append(last_name);
 			hadRealName = true;
 		}		
-		if (!hadRealName && nick_name != null) {
-			sb.append(nick_name);
+		if (!hadRealName && nickname != null) {
+			sb.append(nickname);
 		}
 		return sb.toString();
 	}
@@ -259,7 +266,7 @@ public class PersonMutant implements I_PersonMutant  {
 		if (first_name == null && 
 			middle_name == null &&
 			last_name == null &&
-			nick_name == null ) {
+			nickname == null ) {
 			
 			ValidationException validationException = new ValidationException(
 					getConstants().getPersonNoNameError(), SET_NAME);
@@ -274,7 +281,7 @@ public class PersonMutant implements I_PersonMutant  {
 	}
 
 	public String getNickname() {
-		return nick_name;
+		return nickname;
 	}
 
 	public Boolean isAlive() {
@@ -282,6 +289,14 @@ public class PersonMutant implements I_PersonMutant  {
 			return true;
 		}
 		return alive;
+	}
+	
+	public void setAlive(Boolean p) {
+		alive = p;
+	}
+
+	public void setHeight(Double p) {
+		height = p;
 	}
 
 	public String toString() {
@@ -298,7 +313,7 @@ public class PersonMutant implements I_PersonMutant  {
 		sb.append(",last_name=");
 		sb.append(last_name);
 		sb.append(",nick_name=");
-		sb.append(nick_name);
+		sb.append(nickname);
 		sb.append(",id=");
 		sb.append(id);
 		sb.append(",version=");
@@ -351,7 +366,7 @@ public class PersonMutant implements I_PersonMutant  {
 		result = prime * result
 				+ ((middle_name == null) ? 0 : middle_name.hashCode());
 		result = prime * result
-				+ ((nick_name == null) ? 0 : nick_name.hashCode());
+				+ ((nickname == null) ? 0 : nickname.hashCode());
 		return result;
 	}
 
@@ -397,10 +412,10 @@ public class PersonMutant implements I_PersonMutant  {
 					return false;
 			} else if (!middle_name.equals(other.getMiddle_name()))
 				return false;
-			if (nick_name == null) {
+			if (nickname == null) {
 				if (other.getNickname() != null)
 					return false;
-			} else if (!nick_name.equals(other.getNickname()))
+			} else if (!nickname.equals(other.getNickname()))
 				return false;
 		} catch (ClassCastException x) {
 			return false;

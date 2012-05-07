@@ -1,9 +1,10 @@
 package org.adligo.models.core.client;
 
+import org.adligo.i.util.client.I_Immutable;
 import org.adligo.models.core.client.ids.I_StorageIdentifier;
 
 
-public class Organization implements I_Organization, I_Validateable {
+public class Organization implements I_Organization, I_Validateable, I_Immutable {
 	/**
 	 * 
 	 */
@@ -12,11 +13,11 @@ public class Organization implements I_Organization, I_Validateable {
 	/**
 	 * keep id seperate from mutant for immutability
 	 */
-	private I_StorageIdentifier id;
+	private transient I_StorageIdentifier id;
 	/**
 	 * keep type seperate from mutant for immutability
 	 */
-	private I_NamedId type;
+	private transient I_NamedId type;
 	
 	public Organization() {
 		mutant = new OrganizationMutant();
@@ -26,7 +27,7 @@ public class Organization implements I_Organization, I_Validateable {
 		mutant = new OrganizationMutant(other);
 		I_StorageIdentifier otherId = other.getId();
 		if (otherId != null) {
-			id = CommonModel.getIdClone(otherId);
+			id = otherId.toImmutable();
 		}
 		I_NamedId other_type = other.getType();
 		if (other_type != null) {
@@ -69,5 +70,10 @@ public class Organization implements I_Organization, I_Validateable {
 	
 	public String toString() {
 		return mutant.toString(this.getClass(), this);
+	}
+
+	@Override
+	public String getImmutableFieldName() {
+		return "mutant";
 	}
 }

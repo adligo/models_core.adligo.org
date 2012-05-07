@@ -1,8 +1,9 @@
 package org.adligo.models.core.client;
 
+import org.adligo.i.util.client.I_Immutable;
 import org.adligo.models.core.client.ids.I_StorageIdentifier;
 
-public class NamedId implements I_NamedId {
+public class NamedId implements I_NamedId, I_Immutable {
 	/**
 	 * 
 	 */
@@ -20,7 +21,7 @@ public class NamedId implements I_NamedId {
 		mutant = new NamedIdMutant(p);
 		I_StorageIdentifier otherId = p.getId();
 		if (otherId != null) {
-			id = CommonModel.getIdClone(otherId);
+			id = otherId.toImmutable();
 		}
 	}
 	
@@ -32,7 +33,9 @@ public class NamedId implements I_NamedId {
 	public NamedId(String p_name, I_StorageIdentifier p_id) throws InvalidParameterException {
 		mutant = new NamedIdMutant();
 		mutant.setName(p_name);
-		id = CommonModel.getIdClone(p_id);
+		if (p_id != null) {
+			id = p_id.toImmutable();
+		}
 	}
 	
 	public NamedId() {
@@ -61,6 +64,11 @@ public class NamedId implements I_NamedId {
 
 	public boolean equals(Object obj) {
 		return mutant.equals(obj);
+	}
+
+	@Override
+	public String getImmutableFieldName() {
+		return "mutant";
 	}
 
 }

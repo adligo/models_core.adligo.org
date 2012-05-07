@@ -7,6 +7,8 @@ package org.adligo.models.core.client;
  *
  */
 public interface I_ModelsCoreConstants {
+	public String getStorageIdRequired();
+	
 	public String getAddressEmptyCityError();
 	public String getAddressEmptyStreetError();
 	public String getAddressEmptyPostalError();

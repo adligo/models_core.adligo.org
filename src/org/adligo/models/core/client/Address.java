@@ -1,8 +1,9 @@
 package org.adligo.models.core.client;
 
+import org.adligo.i.util.client.I_Immutable;
 import org.adligo.models.core.client.ids.I_StorageIdentifier;
 
-public class Address implements I_Address {
+public class Address implements I_Address, I_Immutable {
 	/**
 	 * 
 	 */
@@ -59,5 +60,10 @@ public class Address implements I_Address {
 
 	public boolean isMutable() {
 		return false;
+	}
+
+	@Override
+	public String getImmutableFieldName() {
+		return "wrapped";
 	}
 }

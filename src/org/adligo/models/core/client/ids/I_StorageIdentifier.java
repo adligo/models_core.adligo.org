@@ -26,4 +26,15 @@ public interface I_StorageIdentifier extends Serializable {
 	 * @return
 	 */
 	public String getType();
+	
+	/**
+	 * create a immutable copy of this object
+	 * @return
+	 */
+	public I_StorageIdentifier toImmutable();
+	/**
+	 * create a mutable copy of this class
+	 * @return
+	 */
+	public I_StorageIdentifier toMutant();
 }
