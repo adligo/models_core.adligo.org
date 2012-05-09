@@ -7,6 +7,10 @@ import org.adligo.models.core.client.InvalidParameterException;
 
 public class StringIdentifierMutant implements I_StringIdentifierMutant {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static final String SET_KEY = "setKey";
 	public static final String TYPE = "StringIdentifier";
 	public static final String KEY_CANT_BE_SET_TO_EMPTY = "StringIdentifier key can't be set to empty!";
