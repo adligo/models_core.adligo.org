@@ -13,9 +13,9 @@ public class User implements I_User, I_Immutable {
 	/**
 	 * keep seperate for immutability
 	 */
-	private transient I_StorageIdentifier id;
-	private transient I_DomainName domain;
-	private transient I_EMailAddress emailAddress;
+	private I_StorageIdentifier id;
+	private I_DomainName domain;
+	private I_EMailAddress emailAddress;
 	
 	public User() {
 		wrapped = new UserMutant();

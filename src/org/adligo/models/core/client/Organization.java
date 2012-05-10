@@ -13,11 +13,11 @@ public class Organization implements I_Organization, I_Validateable, I_Immutable
 	/**
 	 * keep id seperate from mutant for immutability
 	 */
-	private transient I_StorageIdentifier id;
+	private I_StorageIdentifier id;
 	/**
 	 * keep type seperate from mutant for immutability
 	 */
-	private transient I_NamedId type;
+	private I_NamedId type;
 	
 	public Organization() {
 		mutant = new OrganizationMutant();
