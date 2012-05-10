@@ -18,6 +18,10 @@ public class LongIdentifier implements I_LongIdentifier, I_Immutable {
 		mutant = new LongIdentifierMutant(p);
 	}
 	
+	public LongIdentifier(Long p) throws InvalidParameterException {
+		mutant = new LongIdentifierMutant(p);
+	}
+	
 	public Long getId() {
 		return mutant.getId();
 	}
