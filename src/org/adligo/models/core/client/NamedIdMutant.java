@@ -44,7 +44,7 @@ public class NamedIdMutant implements I_NamedIdMutant, I_Validateable {
 			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getStorageIdRequired(),SET_ID);
 		}
-		id = p_id.toMutant();
+		id = p_id;
 	}
 
 	public String getName() {
