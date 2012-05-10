@@ -49,7 +49,7 @@ public class LongIdentifierMutant implements I_LongIdentifierMutant {
 			return false;
 		try {
 			I_LongIdentifier other = (I_LongIdentifier) obj;
-			if (other.getId() == id) {
+			if (other.getId().equals(id)) {
 				return true;
 			}
 		} catch (ClassCastException x) {
