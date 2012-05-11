@@ -46,9 +46,9 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 	 * 
 	 * adligo.com
 	 */
-	private I_DomainName domain;
+	private DomainName domain;
 	private String password;
-	private I_EMailAddress email;
+	private EMailAddress email;
 	
 	public UserMutant() {}
 	
@@ -125,7 +125,7 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 	/* (non-Javadoc)
 	 * @see org.adligo.models.core.client.I_User#getDomain()
 	 */
-	public I_DomainName getDomain() {
+	public DomainName getDomain() {
 		return domain;
 	}
 	
@@ -146,7 +146,7 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 	/* (non-Javadoc)
 	 * @see org.adligo.models.core.client.I_User#getEmail()
 	 */
-	public I_EMailAddress getEmail() {
+	public EMailAddress getEmail() {
 		return email;
 	}
 
@@ -160,7 +160,7 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 	
 	public static String getDn(I_User user) {
 		String name = user.getName();
-		I_DomainName domain = user.getDomain();
+		DomainName domain = user.getDomain();
 		StringBuffer sb = new StringBuffer();
 		sb.append("uid=");
 		sb.append(name);
@@ -199,13 +199,16 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 		}
 	}
 	
-	public void setDomain(I_DomainName domain)  throws InvalidParameterException {
-		try {
-			this.domain = new DomainName(domain);
-		} catch (InvalidParameterException e) {
-			throw new InvalidParameterException(e.getMessage(), 
-					SET_DOMAIN, e);
+	public void setDomain(DomainName domain)  throws InvalidParameterException {
+		if (domain == null) {
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
+					.getUserNoEmptyDomainMessage(), SET_DOMAIN);
+		} 
+		if (StringUtils.isEmpty(domain.getName())) {
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
+					.getUserNoEmptyDomainMessage(), SET_DOMAIN);
 		}
+		this.domain = domain;
 	}
 	
 	public void setPassword(String password) throws InvalidParameterException {
@@ -233,14 +236,16 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 	 * @param p_email
 	 * @throws InvalidParameterException
 	 */
-	public void setEmail(I_EMailAddress p_email) throws InvalidParameterException {
-		try {
-			email = new EMailAddress(p_email);
-		} catch (InvalidParameterException e) {
-			throw new InvalidParameterException(e.getMessage(), 
-					SET_EMAIL, e);
+	public void setEmail(EMailAddress p_email) throws InvalidParameterException {
+		if (p_email == null) {
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
+					.getEmailAddressEmptyError(), SET_EMAIL);
 		}
-		
+		if (StringUtils.isEmpty(p_email.getEMail())) {
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
+					.getEmailAddressEmptyError(), SET_EMAIL);
+		}
+		email = p_email;
 	}
 	
 	public void setEmail(String p_email) throws InvalidParameterException {
@@ -283,8 +288,8 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 	}
 	
 	public static boolean isValid(I_User user) {
-		I_DomainName domain = user.getDomain();
-		I_EMailAddress email = user.getEmail();
+		DomainName domain = user.getDomain();
+		EMailAddress email = user.getEmail();
 		String name = user.getName();
 		String password = user.getPassword();
 		
@@ -306,8 +311,8 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 	static int genHashCode(I_User user) {
 		final int prime = 31;
 		int result = 1;
-		I_DomainName domain = user.getDomain();
-		I_EMailAddress email = user.getEmail();
+		DomainName domain = user.getDomain();
+		EMailAddress email = user.getEmail();
 		I_StorageIdentifier id = user.getId();
 		String name = user.getName();
 		String password = user.getPassword();
@@ -339,8 +344,8 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 	}
 
 	public static boolean equals(I_User user, I_User other) {
-		I_DomainName domain = user.getDomain();
-		I_EMailAddress email = user.getEmail();
+		DomainName domain = user.getDomain();
+		EMailAddress email = user.getEmail();
 		I_StorageIdentifier id = user.getId();
 		String name = user.getName();
 		String password = user.getPassword();

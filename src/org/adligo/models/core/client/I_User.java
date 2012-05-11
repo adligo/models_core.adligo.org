@@ -14,9 +14,9 @@ public interface I_User extends I_NamedId {
 	
 	public String getPassword();
 
-	public I_EMailAddress getEmail();
+	public EMailAddress getEmail();
 	
-	public I_DomainName getDomain();
+	public DomainName getDomain();
 	
 	/**
 	 * returns the LDAP distinguished name

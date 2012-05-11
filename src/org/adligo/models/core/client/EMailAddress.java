@@ -1,9 +1,11 @@
 package org.adligo.models.core.client;
 
+import java.io.Serializable;
+
 import org.adligo.i.util.client.I_Immutable;
 import org.adligo.i.util.client.StringUtils;
 
-public class EMailAddress implements I_EMailAddress, I_Immutable {
+public class EMailAddress implements I_Immutable, Serializable {
 	/**
 	 * 
 	 */
@@ -27,20 +29,11 @@ public class EMailAddress implements I_EMailAddress, I_Immutable {
 		setName(email);
 	}
 	
-	public EMailAddress(I_EMailAddress other) throws InvalidParameterException {
-		if (other == null) {
-			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
-					.getEmailAddressEmptyError(), EMAIL);
-		}
-		this.email = other.getEMail();
-		setName(email);
-	}
-	
 	public static void validate(String email) throws InvalidParameterException {
 		new EMailAddress(email);
 	}
 
-	public I_DomainName getDomainName() {
+	public DomainName getDomainName() {
 		return domainName;
 	}
 
@@ -64,8 +57,8 @@ public class EMailAddress implements I_EMailAddress, I_Immutable {
 			return true;
 		if (obj == null)
 			return false;
-		if (obj instanceof I_EMailAddress) {
-			I_EMailAddress other = (I_EMailAddress) obj;
+		if (obj instanceof EMailAddress) {
+			EMailAddress other = (EMailAddress) obj;
 			if (email.equals(other.getEMail())) {
 				return true;
 			}

@@ -5,8 +5,8 @@ public interface I_UserMutant extends I_User {
 	
 	public void setPassword(String p)  throws InvalidParameterException;
 
-	public void setEmail(I_EMailAddress p)  throws InvalidParameterException;
+	public void setEmail(EMailAddress p)  throws InvalidParameterException;
 	
-	public void setDomain(I_DomainName d)  throws InvalidParameterException;
+	public void setDomain(DomainName d)  throws InvalidParameterException;
 	
 }

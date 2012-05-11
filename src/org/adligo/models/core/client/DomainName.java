@@ -1,11 +1,13 @@
 package org.adligo.models.core.client;
 
+import java.io.Serializable;
+
 import org.adligo.i.log.client.Log;
 import org.adligo.i.log.client.LogFactory;
 import org.adligo.i.util.client.I_Immutable;
 import org.adligo.i.util.client.StringUtils;
 
-public class DomainName implements I_DomainName, I_Validateable, I_Mutable, I_Immutable {
+public class DomainName implements I_Validateable, I_Mutable, I_Immutable, Serializable {
 	/**
 	 * 
 	 */
@@ -36,14 +38,6 @@ public class DomainName implements I_DomainName, I_Validateable, I_Mutable, I_Im
 					.getDomainNameEmptyError() ,DOMAIN_NAME);
 		}
 		setName(name);
-	}
-	
-	public DomainName(I_DomainName p) throws InvalidParameterException {
-		if (p == null) {
-			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
-					.getDomainNameEmptyError() ,DOMAIN_NAME);
-		}
-		setName(p.getName());
 	}
 	
 	public static void validate(String domain) throws InvalidParameterException {
@@ -220,14 +214,27 @@ public class DomainName implements I_DomainName, I_Validateable, I_Mutable, I_Im
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj instanceof I_DomainName) {
-			I_DomainName other = (I_DomainName) obj;
+		try {
+			DomainName other = (DomainName) obj;
 			if (name == null) {
 				if (other.getName() != null)
 					return false;
 			} else if (name.equals(other.getName()))
 				return true;
+		} catch (ClassCastException x) {
+			//eat
 		}
+		try {
+			String other = (String) obj;
+			if (name == null) {
+				if (other != null)
+					return false;
+			} else if (name.equals(other))
+				return true;
+		} catch (ClassCastException x) {
+			//eat
+		}
+			
 		return false;
 	}
 	

@@ -17,7 +17,7 @@ public class ModifyEMailListMutant implements I_ModifyEMailListMutant {
 	 */
 	private boolean signup;
 	private String mailListName;
-	private I_EMailAddress address;
+	private EMailAddress address;
 	
 	public String getMailListName() {
 		return mailListName;
@@ -28,13 +28,13 @@ public class ModifyEMailListMutant implements I_ModifyEMailListMutant {
 	public void setMailListName(String mailListName) {
 		this.mailListName = mailListName;
 	}
-	public I_EMailAddress getAddress() {
+	public EMailAddress getAddress() {
 		return address;
 	}
 	/* (non-Javadoc)
 	 * @see org.adligo.models.core.client.I_EMailListSignupRequestMutant#setAddress(org.adligo.models.core.client.I_EMailAddress)
 	 */
-	public void setAddress(I_EMailAddress address) {
+	public void setAddress(EMailAddress address) {
 		this.address = address;
 	}
 	public boolean isSignup() {

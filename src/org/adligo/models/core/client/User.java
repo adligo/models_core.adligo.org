@@ -14,8 +14,8 @@ public class User implements I_User, I_Immutable {
 	 * keep seperate for immutability
 	 */
 	private I_StorageIdentifier id;
-	private I_DomainName domain;
-	private I_EMailAddress emailAddress;
+	private DomainName domain;
+	private EMailAddress emailAddress;
 	
 	public User() {
 		wrapped = new UserMutant();
@@ -36,14 +36,8 @@ public class User implements I_User, I_Immutable {
 		if (otherId != null) {
 			id = otherId.toImmutable();
 		}
-		I_DomainName dn = wrapped.getDomain();
-		if (dn != null) {
-			domain = new DomainName(dn);
-		}
-		I_EMailAddress otherEmail = wrapped.getEmail();
-		if (otherEmail != null) {
-			emailAddress = new EMailAddress(otherEmail);
-		}
+		domain = wrapped.getDomain();
+		emailAddress = wrapped.getEmail();
 	}
 	
 	public boolean isMutable() {
@@ -75,11 +69,11 @@ public class User implements I_User, I_Immutable {
 		return UserMutant.getDn(this);
 	}
 
-	public I_DomainName getDomain() {
+	public DomainName getDomain() {
 		return domain;
 	}
 
-	public I_EMailAddress getEmail() {
+	public EMailAddress getEmail() {
 		return emailAddress;
 	}
 
