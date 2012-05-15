@@ -23,6 +23,7 @@ public class Person implements I_Validateable, I_Person, I_Immutable {
 	 */
 	private I_StorageIdentifier id;
 	private I_CustomInfo customInfo;
+	private I_StorageInfo storageInfo;
 	/**
 	 * do nothing for GWT Serialization
 	 */
@@ -37,6 +38,10 @@ public class Person implements I_Validateable, I_Person, I_Immutable {
 		I_CustomInfo otherInfo = mutant.getCustomInfo();
 		if (otherInfo != null) {
 			customInfo = otherInfo.createImmutableClone();
+		}
+		I_StorageInfo info = mutant.getStorageInfo();
+		if (info != null) {
+			storageInfo = info.toImmutable();
 		}
 	}
 	
@@ -84,7 +89,10 @@ public class Person implements I_Validateable, I_Person, I_Immutable {
 		return mutant.getHeight();
 	}
 
-
+	public Double getWeight() {
+		return mutant.getWeight();
+	}
+	
 	public Character getGender() {
 		return mutant.getGender();
 	}
@@ -123,6 +131,11 @@ public class Person implements I_Validateable, I_Person, I_Immutable {
 	@Override
 	public String getImmutableFieldName() {
 		return "mutant";
+	}
+
+	@Override
+	public I_StorageInfo getStorageInfo() {
+		return storageInfo;
 	}
 	
 

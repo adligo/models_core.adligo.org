@@ -2,6 +2,8 @@ package org.adligo.models.core.client.ids;
 
 import java.io.Serializable;
 
+import org.adligo.models.core.client.InvalidParameterException;
+
 /**
  * marker interfaces actual impls should also 
  * be a I_StringIdentifier (for LDAP dns or Filesystem uris)
@@ -31,10 +33,10 @@ public interface I_StorageIdentifier extends Serializable {
 	 * create a immutable copy of this object
 	 * @return
 	 */
-	public I_StorageIdentifier toImmutable();
+	public I_StorageIdentifier toImmutable() throws InvalidParameterException;
 	/**
 	 * create a mutable copy of this class
 	 * @return
 	 */
-	public I_StorageIdentifier toMutant();
+	public I_StorageIdentifier toMutant() throws InvalidParameterException;
 }

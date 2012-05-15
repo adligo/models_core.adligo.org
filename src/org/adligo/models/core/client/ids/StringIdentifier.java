@@ -66,19 +66,11 @@ public class StringIdentifier implements I_StringIdentifier, I_Immutable {
 		return "mutant";
 	}
 	
-	public I_StorageIdentifier toImmutable() {
-		try {
-			return new StringIdentifier(this);
-		} catch (InvalidParameterException x) {
-			throw new IllegalStateException(x);
-		}
+	public I_StorageIdentifier toImmutable() throws InvalidParameterException {
+		return new StringIdentifier(this);
 	}
 	
-	public I_StorageIdentifier toMutant() {
-		try {
-			return new StringIdentifierMutant(this);
-		} catch (InvalidParameterException x) {
-			throw new IllegalStateException(x);
-		}
+	public I_StorageIdentifier toMutant() throws InvalidParameterException {
+		return new StringIdentifierMutant(this);
 	}
 }

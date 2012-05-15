@@ -36,4 +36,16 @@ public interface I_Person extends I_NamedId, I_Validateable, I_Changeable {
 	 * @return
 	 */
 	//public I_CustomInfo getCustomInfo();
+	public I_StorageInfo getStorageInfo();
+	
+	/**
+	 * the last height of the person in meters
+	 * note double is used instead of BigDecimal for JME
+	 */
+	public Double getHeight();
+	/**
+	 * the last weight of the person in kilograms
+	 * note double is used instead of BigDecimal for JME
+	 */
+	public Double getWeight();
 }

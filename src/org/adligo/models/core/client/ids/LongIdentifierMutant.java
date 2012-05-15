@@ -93,19 +93,11 @@ public class LongIdentifierMutant implements I_LongIdentifierMutant {
 		return LongIdentifierMutant.TYPE;
 	}
 
-	public I_StorageIdentifier toImmutable() {
-		try {
-			return new LongIdentifier(this);
-		} catch (InvalidParameterException x) {
-			throw new IllegalStateException(x);
-		}
+	public I_StorageIdentifier toImmutable() throws InvalidParameterException {
+		return new LongIdentifier(this);
 	}
 	
-	public I_StorageIdentifier toMutant() {
-		try {
-			return new LongIdentifierMutant(this);
-		} catch (InvalidParameterException x) {
-			throw new IllegalStateException(x);
-		}
+	public I_StorageIdentifier toMutant() throws InvalidParameterException {
+		return new LongIdentifierMutant(this);
 	}
 }

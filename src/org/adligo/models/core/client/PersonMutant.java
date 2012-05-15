@@ -1,11 +1,20 @@
 package org.adligo.models.core.client;
 
+import java.util.Date;
+
 import org.adligo.i.util.client.ClassUtils;
 import org.adligo.i.util.client.DateTime;
 import org.adligo.models.core.client.ids.I_StorageIdentifier;
 
 public class PersonMutant implements I_PersonMutant  {
 
+	public static final String ALIVE_CAN_NOT_BE_SET_TO_NULL = "Alive can not be set to null";
+	public static final String SET_ALIVE = "setAlive";
+	public static final String STORAGE_INFO_CAN_NOT_BE_SET_TO_NULL = "StorageInfo can NOT be set to null";
+	public static final String SET_STORAGE_INFO = "setStorageInfo";
+	public static final String WEIGHT_CAN_NOT_BE_SET_TO_NULL = "Weight can NOT be set to null";
+	public static final String SET_WEIGHT = "setWeight";
+	public static final String HEIGHT_CAN_NOT_BE_SET_TO_NULL = "Height can NOT be set to null";
 	public static final String CUSTOM_INFO_MUST_NOT_BE_NULL = "CustomInfo must not be null";
 	public static final String SET_GENDER = "setGender";
 	public static final String SET_HEIGHT = "setHeight";
@@ -60,10 +69,8 @@ public class PersonMutant implements I_PersonMutant  {
 	 * null is allowed one of the constants in I_Person may be extended
 	 */
 	private Character gender;
-	/**
-	 * the last height of the person in meters
-	 */
 	private Double height;
+	private Double weight;
 	/**
 	 * note this is a full blown object so
 	 * that a user can set this to true or false
@@ -75,6 +82,7 @@ public class PersonMutant implements I_PersonMutant  {
 	 * custom info specific to your system
 	 */
 	private I_CustomInfo customInfo;
+	private I_StorageInfo storageInfo;
 	
 	public PersonMutant() {}
 	
@@ -120,6 +128,19 @@ public class PersonMutant implements I_PersonMutant  {
 		dest.setBirthday(source.getBirthday());
 		dest.setDeceased(source.getDeceased());
 		dest.setGender(source.getGender());
+		I_StorageInfo info = source.getStorageInfo();
+		if (info != null) {
+			dest.setStorageInfo(info);
+		}
+		
+		Double height = source.getHeight();
+		if (height != null) {
+			dest.setHeight(height);
+		}
+		Double weight = source.getWeight();
+		if (weight != null) {
+			dest.setWeight(weight);
+		}
 	}
 	
 	public I_StorageIdentifier getId() {
@@ -286,16 +307,26 @@ public class PersonMutant implements I_PersonMutant  {
 
 	public Boolean isAlive() {
 		if (deceased != null) {
+			return false;
+		}
+		if (alive == null) {
+			//assume there alive
 			return true;
 		}
 		return alive;
 	}
 	
-	public void setAlive(Boolean p) {
+	public void setAlive(Boolean p) throws InvalidParameterException  {
+		if (p == null) {
+			throw new InvalidParameterException(ALIVE_CAN_NOT_BE_SET_TO_NULL, SET_ALIVE);
+		}
 		alive = p;
 	}
 
-	public void setHeight(Double p) {
+	public void setHeight(Double p) throws InvalidParameterException  {
+		if (p == null) {
+			throw new InvalidParameterException(HEIGHT_CAN_NOT_BE_SET_TO_NULL, SET_HEIGHT);
+		}
 		height = p;
 	}
 
@@ -332,19 +363,18 @@ public class PersonMutant implements I_PersonMutant  {
 			sb.append("null");
 		}
 		sb.append(",gender=");
-		if (gender != null) {
-			sb.append(gender);
-		} else {
-			sb.append("null");
-		}
+		sb.append(gender);
+		
 		sb.append(",height=");
-		if (height != null) {
-			sb.append(height);
-		} else {
-			sb.append("null");
-		}
+		sb.append(height);
+		
+		sb.append(",weight=");
+		sb.append(weight);
+		
 		sb.append(",customInfo=");
 		sb.append(customInfo);
+		sb.append(",storageInfo=");
+		sb.append(storageInfo);
 		sb.append("]");
 		return sb.toString();
 	}
@@ -451,5 +481,71 @@ public class PersonMutant implements I_PersonMutant  {
 			}
 		}
 		customInfo = p;
+	}
+
+	public I_StorageInfo getStorageInfo() {
+		return storageInfo;
+	}
+
+	public void setStorageInfo(I_StorageInfo p) throws InvalidParameterException {
+		if (p == null) {
+			throw new InvalidParameterException(STORAGE_INFO_CAN_NOT_BE_SET_TO_NULL, SET_STORAGE_INFO);
+		}
+		this.storageInfo = p.toImmutable();
+	}
+
+	public Double getWeight() {
+		return weight;
+	}
+
+	public void setWeight(Double p) throws InvalidParameterException  {
+		if (p == null) {
+			throw new InvalidParameterException(WEIGHT_CAN_NOT_BE_SET_TO_NULL, SET_WEIGHT);
+		}
+		this.weight = p;
+	}
+	
+	/**
+	 * for db io only
+	 * @return
+	 */
+	Date getBirthdayTime() {
+		if (birthday == null) {
+			return null;
+		}
+		return new Date(birthday);
+	}
+	/**
+	 * for db io only
+	 * @return
+	 */
+	void setBirthdayTime(Date p) {
+		if (p == null) {
+			birthday = null;
+		} else {
+			this.birthday = p.getTime();
+		}
+	}
+	
+	/**
+	 * for db io only
+	 * @return
+	 */
+	Date getDeceasedTime() {
+		if (deceased == null) {
+			return null;
+		}
+		return new Date(deceased);
+	}
+	/**
+	 * for db io only
+	 * @return
+	 */
+	void setDeceasedTime(Date p) {
+		if (p == null) {
+			deceased = null;
+		} else {
+			this.deceased = p.getTime();
+		}
 	}
 }
