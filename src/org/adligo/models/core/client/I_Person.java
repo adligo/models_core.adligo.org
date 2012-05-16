@@ -39,11 +39,13 @@ public interface I_Person extends I_NamedId, I_Validateable, I_Changeable {
 	public I_StorageInfo getStorageInfo();
 	
 	/**
+	 * may return null if the height of the person is unknown,
 	 * the last height of the person in meters
 	 * note double is used instead of BigDecimal for JME
 	 */
 	public Double getHeight();
 	/**
+	 * may return null if the weight of the person is unknown,
 	 * the last weight of the person in kilograms
 	 * note double is used instead of BigDecimal for JME
 	 */

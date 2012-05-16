@@ -8,16 +8,10 @@ import org.adligo.models.core.client.ids.I_StorageIdentifier;
 
 public class PersonMutant implements I_PersonMutant  {
 
-	public static final String ALIVE_CAN_NOT_BE_SET_TO_NULL = "Alive can not be set to null";
-	public static final String SET_ALIVE = "setAlive";
 	public static final String STORAGE_INFO_CAN_NOT_BE_SET_TO_NULL = "StorageInfo can NOT be set to null";
 	public static final String SET_STORAGE_INFO = "setStorageInfo";
-	public static final String WEIGHT_CAN_NOT_BE_SET_TO_NULL = "Weight can NOT be set to null";
-	public static final String SET_WEIGHT = "setWeight";
-	public static final String HEIGHT_CAN_NOT_BE_SET_TO_NULL = "Height can NOT be set to null";
 	public static final String CUSTOM_INFO_MUST_NOT_BE_NULL = "CustomInfo must not be null";
 	public static final String SET_GENDER = "setGender";
-	public static final String SET_HEIGHT = "setHeight";
 	public static final String SET_NICKNAME = "setNickname";
 	public static final String SET_LAST_NAME = "setLastName";
 	public static final String SET_MIDDLE_NAME = "setMiddleName";
@@ -69,13 +63,16 @@ public class PersonMutant implements I_PersonMutant  {
 	 * null is allowed one of the constants in I_Person may be extended
 	 */
 	private Character gender;
+	/**
+	 * @see I_Person#getHeight()
+	 */
 	private Double height;
+	/**
+	 * @see I_Person#getWeight()
+	 */
 	private Double weight;
 	/**
-	 * note this is a full blown object so
-	 * that a user can set this to true or false
-	 * if they know a person died but not when 
-	 * or something
+	 * @see I_Person#isAlive()
 	 */
 	private Boolean alive = null;
 	/**
@@ -103,6 +100,10 @@ public class PersonMutant implements I_PersonMutant  {
 		I_StorageIdentifier idCopy = source.getId();
 		if (idCopy != null) {
 			dest.setId(idCopy);
+		}
+		Integer version = source.getVersion();
+		if (version != null) {
+			dest.setVersion(version);
 		}
 		
 		String firstNameCopy = source.getFirst_name();
@@ -317,16 +318,10 @@ public class PersonMutant implements I_PersonMutant  {
 	}
 	
 	public void setAlive(Boolean p) throws InvalidParameterException  {
-		if (p == null) {
-			throw new InvalidParameterException(ALIVE_CAN_NOT_BE_SET_TO_NULL, SET_ALIVE);
-		}
 		alive = p;
 	}
-
+	
 	public void setHeight(Double p) throws InvalidParameterException  {
-		if (p == null) {
-			throw new InvalidParameterException(HEIGHT_CAN_NOT_BE_SET_TO_NULL, SET_HEIGHT);
-		}
 		height = p;
 	}
 
@@ -499,9 +494,6 @@ public class PersonMutant implements I_PersonMutant  {
 	}
 
 	public void setWeight(Double p) throws InvalidParameterException  {
-		if (p == null) {
-			throw new InvalidParameterException(WEIGHT_CAN_NOT_BE_SET_TO_NULL, SET_WEIGHT);
-		}
 		this.weight = p;
 	}
 	
