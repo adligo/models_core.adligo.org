@@ -486,7 +486,7 @@ public class PersonMutant implements I_PersonMutant  {
 		if (p == null) {
 			throw new InvalidParameterException(STORAGE_INFO_CAN_NOT_BE_SET_TO_NULL, SET_STORAGE_INFO);
 		}
-		this.storageInfo = p.toImmutable();
+		this.storageInfo = p;
 	}
 
 	public Double getWeight() {
