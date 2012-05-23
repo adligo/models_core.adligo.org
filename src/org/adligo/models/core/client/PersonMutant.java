@@ -129,9 +129,13 @@ public class PersonMutant implements I_PersonMutant  {
 		dest.setBirthday(source.getBirthday());
 		dest.setDeceased(source.getDeceased());
 		dest.setGender(source.getGender());
-		I_StorageInfo info = source.getStorageInfo();
-		if (info != null) {
-			dest.setStorageInfo(info);
+		I_StorageInfo storageInfo = source.getStorageInfo();
+		if (storageInfo != null) {
+			dest.setStorageInfo(storageInfo);
+		}
+		I_CustomInfo customInfo = source.getStorageInfo();
+		if (customInfo != null) {
+			dest.setCustomInfo(customInfo);
 		}
 		
 		Double height = source.getHeight();

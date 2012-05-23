@@ -15,4 +15,8 @@ public class InvalidParameterException extends ChainedFieldException {
 	public InvalidParameterException(String message, String methodName, ChainedFieldException cause) {
 		super(message, methodName, cause);
 	}
+	
+	public InvalidParameterException(ChainedFieldException cause) {
+		super(cause.getMessage(), cause.getMethodName(), cause);
+	}
 }

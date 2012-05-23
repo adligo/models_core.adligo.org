@@ -37,11 +37,19 @@ public class Person implements I_Validateable, I_Person, I_Immutable {
 		}
 		I_CustomInfo otherInfo = mutant.getCustomInfo();
 		if (otherInfo != null) {
-			customInfo = otherInfo.createImmutableClone();
+			try {
+				customInfo = otherInfo.toImmutable();
+			} catch (ValidationException ve) {
+				throw new InvalidParameterException(ve);
+			}
 		}
 		I_StorageInfo info = mutant.getStorageInfo();
 		if (info != null) {
-			storageInfo = info.toImmutable();
+			try {
+				storageInfo = (I_StorageInfo) info.toImmutable();
+			} catch (ValidationException ve) {
+				throw new InvalidParameterException(ve);
+			}
 		}
 	}
 	

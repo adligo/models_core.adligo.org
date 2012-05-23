@@ -1,8 +1,7 @@
 package org.adligo.models.core.client;
 
-import java.io.Serializable;
 
-public interface I_StorageInfo extends Serializable {
+public interface I_StorageInfo extends I_CustomInfo {
 	/**
 	 * this should return a system usable name 
 	 * which can be used to determine where the object with this info
@@ -13,5 +12,4 @@ public interface I_StorageInfo extends Serializable {
 	 * @return
 	 */
 	public String getStoreName();
-	public I_StorageInfo toImmutable();
 }
