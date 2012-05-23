@@ -21,7 +21,7 @@ public class NamedId implements I_NamedId, I_Immutable {
 		mutant = new NamedIdMutant(p);
 		I_StorageIdentifier otherId = p.getId();
 		if (otherId != null) {
-			id = otherId.toImmutable();
+			id = otherId;
 		}
 	}
 	
@@ -34,7 +34,7 @@ public class NamedId implements I_NamedId, I_Immutable {
 		mutant = new NamedIdMutant();
 		mutant.setName(p_name);
 		if (p_id != null) {
-			id = p_id.toImmutable();
+			id = p_id;
 		}
 	}
 	

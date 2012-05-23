@@ -1,64 +1,97 @@
 package org.adligo.models.core.client.ids;
 
+import java.lang.Long;
+
+import org.adligo.i.util.client.ClassUtils;
 import org.adligo.i.util.client.I_Immutable;
 import org.adligo.models.core.client.InvalidParameterException;
 
 public class LongIdentifier implements I_LongIdentifier, I_Immutable {
-
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	public static final String SET_ID = "setId";
+	public static final String TYPE = "LongIdentifier";
+	public static final String ID_CANT_BE_SET_TO_NULL = "LongIdentifier id can't be set to null!";
+	public static final String CONSTRUCTOR = "Constructor";
 	
-	private LongIdentifierMutant mutant;
+	private Long id;
 	
 	public LongIdentifier() {}
 	
 	public LongIdentifier(I_LongIdentifier p) throws InvalidParameterException {
-		mutant = new LongIdentifierMutant(p);
+		if (p == null) {
+			throw new InvalidParameterException(TYPE, CONSTRUCTOR);
+		}
+		setId(p.getId());
+		
 	}
-	
+
 	public LongIdentifier(Long p) throws InvalidParameterException {
-		mutant = new LongIdentifierMutant(p);
+		if (p == null) {
+			throw new InvalidParameterException(TYPE, CONSTRUCTOR);
+		}
+		setId(p);
 	}
 	
-	public Long getId() {
-		return mutant.getId();
+	private void setId(Long p) throws InvalidParameterException {
+		if (p == null) {
+			throw new InvalidParameterException(TYPE, ID_CANT_BE_SET_TO_NULL);
+		}
+		id = p;
 	}
 
 	public int hashCode() {
-		return mutant.hashCode();
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
 	}
 
 	public boolean equals(Object obj) {
-		return mutant.equals(obj);
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		try {
+			I_LongIdentifier other = (I_LongIdentifier) obj;
+			if (other.getId().equals(id)) {
+				return true;
+			}
+		} catch (ClassCastException x) {
+			//eat
+		}
+		return false;
 	}
 
 	public String toString() {
-		return mutant.toString(this.getClass());
+		return toString(this.getClass());
+	}
+
+	String toString(Class c) {
+		StringBuffer sb = new StringBuffer();
+		sb.append(ClassUtils.getClassShortName(c));
+		sb.append(" [id=");
+		sb.append(id);
+		sb.append("]");
+		return sb.toString();
+	}
+	
+	public Long getId() {
+		return id;
 	}
 
 	public boolean hasValue() {
-		if (mutant == null) {
+		if (id == null) {
 			return false;
 		}
 		return true;
 	}
-
-	public String getType() {
-		return LongIdentifierMutant.TYPE;
-	}
-
-	@Override
+	
 	public String getImmutableFieldName() {
-		return "mutant";
+		return "id";
 	}
 
-	public I_StorageIdentifier toImmutable() throws InvalidParameterException {
-		return new LongIdentifier(this);
-	}
-
-	public I_StorageIdentifier toMutant() throws InvalidParameterException {
-		return new LongIdentifierMutant(this);
-	}
 }

@@ -33,7 +33,7 @@ public class Person implements I_Validateable, I_Person, I_Immutable {
 		mutant = new PersonMutant(p);
 		I_StorageIdentifier otherId = mutant.getId();
 		if (otherId != null) {
-			id = otherId.toImmutable();
+			id = otherId;
 		}
 		I_CustomInfo otherInfo = mutant.getCustomInfo();
 		if (otherInfo != null) {

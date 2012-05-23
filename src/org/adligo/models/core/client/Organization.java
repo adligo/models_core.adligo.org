@@ -27,7 +27,7 @@ public class Organization implements I_Organization, I_Validateable, I_Immutable
 		mutant = new OrganizationMutant(other);
 		I_StorageIdentifier otherId = other.getId();
 		if (otherId != null) {
-			id = otherId.toImmutable();
+			id = otherId;
 		}
 		I_NamedId other_type = other.getType();
 		if (other_type != null) {

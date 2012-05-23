@@ -5,72 +5,111 @@ import org.adligo.i.util.client.I_Immutable;
 import org.adligo.i.util.client.StringUtils;
 import org.adligo.models.core.client.InvalidParameterException;
 
-/**
- * this provides a unique identifier for a stored model
- * Storage Identifier 
- * for a LDAP server (key is dn in this case)
- * or a FileSystem (key is the java.io.File pathname constructor)
- * 
- * Note the errors are not internationalized because
- * they are primarily for programmers who write code in English.
- * 
- * @author scott
- *
- */
+
 public class StringIdentifier implements I_StringIdentifier, I_Immutable {
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private StringIdentifierMutant mutant;
+	public static final String SET_KEY = "setKey";
+	public static final String TYPE = "StringIdentifier";
+	public static final String KEY_CANT_BE_SET_TO_EMPTY = "StringIdentifier key can't be set to empty!";
+	public static final String NO_KEY_OR_A_ID = "A StringIdentifier must have a key!";
+	public static final String CONSTRUCTOR = "Constructor";
+	/**
+	 * 
+	 * used to identify a model in a LDAP server (distinguished name)
+	 * or on disk (filename for xml, json, exc)
+	 * 
+	 */
+	private String key;
 	
 	public StringIdentifier() {
-		mutant = new StringIdentifierMutant();
-	}
-	
-	public StringIdentifier(String p) throws InvalidParameterException {
-		mutant = new StringIdentifierMutant(p);
-	}
-	
-	public StringIdentifier(I_StringIdentifier other) throws InvalidParameterException {
-		mutant = new StringIdentifierMutant(other);
-	}
-	
-	
-	public String getKey() {
-		return mutant.getKey();
 	}
 
+	public StringIdentifier(String p) throws InvalidParameterException {
+		try {
+			setKey(p);
+		} catch (InvalidParameterException ipe) {
+			throw new InvalidParameterException(ipe.getMessage(), CONSTRUCTOR);
+		}
+	}
+	
+	public StringIdentifier(I_StringIdentifier p) throws InvalidParameterException {
+		if (p == null) {
+			throw new InvalidParameterException(NO_KEY_OR_A_ID, CONSTRUCTOR);
+		}
+		try {
+			setKey(p.getKey());
+		} catch (InvalidParameterException ipe) {
+			throw new InvalidParameterException(ipe.getMessage(), CONSTRUCTOR);
+		}
+	}	
+	
 	public int hashCode() {
-		return mutant.hashCode();
+		if (key == null) {
+			return 0;
+		}
+		return key.hashCode();
+	}
+	
+	private void setKey(String p_key) throws InvalidParameterException {
+		if (StringUtils.isEmpty(p_key)) {
+			throw new InvalidParameterException(KEY_CANT_BE_SET_TO_EMPTY, SET_KEY);
+		}
+		key = p_key;
 	}
 
 	public boolean equals(Object obj) {
-		return mutant.equals(obj);
-	}
-	
-	public boolean hasValue() {
-		return mutant.hasValue();
-	}
-	
-	public String getType() {
-		return StringIdentifierMutant.TYPE;
-	}
-	
-	public String toString() {
-		return mutant.toString(this.getClass());
+		if (obj != null) {
+			try {
+				I_StringIdentifier id = (I_StringIdentifier) obj;
+				String otherKey = id.getKey();
+				if (key == null) {
+					if (otherKey == null) {
+						return true;
+					} else {
+						return false;
+					}
+				}
+				if (key.equals(otherKey)) {
+					return true;
+				}
+			} catch (ClassCastException x) {
+				//eat gwt doesn't have instance of operator
+			}
+		}
+		return false;		
 	}
 
-	@Override
+	public String getKey() {
+		return key;
+	}
+
+	public boolean hasValue() {
+		if (key == null) {
+			return false;
+		}
+		return true;
+	}
+
+	public String toString() {
+		return toString(this.getClass());
+	}
+	
+	
+	String toString(Class c) {
+		StringBuffer sb = new StringBuffer();
+		sb.append(ClassUtils.getClassShortName(c));
+		sb.append(" [key=");
+		sb.append(key);
+		sb.append("]");
+		return sb.toString();
+	}
+
 	public String getImmutableFieldName() {
-		return "mutant";
+		return "key";
 	}
-	
-	public I_StorageIdentifier toImmutable() throws InvalidParameterException {
-		return new StringIdentifier(this);
-	}
-	
-	public I_StorageIdentifier toMutant() throws InvalidParameterException {
-		return new StringIdentifierMutant(this);
-	}
+
 }

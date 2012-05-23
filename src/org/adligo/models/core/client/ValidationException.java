@@ -21,5 +21,7 @@ public class ValidationException extends ChainedFieldException {
 	public ValidationException(String message, String methodName, ChainedFieldException cause) {
 		super(message, methodName, cause);
 	}
-	
+	public ValidationException(ChainedFieldException cause) {
+		super(cause.getMessage(), cause.getMethodName(), cause);
+	}
 }

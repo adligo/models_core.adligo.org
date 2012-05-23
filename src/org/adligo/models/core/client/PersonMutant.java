@@ -156,7 +156,7 @@ public class PersonMutant implements I_PersonMutant  {
 			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getStorageIdRequired(),SET_ID);
 		}
-		id = p_id.toMutant();
+		id = p_id;
 	}
 
 	public String getFirst_name() {

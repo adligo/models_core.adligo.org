@@ -34,7 +34,7 @@ public class User implements I_User, I_Immutable {
 	private void setImmutables() throws InvalidParameterException {
 		I_StorageIdentifier otherId = wrapped.getId();
 		if (otherId != null) {
-			id = otherId.toImmutable();
+			id = otherId;
 		}
 		domain = wrapped.getDomain();
 		emailAddress = wrapped.getEmail();

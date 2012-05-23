@@ -48,7 +48,7 @@ public class OrganizationMutant implements I_OrganizationMutant {
 			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getStorageIdRequired(),SET_ID);
 		}
-		id = p_id.toMutant();
+		id = p_id;
 	}
 
 	

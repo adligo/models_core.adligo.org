@@ -227,7 +227,7 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getStorageIdRequired(),SET_ID);
 		}
-		id = p_id.toMutant();
+		id = p_id;
 	}
 
 	/**
