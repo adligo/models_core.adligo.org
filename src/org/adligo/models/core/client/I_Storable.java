@@ -2,7 +2,6 @@ package org.adligo.models.core.client;
 
 import java.io.Serializable;
 
-import org.adligo.models.core.client.ids.I_StorageIdentifier;
 
 /**
  * something that implements this interface should be able 
@@ -11,6 +10,11 @@ import org.adligo.models.core.client.ids.I_StorageIdentifier;
  * @author scott
  *
  */
-public interface I_Storable extends Serializable {
-	public I_StorageIdentifier getId();
+public interface I_Storable extends Serializable, I_Identifiable {
+	/**
+	 * @see I_StorageInfo
+	 * @return
+	 */
+	public I_StorageInfo getStorageInfo();
+	
 }

@@ -1,6 +1,6 @@
 package org.adligo.models.core.client;
 
-public interface I_AddressMutant extends I_Address, I_StorageMutant {
+public interface I_AddressMutant extends I_Address, I_IdentifiableMutant {
 	public void setStreetAddress(String p) throws InvalidParameterException ;
 	public void setCity(String p) throws InvalidParameterException ;
 	public void setCountryCode(String p) throws InvalidParameterException ;

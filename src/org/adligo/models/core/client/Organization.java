@@ -18,6 +18,8 @@ public class Organization implements I_Organization, I_Validateable, I_Immutable
 	 * keep type seperate from mutant for immutability
 	 */
 	private I_NamedId type;
+	private I_CustomInfo customInfo;
+	private I_StorageInfo storageInfo;
 	
 	public Organization() {
 		mutant = new OrganizationMutant();
@@ -32,6 +34,22 @@ public class Organization implements I_Organization, I_Validateable, I_Immutable
 		I_NamedId other_type = other.getType();
 		if (other_type != null) {
 			type = new NamedId(other_type);
+		}
+		I_StorageInfo p_storageInfo = other.getStorageInfo();
+		if (p_storageInfo != null) {
+			try {
+				storageInfo = (I_StorageInfo) p_storageInfo.toImmutable();
+			} catch (ValidationException ve) {
+				throw new InvalidParameterException(ve);
+			}
+		}
+		I_CustomInfo p_customInfo = other.getCustomInfo();
+		if (p_customInfo != null) {
+			try {
+				customInfo = p_customInfo.toImmutable();
+			} catch (ValidationException ve) {
+				throw new InvalidParameterException(ve);
+			}
 		}
 	}
 
@@ -72,8 +90,31 @@ public class Organization implements I_Organization, I_Validateable, I_Immutable
 		return mutant.toString(this.getClass(), this);
 	}
 
-	@Override
 	public String getImmutableFieldName() {
 		return "mutant";
+	}
+
+	public I_CustomInfo getCustomInfo() {
+		return customInfo;
+	}
+
+	public I_StorageInfo getStorageInfo() {
+		return storageInfo;
+	}
+
+	public Integer getVersion() {
+		return mutant.getVersion();
+	}
+
+	public I_Organization toImmutable() throws ValidationException {
+		return this;
+	}
+
+	public I_OrganizationMutant toMutant() throws ValidationException {
+		try {
+			return new OrganizationMutant(this);
+		} catch (InvalidParameterException ipe) {
+			throw new ValidationException(ipe);
+		}
 	}
 }

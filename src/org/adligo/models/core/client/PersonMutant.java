@@ -79,6 +79,9 @@ public class PersonMutant implements I_PersonMutant  {
 	 * custom info specific to your system
 	 */
 	private I_CustomInfo customInfo;
+	/**
+	 * detailed information about where this was stored 
+	 */
 	private I_StorageInfo storageInfo;
 	
 	public PersonMutant() {}

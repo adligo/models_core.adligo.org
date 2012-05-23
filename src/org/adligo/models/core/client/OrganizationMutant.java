@@ -16,13 +16,21 @@ public class OrganizationMutant implements I_OrganizationMutant {
 	public static final String ORGANIZAITION = "Organization";
 	
 	private I_StorageIdentifier id;
+	private Integer version;
 	private String name;
 	/**
 	 * the type pertains to something like a School, Band, Company
 	 * to be defined depending on your problem domain 
 	 */
 	private I_NamedId type;
-	
+	/**
+	 * custom info specific to your system
+	 */
+	private I_CustomInfo customInfo;
+	/**
+	 * detailed information about where this was stored 
+	 */
+	private I_StorageInfo storageInfo;
 	
 	/**
 	 * for gwt serialization
@@ -34,8 +42,18 @@ public class OrganizationMutant implements I_OrganizationMutant {
 			if (p.getId() != null) {
 				setId(p.getId());
 			}
+			setVersion(p.getVersion());
 			setName(p.getName());
 			setType(p.getType());
+			I_StorageInfo storageInfo = p.getStorageInfo();
+			if (storageInfo != null) {
+				setStorageInfo(storageInfo);
+			}
+			I_CustomInfo customInfo = p.getStorageInfo();
+			if (customInfo != null) {
+				setCustomInfo(customInfo);
+			}
+			
 		} catch (InvalidParameterException x) {
 			InvalidParameterException ipe = new InvalidParameterException(
 					x.getMessage(), ORGANIZAITION, x);
@@ -157,7 +175,55 @@ public class OrganizationMutant implements I_OrganizationMutant {
 		sb.append(p.getType());
 		sb.append(",id=");
 		sb.append(p.getId());
+		sb.append(",customInfo=");
+		sb.append(customInfo);
+		sb.append(",storageInfo=");
+		sb.append(storageInfo);
 		sb.append("]");
 		return sb.toString();
+	}
+
+	public I_CustomInfo getCustomInfo() {
+		return customInfo;
+	}
+
+	public void setCustomInfo(I_CustomInfo customInfo) throws InvalidParameterException {
+		try {
+			this.customInfo = customInfo.toMutant();
+		} catch (ValidationException ve) {
+			throw new InvalidParameterException(ve);
+		}
+	}
+
+	public I_StorageInfo getStorageInfo() {
+		return storageInfo;
+	}
+
+	public void setStorageInfo(I_StorageInfo storageInfo) throws InvalidParameterException {
+		try {
+			this.storageInfo = (I_StorageInfo) storageInfo.toMutant();
+		} catch (ValidationException ve) {
+			throw new InvalidParameterException(ve);
+		}
+	}
+
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+	
+	public I_Organization toImmutable() throws ValidationException {
+		try {
+			return new Organization(this);
+		} catch (InvalidParameterException ipe) {
+			throw new ValidationException(ipe);
+		}
+	}
+
+	public I_OrganizationMutant toMutant() throws ValidationException {
+		return this;
 	}
 }

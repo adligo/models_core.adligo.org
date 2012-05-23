@@ -14,6 +14,10 @@ public class User implements I_User, I_Immutable {
 	 * keep seperate for immutability
 	 */
 	private I_StorageIdentifier id;
+	/**
+	 * detailed information about where this was stored 
+	 */
+	private I_StorageInfo storageInfo;
 	private DomainName domain;
 	private EMailAddress emailAddress;
 	
@@ -38,6 +42,14 @@ public class User implements I_User, I_Immutable {
 		}
 		domain = wrapped.getDomain();
 		emailAddress = wrapped.getEmail();
+		I_StorageInfo p_storageInfo = wrapped.getStorageInfo();
+		if (p_storageInfo != null) {
+			try {
+				storageInfo = (I_StorageInfo) p_storageInfo.toImmutable();
+			} catch (ValidationException ve) {
+				throw new InvalidParameterException(ve);
+			}
+		}
 	}
 	
 	public boolean isMutable() {
@@ -97,4 +109,21 @@ public class User implements I_User, I_Immutable {
 	public String getImmutableFieldName() {
 		return "wrapped";
 	}
+	
+	public I_StorageInfo getStorageInfo() {
+		return storageInfo;
+	}
+
+	public I_User toImmutable() throws ValidationException {
+		return this;
+	}
+
+	public I_UserMutant toMutant() throws ValidationException {
+		try {
+			return new UserMutant(this);
+		} catch (InvalidParameterException ipe) {
+			throw new ValidationException(ipe);
+		}
+	}
+
 }

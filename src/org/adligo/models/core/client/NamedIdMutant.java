@@ -3,7 +3,13 @@ package org.adligo.models.core.client;
 import org.adligo.i.util.client.ClassUtils;
 import org.adligo.models.core.client.ids.I_StorageIdentifier;
 
-
+/**
+ * this class is intended to be used for selection lists, 
+ * and NOT to be used for updating the data storage.
+ * 
+ * @author scott
+ *
+ */
 public class NamedIdMutant implements I_NamedIdMutant, I_Validateable {
 	public static final String NULL_TO_CONSTRUCTOR =  "a null was passed to the NamedIdMutant constructor ";
 	/**

@@ -20,8 +20,11 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 	/**
 	 * the unique storage identifier
 	 */
-	protected I_StorageIdentifier id;
-	
+	private I_StorageIdentifier id;
+	/**
+	 * detailed information about where this was stored 
+	 */
+	private I_StorageInfo storageInfo;
 	/**
 	 * usually a email address
 	 * used as reciever in MessageDestination to identify the session of the user
@@ -69,6 +72,10 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 			setPassword(p.getPassword());
 			setName(p.getName());
 			setEmail(p.getEmail());
+			I_StorageInfo storageInfo = p.getStorageInfo();
+			if (storageInfo != null) {
+				setStorageInfo(storageInfo);
+			}
 		} catch (InvalidParameterException x) {
 			throw new InvalidParameterException(x.getMessage(), USER, x);
 		}
@@ -274,6 +281,8 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 		sb.append(",domain=");
 		sb.append(p.getDomain());
 		//omit password!
+		sb.append(",storageInfo=");
+		sb.append(storageInfo);
 		sb.append("]");
 		return sb.toString();
 	}
@@ -380,5 +389,29 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 
 	public StringIdentifier generate() throws InvalidParameterException{
 		return new StringIdentifier(getDn());
+	}
+	
+	public I_StorageInfo getStorageInfo() {
+		return storageInfo;
+	}
+
+	public void setStorageInfo(I_StorageInfo storageInfo) throws InvalidParameterException {
+		try {
+			this.storageInfo = (I_StorageInfo) storageInfo.toMutant();
+		} catch (ValidationException ve) {
+			throw new InvalidParameterException(ve);
+		}
+	}
+
+	public I_User toImmutable() throws ValidationException {
+		try {
+			return new User(this);
+		} catch (InvalidParameterException ipe) {
+			throw new ValidationException(ipe);
+		}
+	}
+
+	public I_UserMutant toMutant() throws ValidationException {
+		return this;
 	}
 }

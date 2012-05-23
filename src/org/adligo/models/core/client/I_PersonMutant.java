@@ -8,11 +8,8 @@ public interface I_PersonMutant extends I_Person, I_ChangeableMutant {
 	public void setBirthday(Long p) throws InvalidParameterException;
 	public void setDeceased(Long p) throws InvalidParameterException;
 	public void setGender(Character c) throws InvalidParameterException;
-	//public void setCustomInfo(I_CustomInfo p) throws InvalidParameterException;
-	/**
-	 * @see I_Person#getStorageInfo()
-	 */
-	public void setStorageInfo(I_StorageInfo p) throws InvalidParameterException;
+	public void setCustomInfo(I_CustomInfo p) throws InvalidParameterException;
+
 	/**
 	 * @see I_Person#getHeight()
 	 */

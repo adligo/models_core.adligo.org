@@ -2,7 +2,7 @@ package org.adligo.models.core.client;
 
 
 
-public interface I_User extends I_NamedId {
+public interface I_User extends I_NamedId, I_Storable {
 	
 	/** 
 	 * @return the users name for things like
@@ -26,4 +26,7 @@ public interface I_User extends I_NamedId {
 	 * @return
 	 */
 	public String getDn();
+	
+	public I_User toImmutable() throws ValidationException;
+	public I_UserMutant toMutant() throws ValidationException;
 }
