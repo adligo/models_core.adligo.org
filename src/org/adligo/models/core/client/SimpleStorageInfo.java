@@ -1,6 +1,8 @@
 package org.adligo.models.core.client;
 
-public class SimpleStorageInfo implements I_StorageInfo {
+import org.adligo.i.util.client.I_Immutable;
+
+public class SimpleStorageInfo implements I_StorageInfo, I_Immutable {
 
 	/**
 	 * 
@@ -34,6 +36,10 @@ public class SimpleStorageInfo implements I_StorageInfo {
 
 	public String getStoreName() {
 		return storeName;
+	}
+
+	public String getImmutableFieldName() {
+		return "storeName";
 	}
 	
 }
