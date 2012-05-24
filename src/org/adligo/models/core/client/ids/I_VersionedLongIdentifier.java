@@ -3,7 +3,7 @@ package org.adligo.models.core.client.ids;
 import java.io.Serializable;
 
 /**
- * note this is not serilizeable as 
+ * note 
  * it would get normalized to the version integer and I_StorageIdentifier
  * at runtime in the class (see Person, Org)
  * @author scott
