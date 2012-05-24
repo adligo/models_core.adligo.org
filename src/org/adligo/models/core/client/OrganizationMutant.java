@@ -66,6 +66,10 @@ public class OrganizationMutant implements I_OrganizationMutant {
 			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getStorageIdRequired(),SET_ID);
 		}
+		if (!p_id.hasValue()) {
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
+					.getStorageIdRequired(),SET_ID);
+		}
 		id = p_id;
 	}
 
@@ -94,6 +98,10 @@ public class OrganizationMutant implements I_OrganizationMutant {
 
 	public void setType(I_StorageIdentifier p) throws InvalidParameterException {
 		if (p == null) {
+			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
+					.getOrgEmptyTypeError(),SET_TYPE);
+		}
+		if (!p.hasValue()) {
 			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getOrgEmptyTypeError(),SET_TYPE);
 		}
