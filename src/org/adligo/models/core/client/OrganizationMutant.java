@@ -22,7 +22,7 @@ public class OrganizationMutant implements I_OrganizationMutant {
 	 * the type pertains to something like a School, Band, Company
 	 * to be defined depending on your problem domain 
 	 */
-	private I_NamedId type;
+	private I_StorageIdentifier type;
 	/**
 	 * custom info specific to your system
 	 */
@@ -88,26 +88,16 @@ public class OrganizationMutant implements I_OrganizationMutant {
 	/* (non-Javadoc)
 	 * @see org.adligo.models.core.client.I_Org#getType()
 	 */
-	public I_NamedId getType() {
+	public I_StorageIdentifier getType() {
 		return type;
 	}
 
-	public void setType(I_NamedId p) throws InvalidParameterException {
+	public void setType(I_StorageIdentifier p) throws InvalidParameterException {
 		if (p == null) {
 			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 					.getOrgEmptyTypeError(),SET_TYPE);
 		}
-		if (StringUtils.isEmpty(p.getName())) {
-			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
-					.getOrgEmptyTypeError(),SET_TYPE);
-		}
-		try {
-			type = new NamedId(p);
-		} catch (InvalidParameterException x) {
-			InvalidParameterException ipe = new InvalidParameterException(x.getMessage(), SET_TYPE);
-			ipe.initCause(x);
-			throw ipe;
-		}
+		type = p;
 	}
 	
 	public boolean isValid() {
@@ -129,7 +119,7 @@ public class OrganizationMutant implements I_OrganizationMutant {
 		final int prime = 31;
 		int result = 1;
 		String name = me.getName();
-		I_NamedId type = me.getType();
+		I_StorageIdentifier type = me.getType();
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		return result;

@@ -17,7 +17,6 @@ public class Organization implements I_Organization, I_Validateable, I_Immutable
 	/**
 	 * keep type seperate from mutant for immutability
 	 */
-	private I_NamedId type;
 	private I_CustomInfo customInfo;
 	private I_StorageInfo storageInfo;
 	
@@ -30,10 +29,6 @@ public class Organization implements I_Organization, I_Validateable, I_Immutable
 		I_StorageIdentifier otherId = other.getId();
 		if (otherId != null) {
 			id = otherId;
-		}
-		I_NamedId other_type = other.getType();
-		if (other_type != null) {
-			type = new NamedId(other_type);
 		}
 		I_StorageInfo p_storageInfo = other.getStorageInfo();
 		if (p_storageInfo != null) {
@@ -53,8 +48,8 @@ public class Organization implements I_Organization, I_Validateable, I_Immutable
 		}
 	}
 
-	public I_NamedId getType() {
-		return type;
+	public I_StorageIdentifier getType() {
+		return mutant.getType();
 	}
 
 	public String getName() {
