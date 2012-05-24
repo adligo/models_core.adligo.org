@@ -9,7 +9,7 @@ package org.adligo.models.core.client.ids;
  */
 public interface I_VersionedLongIdentifier {
 
-	public abstract I_StorageIdentifier getId();
+	public abstract Long getId();
 
 	public abstract Integer getVersion();
 
