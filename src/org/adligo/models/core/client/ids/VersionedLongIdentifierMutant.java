@@ -1,5 +1,6 @@
 package org.adligo.models.core.client.ids;
 
+import org.adligo.i.adi.client.I_Cacheable;
 import org.adligo.models.core.client.InvalidParameterException;
 
 public class VersionedLongIdentifierMutant implements I_VersionedLongIdentifier {
@@ -79,4 +80,14 @@ public class VersionedLongIdentifierMutant implements I_VersionedLongIdentifier 
 				+ id + "]";
 	}
 	
+	public int getMemsize() {
+		int size = 0;
+		if (id != null) {
+			size = I_Cacheable.LONG;
+		}
+		if (id != null) {
+			size = size + I_Cacheable.INT;
+		}
+		return I_Cacheable.OBJECT + size;
+	}
 }

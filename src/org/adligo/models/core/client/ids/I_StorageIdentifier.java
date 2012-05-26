@@ -2,6 +2,7 @@ package org.adligo.models.core.client.ids;
 
 import java.io.Serializable;
 
+import org.adligo.i.adi.client.I_Cacheable;
 import org.adligo.i.util.client.I_Immutable;
 
 /**
@@ -12,7 +13,7 @@ import org.adligo.i.util.client.I_Immutable;
  * @author scott
  *
  */
-public interface I_StorageIdentifier extends Serializable, I_Immutable {
+public interface I_StorageIdentifier extends Serializable, I_Immutable, I_Cacheable {
 
 	/**
 	 * should return true if the value has been used on the storage system

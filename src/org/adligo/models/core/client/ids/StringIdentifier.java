@@ -1,5 +1,6 @@
 package org.adligo.models.core.client.ids;
 
+import org.adligo.i.adi.client.I_Cacheable;
 import org.adligo.i.util.client.ClassUtils;
 import org.adligo.i.util.client.I_Immutable;
 import org.adligo.i.util.client.StringUtils;
@@ -110,6 +111,14 @@ public class StringIdentifier implements I_StringIdentifier, I_Immutable {
 
 	public String getImmutableFieldName() {
 		return "key";
+	}
+
+	public int getMemsize() {
+		int size = 0;
+		if (key != null) {
+			size = key.getBytes().length;
+		}
+		return I_Cacheable.OBJECT + size;
 	}
 
 }
