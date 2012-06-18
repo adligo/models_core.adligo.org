@@ -44,7 +44,13 @@ public class StorableValidator {
 	}
 	
 	public static boolean validate(I_Storable storable, String methodName) throws ValidationException {
-		if (validate((I_Changeable) storable,  methodName)) {
+		if (validate((I_Identifiable) storable,  methodName)) {
+			try {
+				validate((I_Changeable) storable, methodName);
+			} catch (ClassCastException x) {
+				//do nothing all storables are not changeable
+				// GWT didn't impl instanceOf correctly at this time
+			}
 			I_StorageInfo info = storable.getStorageInfo();
 			if (info == null) {
 				Class clazz = storable.getClass();

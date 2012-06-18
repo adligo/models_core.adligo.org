@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.adligo.i.util.client.ClassUtils;
 import org.adligo.i.util.client.DateTime;
+import org.adligo.i.util.client.StringUtils;
 import org.adligo.models.core.client.ids.I_StorageIdentifier;
 import org.adligo.models.core.client.ids.StorageIdentifierValidator;
 
@@ -92,7 +93,7 @@ public class PersonMutant implements I_PersonMutant  {
 			p.isValid();
 			copy(this, p);
 		} catch (ValidationException x) {
-			throw new InvalidParameterException(getConstants().getPersonNoNameError(), PERSON, x);
+			throw new InvalidParameterException(x.getMessage(), PERSON, x);
 		}
 	}
 	
@@ -289,17 +290,19 @@ public class PersonMutant implements I_PersonMutant  {
 		StorableValidator.validate(this, I_Validateable.IS_VALID);
 		try {
 			PersonMutant other = new PersonMutant();
-			other.setFirst_name(getFirst_name());
-			other.setMiddle_name(getMiddle_name());
-			other.setLast_name(getLast_name());
+			if (StringUtils.isEmpty(getName())) {
+				throw new ValidationException( getConstants().getPersonNoNameError(), I_Validateable.IS_VALID);
+			}
+			
 			other.setBirthday(getBirthday());
 			other.setDeceased(getDeceased());
-			other.setNickname(getNickname());
 			other.setGender(getGender());
 			other.setHeight(getHeight());
 			other.setWeight(getWeight());
-			if (customInfo.isValidatable()) {
-				((I_Validateable) customInfo).isValid();
+			if (customInfo != null) {
+				if (customInfo.isValidatable()) {
+					((I_Validateable) customInfo).isValid();
+				}
 			}
 		} catch (InvalidParameterException e) {
 			throw new ValidationException(e.getMessage(), I_Validateable.IS_VALID, e);
