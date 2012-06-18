@@ -63,7 +63,7 @@ public class NamedIdMutant implements I_NamedIdMutant, I_Validateable {
 	 * @param p_name
 	 * @throws InvalidParameterException
 	 */
-	public void setName(String p_name) {
+	public void setName(String p_name) throws InvalidParameterException {
 		name = p_name;
 	}
 
@@ -83,9 +83,14 @@ public class NamedIdMutant implements I_NamedIdMutant, I_Validateable {
 		return sb.toString();
 	}
 
-	public boolean isValid() throws ValidationException {
-		// TODO Auto-generated method stub
-		return false;
+	public void isValid() throws ValidationException {
+		StorableValidator.validate(this, I_Validateable.IS_VALID);
+		try {
+			NamedIdMutant other = new NamedIdMutant();
+			other.setName(getName());
+		} catch (InvalidParameterException e) {
+			throw new ValidationException(e.getMessage(), I_Validateable.IS_VALID, e);
+		}
 	}
 
 	public int hashCode() {
@@ -113,5 +118,9 @@ public class NamedIdMutant implements I_NamedIdMutant, I_Validateable {
 		} else if (!name.equals(other.getName()))
 			return false;
 		return true;
+	}
+
+	public boolean isStored() throws ValidationException {
+		return StorableValidator.validate(this, I_Storable.IS_STORED);
 	}
 }

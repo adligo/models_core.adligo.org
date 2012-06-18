@@ -285,23 +285,25 @@ public class PersonMutant implements I_PersonMutant  {
 		return sb.toString();
 	}
 
-	public boolean isValid()  throws ValidationException { 
-		// a PersonMutant needs a name of some sort at least
-		if (first_name == null && 
-			middle_name == null &&
-			last_name == null &&
-			nickname == null ) {
-			
-			ValidationException validationException = new ValidationException(
-					getConstants().getPersonNoNameError(), SET_NAME);
-			throw validationException;
-		}
-		if (customInfo != null) {
+	public void isValid() throws ValidationException {
+		StorableValidator.validate(this, I_Validateable.IS_VALID);
+		try {
+			PersonMutant other = new PersonMutant();
+			other.setFirst_name(getFirst_name());
+			other.setMiddle_name(getMiddle_name());
+			other.setLast_name(getLast_name());
+			other.setBirthday(getBirthday());
+			other.setDeceased(getDeceased());
+			other.setNickname(getNickname());
+			other.setGender(getGender());
+			other.setHeight(getHeight());
+			other.setWeight(getWeight());
 			if (customInfo.isValidatable()) {
 				((I_Validateable) customInfo).isValid();
 			}
+		} catch (InvalidParameterException e) {
+			throw new ValidationException(e.getMessage(), I_Validateable.IS_VALID, e);
 		}
-		return true;
 	}
 
 	public String getNickname() {
@@ -541,5 +543,9 @@ public class PersonMutant implements I_PersonMutant  {
 		} else {
 			this.deceased = p.getTime();
 		}
+	}
+	
+	public boolean isStored() throws ValidationException {
+		return StorableValidator.validate(this, I_Storable.IS_STORED);
 	}
 }

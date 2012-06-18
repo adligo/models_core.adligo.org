@@ -101,8 +101,8 @@ public class User implements I_User, I_Immutable {
 		return wrapped.getPassword();
 	}
 
-	public boolean isValid() {
-		return UserMutant.isValid(this);
+	public void isValid() throws ValidationException {
+		wrapped.isValid();
 	}
 
 	@Override
@@ -124,6 +124,10 @@ public class User implements I_User, I_Immutable {
 		} catch (InvalidParameterException ipe) {
 			throw new ValidationException(ipe);
 		}
+	}
+
+	public boolean isStored() throws ValidationException {
+		return wrapped.isStored();
 	}
 
 }

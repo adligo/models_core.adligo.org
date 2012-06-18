@@ -1,11 +1,16 @@
 package org.adligo.models.core.client;
 
 public interface I_Validateable {
+	public static final String IS_VALID = "isValid";
+	
 	/**
-	 * never return false here, always throw a ValidationException
-	 * to show why it's not valid
+	 * 
+	 * Also note that a entity can either be saved or unsaved.
+	 * See StorableValidator.
+	 * 
+	 * Referent ids should be validated (ie org type)
 	 * @return
 	 * @throws ValidationException
 	 */
-	public boolean isValid() throws ValidationException;
+	public void isValid() throws ValidationException;
 }

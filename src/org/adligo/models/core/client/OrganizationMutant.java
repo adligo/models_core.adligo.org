@@ -44,12 +44,13 @@ public class OrganizationMutant implements I_OrganizationMutant {
 				setId(p.getId());
 			}
 			setVersion(p.getVersion());
-			setName(p.getName());
-			setType(p.getType());
 			I_StorageInfo storageInfo = p.getStorageInfo();
 			if (storageInfo != null) {
 				setStorageInfo(storageInfo);
 			}
+			setName(p.getName());
+			setType(p.getType());
+			
 			I_CustomInfo customInfo = p.getStorageInfo();
 			if (customInfo != null) {
 				setCustomInfo(customInfo);
@@ -102,14 +103,18 @@ public class OrganizationMutant implements I_OrganizationMutant {
 		type = p;
 	}
 	
-	public boolean isValid() {
+	public void isValid() throws ValidationException {
+		StorableValidator.validate(this, I_Validateable.IS_VALID);
 		try {
-			new Organization(this);
-			return true;
+			OrganizationMutant other = new OrganizationMutant();
+			other.setName(getName());
+			other.setType(getType());
+			if (customInfo.isValidatable()) {
+				((I_Validateable) customInfo).isValid();
+			}
 		} catch (InvalidParameterException e) {
-			//do nothing
+			throw new ValidationException(e.getMessage(), I_Validateable.IS_VALID, e);
 		}
-		return false;
 	}
 	
 	
@@ -217,5 +222,9 @@ public class OrganizationMutant implements I_OrganizationMutant {
 
 	public I_OrganizationMutant toMutant() throws ValidationException {
 		return this;
+	}
+	
+	public boolean isStored() throws ValidationException {
+		return StorableValidator.validate(this, I_Storable.IS_STORED);
 	}
 }

@@ -60,14 +60,12 @@ public class PhoneNumber implements I_Validateable, I_PhoneNumber, I_Immutable
 		number = p;
 	}
 	
-	public boolean isValid() {
+	public void isValid() throws ValidationException {
 		try {
 			new PhoneNumber(this);
-			return true;
 		} catch (InvalidParameterException e) {
-			//do nothing
+			throw new ValidationException(e.getMessage(), I_Validateable.IS_VALID, e);
 		}
-		return false;
 	}
 
 	public int hashCode() {
@@ -98,9 +96,9 @@ public class PhoneNumber implements I_Validateable, I_PhoneNumber, I_Immutable
 		return number;
 	}
 
-	@Override
 	public String getImmutableFieldName() {
 		return "number";
 	}
+	
 	
 }

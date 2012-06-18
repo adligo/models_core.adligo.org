@@ -5,6 +5,8 @@ import org.adligo.models.core.client.InvalidParameterException;
 /**
  * Note end users should never see these errors so 
  * they are NOT i18n
+ * 
+ * 
  * @author scott
  *
  */

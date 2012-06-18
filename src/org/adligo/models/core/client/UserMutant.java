@@ -287,29 +287,16 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 		return false;
 	}
 
-	public boolean isValid() {
-		return isValid(this);
-	}
-	
-	public static boolean isValid(I_User user) {
-		DomainName domain = user.getDomain();
-		EMailAddress email = user.getEmail();
-		String name = user.getName();
-		String password = user.getPassword();
-		
-		if (domain == null) {
-			return false;
-		} 
-		if (email == null) {
-			return false;
+	public void isValid() throws ValidationException {
+		StorableValidator.validate(this, I_Validateable.IS_VALID);
+		try {
+			UserMutant other = new UserMutant();
+			other.setName(getName());
+			other.setEmail(getEmail());
+			other.setDomain(getDomain());
+		} catch (InvalidParameterException e) {
+			throw new ValidationException(e.getMessage(), I_Validateable.IS_VALID, e);
 		}
-		if (StringUtils.isEmpty(name)) {
-			return false;
-		}
-		if (StringUtils.isEmpty(password)) {
-			return false;
-		}
-		return true;
 	}
 
 	static int genHashCode(I_User user) {
@@ -408,5 +395,9 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 
 	public I_UserMutant toMutant() throws ValidationException {
 		return this;
+	}
+	
+	public boolean isStored() throws ValidationException {
+		return StorableValidator.validate(this, I_Storable.IS_STORED);
 	}
 }

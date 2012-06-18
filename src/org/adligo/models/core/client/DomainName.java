@@ -8,6 +8,8 @@ import org.adligo.i.util.client.I_Immutable;
 import org.adligo.i.util.client.StringUtils;
 
 public class DomainName implements I_Validateable, I_Mutable, I_Immutable, Serializable {
+	public static final String IS_VALID = "isValid";
+
 	/**
 	 * 
 	 */
@@ -83,13 +85,12 @@ public class DomainName implements I_Validateable, I_Mutable, I_Immutable, Seria
 	}
 
 
-	public boolean isValid() {
+	public void isValid() throws ValidationException {
 		try {
 			DomainName o = new DomainName(this.toString());
 		} catch (InvalidParameterException x) {
-			return false;
+			throw new ValidationException(x.getMessage(), IS_VALID, x);
 		}
-		return true;
 	}
 
 

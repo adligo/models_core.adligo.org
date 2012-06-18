@@ -54,8 +54,8 @@ public class NamedId implements I_NamedId, I_Immutable {
 		return mutant.toString(this.getClass(), id);
 	}
 
-	public boolean isValid() throws ValidationException {
-		return mutant.isValid();
+	public void isValid() throws ValidationException {
+		mutant.isValid();
 	}
 
 	public int hashCode() {
@@ -66,9 +66,12 @@ public class NamedId implements I_NamedId, I_Immutable {
 		return mutant.equals(obj);
 	}
 
-	@Override
 	public String getImmutableFieldName() {
 		return "mutant";
+	}
+
+	public boolean isStored() throws ValidationException {
+		return mutant.isStored();
 	}
 
 }

@@ -50,8 +50,8 @@ public class Address implements I_Address, I_Immutable {
 		return wrapped.getStreetAddress();
 	}
 
-	public boolean isValid() {
-		return wrapped.isValid();
+	public void isValid() throws ValidationException {
+		wrapped.isValid();
 	}
 
 	public String toString() {
@@ -65,5 +65,10 @@ public class Address implements I_Address, I_Immutable {
 	@Override
 	public String getImmutableFieldName() {
 		return "wrapped";
+	}
+
+	@Override
+	public boolean isStored() throws ValidationException {
+		return wrapped.isStored();
 	}
 }

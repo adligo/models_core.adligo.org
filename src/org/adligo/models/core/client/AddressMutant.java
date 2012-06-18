@@ -206,14 +206,18 @@ public class AddressMutant implements I_AddressMutant {
 		return true;
 	}
 
-	public boolean isValid() {
+	public void isValid() throws ValidationException {
+		StorableValidator.validate(this, I_Validateable.IS_VALID);
 		try {
-			new AddressMutant(this);
-			return true;
+			AddressMutant other = new AddressMutant();
+			other.setStreetAddress(getStreetAddress());
+			other.setCity(getCity());
+			other.setCountryCode(getCountryCode());
+			other.setCountrySubCode(getCountrySubCode());
+			other.setPostalCode(getPostalCode());
 		} catch (InvalidParameterException e) {
-			//do nothing
+			throw new ValidationException(e.getMessage(), I_Validateable.IS_VALID, e);
 		}
-		return false;
 	}
 
 	public String toString() {
@@ -241,5 +245,9 @@ public class AddressMutant implements I_AddressMutant {
 	
 	public boolean isMutable() {
 		return true;
+	}
+
+	public boolean isStored() throws ValidationException {
+		return StorableValidator.validate(this, I_Storable.IS_STORED);
 	}
 }

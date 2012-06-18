@@ -56,8 +56,8 @@ public class Person implements I_Validateable, I_Person, I_Immutable {
 	/* (non-Javadoc)
 	 * @see org.adligo.models.core.client.I_Person#isValid()
 	 */
-	public boolean isValid() throws ValidationException {
-		return mutant.isValid();
+	public void isValid() throws ValidationException {
+		mutant.isValid();
 	}
 	
 	public String toString() {
@@ -144,6 +144,11 @@ public class Person implements I_Validateable, I_Person, I_Immutable {
 	@Override
 	public I_StorageInfo getStorageInfo() {
 		return storageInfo;
+	}
+
+	@Override
+	public boolean isStored() throws ValidationException {
+		return mutant.isStored();
 	}
 	
 

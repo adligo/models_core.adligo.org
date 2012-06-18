@@ -77,8 +77,8 @@ public class Organization implements I_Organization, I_Validateable, I_Immutable
 		return OrganizationMutant.genHashCode(this);
 	}
 
-	public boolean isValid() {
-		return mutant.isValid();
+	public void isValid() throws ValidationException {
+		mutant.isValid();
 	}
 	
 	public String toString() {
@@ -111,5 +111,9 @@ public class Organization implements I_Organization, I_Validateable, I_Immutable
 		} catch (InvalidParameterException ipe) {
 			throw new ValidationException(ipe);
 		}
+	}
+
+	public boolean isStored() throws ValidationException {
+		return mutant.isStored();
 	}
 }
