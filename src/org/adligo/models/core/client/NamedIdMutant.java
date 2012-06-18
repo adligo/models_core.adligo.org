@@ -2,6 +2,7 @@ package org.adligo.models.core.client;
 
 import org.adligo.i.util.client.ClassUtils;
 import org.adligo.models.core.client.ids.I_StorageIdentifier;
+import org.adligo.models.core.client.ids.StorageIdentifierValidator;
 
 /**
  * this class is intended to be used for selection lists, 
@@ -46,10 +47,7 @@ public class NamedIdMutant implements I_NamedIdMutant, I_Validateable {
 	 * @throws InvalidParameterException
 	 */
 	public void setId(I_StorageIdentifier p_id) throws InvalidParameterException {
-		if (p_id == null) {
-			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
-					.getStorageIdRequired(),SET_ID);
-		}
+		StorageIdentifierValidator.validateId(p_id, this.getClass(), SET_ID);
 		id = p_id;
 	}
 

@@ -3,6 +3,7 @@ package org.adligo.models.core.client;
 import org.adligo.i.util.client.ClassUtils;
 import org.adligo.i.util.client.StringUtils;
 import org.adligo.models.core.client.ids.I_StorageIdentifier;
+import org.adligo.models.core.client.ids.StorageIdentifierValidator;
 import org.adligo.models.core.client.ids.StringIdentifier;
 
 public class UserMutant implements I_UserMutant, I_Mutable {
@@ -227,13 +228,7 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 	}
 	
 	public void setId(I_StorageIdentifier p_id) throws InvalidParameterException {
-		if (p_id == null) {
-			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
-					.getStorageIdRequired(),SET_ID);
-		} else if (!p_id.hasValue()) {
-			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
-					.getStorageIdRequired(),SET_ID);
-		}
+		StorageIdentifierValidator.validateId(p_id, this.getClass(), SET_ID);
 		id = p_id;
 	}
 

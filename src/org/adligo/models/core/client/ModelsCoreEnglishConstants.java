@@ -2,7 +2,6 @@ package org.adligo.models.core.client;
 
 
 public class ModelsCoreEnglishConstants implements I_ModelsCoreConstants {
-	public static final String STORAGE_IDENTIFIER_REQUIRED = "A Storage Identifier is required.";
 	
 	public static final String EMAIL_ATTACHMENT_MAY_NOT_BE_EMPTY = "A E-mail attachment may NOT be empty.";
 	public static final String EMAIL_ATTACHEMNT_MAY_NOT_BE_NULL = "A E-mail attachemnt may NOT be null.";
@@ -240,10 +239,6 @@ public class ModelsCoreEnglishConstants implements I_ModelsCoreConstants {
 
 	public String getPersonMustBeAKnownGenderType() {
 		return PERSON_GENDER_IS_NOT_VALID;
-	}
-
-	public String getStorageIdRequired() {
-		return STORAGE_IDENTIFIER_REQUIRED;
 	}
 
 }

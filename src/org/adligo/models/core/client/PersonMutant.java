@@ -5,6 +5,7 @@ import java.util.Date;
 import org.adligo.i.util.client.ClassUtils;
 import org.adligo.i.util.client.DateTime;
 import org.adligo.models.core.client.ids.I_StorageIdentifier;
+import org.adligo.models.core.client.ids.StorageIdentifierValidator;
 
 public class PersonMutant implements I_PersonMutant  {
 
@@ -156,13 +157,7 @@ public class PersonMutant implements I_PersonMutant  {
 	}
 
 	public void setId(I_StorageIdentifier p_id)  throws InvalidParameterException {
-		if (p_id == null) {
-			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
-					.getStorageIdRequired(),SET_ID);
-		} else if (!p_id.hasValue()) {
-			throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
-					.getStorageIdRequired(),SET_ID);
-		}
+		StorageIdentifierValidator.validateId(p_id, this.getClass(), SET_ID);
 		id = p_id;
 	}
 
