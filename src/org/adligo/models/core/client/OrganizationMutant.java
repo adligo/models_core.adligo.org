@@ -4,6 +4,7 @@ import org.adligo.i.util.client.ClassUtils;
 import org.adligo.i.util.client.StringUtils;
 import org.adligo.models.core.client.ids.I_StorageIdentifier;
 import org.adligo.models.core.client.ids.StorageIdentifierValidator;
+import org.adligo.models.core.client.ids.VersionValidator;
 
 
 
@@ -43,7 +44,11 @@ public class OrganizationMutant implements I_OrganizationMutant {
 			if (p.getId() != null) {
 				setId(p.getId());
 			}
-			setVersion(p.getVersion());
+			//this may come from a unversioned system
+			Integer version = p.getVersion();
+			if (version != null) {
+				setVersion(version);
+			}
 			I_StorageInfo storageInfo = p.getStorageInfo();
 			if (storageInfo != null) {
 				setStorageInfo(storageInfo);
@@ -208,8 +213,8 @@ public class OrganizationMutant implements I_OrganizationMutant {
 		return version;
 	}
 
-	public void setVersion(Integer version) {
-		this.version = version;
+	public void setVersion(Integer p) throws InvalidParameterException {
+		version = VersionValidator.validate(p);
 	}
 	
 	public I_Organization toImmutable() throws ValidationException {

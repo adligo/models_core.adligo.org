@@ -7,6 +7,7 @@ import org.adligo.i.util.client.DateTime;
 import org.adligo.i.util.client.StringUtils;
 import org.adligo.models.core.client.ids.I_StorageIdentifier;
 import org.adligo.models.core.client.ids.StorageIdentifierValidator;
+import org.adligo.models.core.client.ids.VersionValidator;
 
 public class PersonMutant implements I_PersonMutant  {
 
@@ -106,6 +107,7 @@ public class PersonMutant implements I_PersonMutant  {
 		if (idCopy != null) {
 			dest.setId(idCopy);
 		}
+		//this may come from a unversioned system
 		Integer version = source.getVersion();
 		if (version != null) {
 			dest.setVersion(version);
@@ -459,8 +461,8 @@ public class PersonMutant implements I_PersonMutant  {
 		return version;
 	}
 
-	public void setVersion(Integer version) {
-		this.version = version;
+	public void setVersion(Integer p) throws InvalidParameterException {
+		version = VersionValidator.validate(p);
 	}
 
 	public I_CustomInfo getCustomInfo() {
