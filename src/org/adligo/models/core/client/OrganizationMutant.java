@@ -114,8 +114,10 @@ public class OrganizationMutant implements I_OrganizationMutant {
 			OrganizationMutant other = new OrganizationMutant();
 			other.setName(getName());
 			other.setType(getType());
-			if (customInfo.isValidatable()) {
-				((I_Validateable) customInfo).isValid();
+			if (customInfo != null) {
+				if (customInfo.isValidatable()) {
+					((I_Validateable) customInfo).isValid();
+				}
 			}
 		} catch (InvalidParameterException e) {
 			throw new ValidationException(e.getMessage(), I_Validateable.IS_VALID, e);
