@@ -1,5 +1,6 @@
 package org.adligo.models.core.client.ids;
 
+import org.adligo.i.util.client.ClassUtils;
 import org.adligo.models.core.client.InvalidParameterException;
 
 /**
@@ -17,11 +18,11 @@ public class StorageIdentifierValidator {
 
 	public static void validateId(I_StorageIdentifier id, Class callingClass, String methodName) throws InvalidParameterException {
 		if (id == null) {
-			throw new InvalidParameterException(callingClass.getSimpleName() + 
+			throw new InvalidParameterException(ClassUtils.getClassShortName(callingClass) + 
 					REQUIRES_A_NON_NULL_ID_IN + methodName, methodName);
 		}
 		if (!id.hasValue()) {
-			throw new InvalidParameterException(callingClass.getSimpleName() + 
+			throw new InvalidParameterException(ClassUtils.getClassShortName(callingClass) + 
 					REQUIRES_A_ID_WITH_A_VALUE_IN + methodName, methodName);
 		}
 	}
@@ -31,7 +32,7 @@ public class StorageIdentifierValidator {
 			return;
 		} else {
 			if (!id.hasValue()) {
-				throw new InvalidParameterException(callingClass.getSimpleName() + 
+				throw new InvalidParameterException(ClassUtils.getClassShortName(callingClass) + 
 						REQUIRES_A_ID_WITH_A_VALUE_IN + methodName, methodName);
 			}
 		}
