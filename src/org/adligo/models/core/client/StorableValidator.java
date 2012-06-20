@@ -1,5 +1,6 @@
 package org.adligo.models.core.client;
 
+import org.adligo.i.util.client.ClassUtils;
 import org.adligo.models.core.client.ids.I_StorageIdentifier;
 import org.adligo.models.core.client.ids.StorageIdentifierValidator;
 
@@ -35,7 +36,8 @@ public class StorableValidator {
 			Integer version = changeable.getVersion();
 			if (version == null) {
 				Class clazz = changeable.getClass();
-				throw new ValidationException(clazz.getSimpleName() + REQUIRES_A_NON_NULL_VERSION, methodName);
+				throw new ValidationException(ClassUtils.getClassShortName(clazz) + 
+							REQUIRES_A_NON_NULL_VERSION, methodName);
 			}
 			return true;
 		} else {
@@ -54,7 +56,8 @@ public class StorableValidator {
 			I_StorageInfo info = storable.getStorageInfo();
 			if (info == null) {
 				Class clazz = storable.getClass();
-				throw new ValidationException(clazz.getSimpleName() + REQUIRES_A_NON_NULL_STORAGE_INFO, methodName);
+				throw new ValidationException(ClassUtils.getClassShortName(clazz) + 
+							REQUIRES_A_NON_NULL_STORAGE_INFO, methodName);
 			}
 			if (info.isValidatable()) {
 				((I_Validateable) info).isValid();
