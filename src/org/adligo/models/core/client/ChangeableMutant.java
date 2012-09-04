@@ -1,5 +1,7 @@
 package org.adligo.models.core.client;
 
+import org.adligo.i.util.client.AppenderFactory;
+import org.adligo.i.util.client.I_Appender;
 import org.adligo.models.core.client.ids.I_StorageIdentifier;
 import org.adligo.models.core.client.ids.StorageIdentifierValidator;
 import org.adligo.models.core.client.ids.VersionValidator;
@@ -56,9 +58,69 @@ public class ChangeableMutant implements I_ChangeableMutant {
 		storageInfo = p;
 	}
 
-	@Override
+	
+	public String toString() {
+		I_Appender app = AppenderFactory.create();
+		toString(ChangeableMutant.class, app);
+		return app.toString();
+	}
+	/**
+	 * client calls must append their own square brace at the end ]
+	 * to allow for extension.
+	 * 
+	 * @param app
+	 */
+	public void toString(Class<?> ic, I_Appender app) {
+		app.append("" + ic.getSimpleName() + " [id=" + id + ", version=" + version
+				+ ", storageInfo=" + storageInfo);
+	}
+	
+	public void isValid() throws ValidationException {
+		StorableValidator.validate(this, I_Validateable.IS_VALID);
+		try {
+			ChangeableMutant other = new ChangeableMutant(this);
+		} catch (InvalidParameterException e) {
+			throw new ValidationException(e.getMessage(), I_Validateable.IS_VALID, e);
+		}
+	}
+	
 	public boolean isStored() throws ValidationException {
-		// TODO Auto-generated method stub
-		return false;
+		return StorableValidator.validate(this, I_Storable.IS_STORED);
+	}
+
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result
+				+ ((storageInfo == null) ? 0 : storageInfo.hashCode());
+		result = prime * result + ((version == null) ? 0 : version.hashCode());
+		return result;
+	}
+
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ChangeableMutant other = (ChangeableMutant) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (storageInfo == null) {
+			if (other.storageInfo != null)
+				return false;
+		} else if (!storageInfo.equals(other.storageInfo))
+			return false;
+		if (version == null) {
+			if (other.version != null)
+				return false;
+		} else if (!version.equals(other.version))
+			return false;
+		return true;
 	}
 }
