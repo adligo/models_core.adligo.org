@@ -84,7 +84,7 @@ public class NamedIdMutant implements I_NamedIdMutant, I_Validateable {
 	}
 
 	public void isValid() throws ValidationException {
-		StorableValidator.validate(this, I_Validateable.IS_VALID);
+		IdentifiableValidator.validate(this, I_Validateable.IS_VALID);
 		try {
 			NamedIdMutant other = new NamedIdMutant();
 			other.setName(getName());
@@ -121,6 +121,6 @@ public class NamedIdMutant implements I_NamedIdMutant, I_Validateable {
 	}
 
 	public boolean isStored() throws ValidationException {
-		return StorableValidator.validate(this, I_Storable.IS_STORED);
+		return IdentifiableValidator.validate(this, I_Storable.IS_STORED);
 	}
 }

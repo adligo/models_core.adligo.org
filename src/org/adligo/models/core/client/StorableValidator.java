@@ -9,46 +9,22 @@ public class StorableValidator {
 	public static final String REQUIRES_A_NON_NULL_STORAGE_INFO = " requires a non null storage info.";
 	public static final String REQUIRES_A_NON_NULL_VERSION = " requires a non null version.";
 
+	
 	/**
+	 * 
 	 * @param storable
-	 * @param clazz
 	 * @param methodName
-	 * @return true if the storable is stored (has a id)
+	 * @return return true if there is a id, version and info, or if there is no id
+	 * 
 	 * @throws ValidationException
 	 */
-	public static boolean validate(I_Identifiable identifiable, String methodName) throws ValidationException {
-		I_StorageIdentifier id = identifiable.getId();
-		if (id == null) {
-			return false;
-		} else {
-			try {
-				Class clazz = identifiable.getClass();
-				StorageIdentifierValidator.validateId(id, clazz, methodName);
-			} catch (InvalidParameterException ipe) {
-				throw new ValidationException(ipe);
-			}
-		}
-		return true;
-	}
-	
-	public static boolean validate(I_Changeable changeable, String methodName) throws ValidationException {
-		if (validate((I_Identifiable) changeable, methodName)) {
-			Integer version = changeable.getVersion();
-			if (version == null) {
-				Class clazz = changeable.getClass();
-				throw new ValidationException(ClassUtils.getClassShortName(clazz) + 
-							REQUIRES_A_NON_NULL_VERSION, methodName);
-			}
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
 	public static boolean validate(I_Storable storable, String methodName) throws ValidationException {
-		if (validate((I_Identifiable) storable,  methodName)) {
+
+		if (IdentifiableValidator.validate(storable,  methodName)) {
 			try {
-				validate((I_Changeable) storable, methodName);
+				if (!ChangeableValidator.validate((I_Changeable) storable, methodName)) {
+					return false;
+				}
 			} catch (ClassCastException x) {
 				//do nothing all storables are not changeable
 				// GWT didn't impl instanceOf correctly at this time

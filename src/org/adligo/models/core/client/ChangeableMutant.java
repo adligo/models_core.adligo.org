@@ -18,9 +18,23 @@ public class ChangeableMutant implements I_ChangeableMutant {
 	public ChangeableMutant() {}
 	
 	public ChangeableMutant(I_Changeable p) throws InvalidParameterException {
-		setId(p.getId());
-		setVersion(p.getVersion());
-		setStorageInfo(p.getStorageInfo());
+		I_StorageIdentifier otherId = p.getId();
+		if (id != null) {
+			setId(otherId);
+		}
+		Integer otherVersion = p.getVersion();
+		if (otherVersion != null) {
+			setVersion(otherVersion);
+		}
+		I_StorageInfo si = p.getStorageInfo();
+		if (si != null) {
+			setStorageInfo(si);
+		}
+		try {
+			isValid();
+		} catch (ValidationException ve) {
+			throw new InvalidParameterException(ve);
+		}
 	}
 	
 	public I_StorageIdentifier getId() {
@@ -77,11 +91,6 @@ public class ChangeableMutant implements I_ChangeableMutant {
 	
 	public void isValid() throws ValidationException {
 		StorableValidator.validate(this, I_Validateable.IS_VALID);
-		try {
-			ChangeableMutant other = new ChangeableMutant(this);
-		} catch (InvalidParameterException e) {
-			throw new ValidationException(e.getMessage(), I_Validateable.IS_VALID, e);
-		}
 	}
 	
 	public boolean isStored() throws ValidationException {

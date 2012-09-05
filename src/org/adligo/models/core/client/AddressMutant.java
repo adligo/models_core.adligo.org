@@ -207,7 +207,7 @@ public class AddressMutant implements I_AddressMutant {
 	}
 
 	public void isValid() throws ValidationException {
-		StorableValidator.validate(this, I_Validateable.IS_VALID);
+		IdentifiableValidator.validate(this, I_Validateable.IS_VALID);
 		try {
 			AddressMutant other = new AddressMutant();
 			other.setStreetAddress(getStreetAddress());
@@ -248,6 +248,6 @@ public class AddressMutant implements I_AddressMutant {
 	}
 
 	public boolean isStored() throws ValidationException {
-		return StorableValidator.validate(this, I_Storable.IS_STORED);
+		return IdentifiableValidator.validate(this, I_Storable.IS_STORED);
 	}
 }
