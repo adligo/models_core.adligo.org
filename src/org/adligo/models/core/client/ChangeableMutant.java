@@ -32,7 +32,7 @@ public class ChangeableMutant implements I_ChangeableMutant {
 			setStorageInfo(si);
 		}
 		try {
-			isValid();
+			isValid(this);
 		} catch (ValidationException ve) {
 			throw new InvalidParameterException(ve);
 		}
@@ -91,7 +91,16 @@ public class ChangeableMutant implements I_ChangeableMutant {
 	}
 	
 	public void isValid() throws ValidationException {
-		StorableValidator.validate(this, I_Validateable.IS_VALID);
+		isValid(this);
+	}
+	/**
+	 * package private isValid method to allow
+	 * cleaner call hierarchy
+	 * @param p
+	 * @throws ValidationException
+	 */
+	void isValid(ChangeableMutant p) throws ValidationException {
+		StorableValidator.validate(p, I_Validateable.IS_VALID);
 	}
 	
 	public boolean isStored() throws ValidationException {
