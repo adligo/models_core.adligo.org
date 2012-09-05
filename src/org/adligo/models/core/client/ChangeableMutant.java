@@ -1,6 +1,7 @@
 package org.adligo.models.core.client;
 
 import org.adligo.i.util.client.AppenderFactory;
+import org.adligo.i.util.client.ClassUtils;
 import org.adligo.i.util.client.I_Appender;
 import org.adligo.models.core.client.ids.I_StorageIdentifier;
 import org.adligo.models.core.client.ids.StorageIdentifierValidator;
@@ -85,7 +86,7 @@ public class ChangeableMutant implements I_ChangeableMutant {
 	 * @param app
 	 */
 	public void toString(Class<?> ic, I_Appender app) {
-		app.append("" + ic.getSimpleName() + " [id=" + id + ", version=" + version
+		app.append("" + ClassUtils.getClassShortName(ic) + " [id=" + id + ", version=" + version
 				+ ", storageInfo=" + storageInfo);
 	}
 	
