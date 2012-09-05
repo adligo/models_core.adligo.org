@@ -20,7 +20,7 @@ public class ChangeableMutant implements I_ChangeableMutant {
 	
 	public ChangeableMutant(I_Changeable p) throws InvalidParameterException {
 		I_StorageIdentifier otherId = p.getId();
-		if (id != null) {
+		if (otherId != null) {
 			setId(otherId);
 		}
 		Integer otherVersion = p.getVersion();
