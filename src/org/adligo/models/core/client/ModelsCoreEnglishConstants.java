@@ -3,6 +3,8 @@ package org.adligo.models.core.client;
 
 public class ModelsCoreEnglishConstants implements I_ModelsCoreConstants {
 	
+	public static final String THE_START_OF_THE_DATE_RANGE_MUST_BE_BEFORE_THE_END = "The Start of the date range must be before the End.";
+	public static final String THE_END_OF_THE_DATE_RANGE_MUST_BE_AFTER_THE_START = "The End of the date range must be after the Start.";
 	public static final String EMAIL_ATTACHMENT_MAY_NOT_BE_EMPTY = "A E-mail attachment may NOT be empty.";
 	public static final String EMAIL_ATTACHEMNT_MAY_NOT_BE_NULL = "A E-mail attachemnt may NOT be null.";
 	public static final String EMAIL_ADDRESS_IS_NOT_VALID = "E-mail address is not valid.";
@@ -239,6 +241,14 @@ public class ModelsCoreEnglishConstants implements I_ModelsCoreConstants {
 
 	public String getPersonMustBeAKnownGenderType() {
 		return PERSON_GENDER_IS_NOT_VALID;
+	}
+
+	public String getEndOfDateRangeMustBeAfterStart() {
+		return THE_END_OF_THE_DATE_RANGE_MUST_BE_AFTER_THE_START;
+	}
+
+	public String getStartOfDateRangeMustBeBeforeEnd() {
+		return THE_START_OF_THE_DATE_RANGE_MUST_BE_BEFORE_THE_END;
 	}
 
 }

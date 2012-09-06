@@ -60,4 +60,7 @@ public interface I_ModelsCoreConstants {
 	
 	public String getUserRelationsEmptyGroupError();
 	public String getUserRelationsEmptyRoleError();
+	
+	public String getEndOfDateRangeMustBeAfterStart();
+	public String getStartOfDateRangeMustBeBeforeEnd();
 }
