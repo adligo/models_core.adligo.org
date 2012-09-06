@@ -4,40 +4,25 @@ import org.adligo.i.util.client.I_Immutable;
 import org.adligo.models.core.client.ids.I_StorageIdentifier;
 
 
-public class Organization implements I_Organization, I_Validateable, I_Immutable {
+public class Organization extends Changeable implements I_Organization, I_Validateable, I_Immutable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private OrganizationMutant mutant;
 	/**
-	 * keep id seperate from mutant for immutability
-	 */
-	private I_StorageIdentifier id;
-	/**
 	 * keep type seperate from mutant for immutability
 	 */
 	private I_CustomInfo customInfo;
-	private I_StorageInfo storageInfo;
 	
 	public Organization() {
 		mutant = new OrganizationMutant();
 	}
 	
 	public Organization(I_Organization other) throws InvalidParameterException {
+		super(other);
 		mutant = new OrganizationMutant(other);
-		I_StorageIdentifier otherId = other.getId();
-		if (otherId != null) {
-			id = otherId;
-		}
-		I_StorageInfo p_storageInfo = other.getStorageInfo();
-		if (p_storageInfo != null) {
-			try {
-				storageInfo = (I_StorageInfo) p_storageInfo.toImmutable();
-			} catch (ValidationException ve) {
-				throw new InvalidParameterException(ve);
-			}
-		}
+		
 		I_CustomInfo p_customInfo = other.getCustomInfo();
 		if (p_customInfo != null) {
 			try {
@@ -56,9 +41,6 @@ public class Organization implements I_Organization, I_Validateable, I_Immutable
 		return mutant.getName();
 	}
 
-	public I_StorageIdentifier getId() {
-		return id;
-	}
 
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -91,14 +73,6 @@ public class Organization implements I_Organization, I_Validateable, I_Immutable
 
 	public I_CustomInfo getCustomInfo() {
 		return customInfo;
-	}
-
-	public I_StorageInfo getStorageInfo() {
-		return storageInfo;
-	}
-
-	public Integer getVersion() {
-		return mutant.getVersion();
 	}
 
 	public I_Organization toImmutable() throws ValidationException {

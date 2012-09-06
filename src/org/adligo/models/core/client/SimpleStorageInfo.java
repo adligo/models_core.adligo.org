@@ -41,5 +41,17 @@ public class SimpleStorageInfo implements I_StorageInfo, I_Immutable {
 	public String getImmutableFieldName() {
 		return "storeName";
 	}
+
+	@Override
+	public void isValid() throws ValidationException {
+		if (storeName == null) {
+			throw new ValidationException("SimpleStorageInfo requires a store name.",
+					I_Validateable.IS_VALID);
+		}
+	}
+	
+	public String toString() {
+		return "SimpleStorageInfo[" + storeName + "]";
+	}
 	
 }

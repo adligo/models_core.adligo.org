@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @author scott
  *
  */
-public interface I_CustomInfo extends Serializable {
+public interface I_CustomInfo extends Serializable, I_Validateable {
 	/**
 	 * This method should provide the immutable/immutable interface class
 	 * which provides field specific information about this instance ie;
@@ -28,7 +28,8 @@ public interface I_CustomInfo extends Serializable {
 	
 	/**
 	 * Implementations of this method should create a immutable copy or clone of this instance.
-	 * 
+	 * This should also be able to be cast down to the immutable interface most 
+	 * specific to the pair (ie I_IdentifiableMutant, I_Identifiable    I_Changeable, I_ChageableMutant)
 	 * @return
 	 */
 	public I_CustomInfo toImmutable() throws ValidationException;

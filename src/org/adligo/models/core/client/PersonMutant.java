@@ -9,7 +9,7 @@ import org.adligo.models.core.client.ids.I_StorageIdentifier;
 import org.adligo.models.core.client.ids.StorageIdentifierValidator;
 import org.adligo.models.core.client.ids.VersionValidator;
 
-public class PersonMutant implements I_PersonMutant  {
+public class PersonMutant extends ChangeableMutant implements I_PersonMutant  {
 
 	public static final String STORAGE_INFO_CAN_NOT_BE_SET_TO_NULL = "StorageInfo can NOT be set to null";
 	public static final String SET_STORAGE_INFO = "setStorageInfo";
@@ -30,14 +30,7 @@ public class PersonMutant implements I_PersonMutant  {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	/**
-	 * a null storage identifier means it hasn't been stored yet
-	 */
-	private I_StorageIdentifier id;
-	/**
-	 * the version number for optimistic locking
-	 */
-	private Integer version;
+
 	/**
 	 * null is allowed
 	 */
@@ -82,14 +75,11 @@ public class PersonMutant implements I_PersonMutant  {
 	 * custom info specific to your system
 	 */
 	private I_CustomInfo customInfo;
-	/**
-	 * detailed information about where this was stored 
-	 */
-	private I_StorageInfo storageInfo;
 	
 	public PersonMutant() {}
 	
 	public PersonMutant(I_Person p) throws InvalidParameterException {
+		super(p);
 		try {
 			p.isValid();
 			copy(this, p);
@@ -153,15 +143,6 @@ public class PersonMutant implements I_PersonMutant  {
 		if (weight != null) {
 			dest.setWeight(weight);
 		}
-	}
-	
-	public I_StorageIdentifier getId() {
-		return id;
-	}
-
-	public void setId(I_StorageIdentifier p_id)  throws InvalidParameterException {
-		StorageIdentifierValidator.validateId(p_id, this.getClass(), SET_ID);
-		id = p_id;
 	}
 
 	public String getFirst_name() {
@@ -350,9 +331,9 @@ public class PersonMutant implements I_PersonMutant  {
 		sb.append(",nick_name=");
 		sb.append(nickname);
 		sb.append(",id=");
-		sb.append(id);
+		sb.append(super.getId());
 		sb.append(",version=");
-		sb.append(version);
+		sb.append(super.getVersion());
 		
 		sb.append(",birthday=");
 		if (birthday != null) {
@@ -378,14 +359,14 @@ public class PersonMutant implements I_PersonMutant  {
 		sb.append(",customInfo=");
 		sb.append(customInfo);
 		sb.append(",storageInfo=");
-		sb.append(storageInfo);
+		sb.append(super.getStorageInfo());
 		sb.append("]");
 		return sb.toString();
 	}
 
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
+		int result = super.hashCode();
 		result = prime * result
 				+ ((birthday == null) ? 0 : birthday.hashCode());
 		result = prime * result
@@ -394,7 +375,6 @@ public class PersonMutant implements I_PersonMutant  {
 				+ ((first_name == null) ? 0 : first_name.hashCode());
 		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
 		result = prime * result + ((height == null) ? 0 : height.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result
 				+ ((last_name == null) ? 0 : last_name.hashCode());
 		result = prime * result
@@ -405,6 +385,9 @@ public class PersonMutant implements I_PersonMutant  {
 	}
 
 	public boolean equals(Object obj) {
+		if (!super.equals(obj)) {
+			return false;
+		}
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -431,11 +414,6 @@ public class PersonMutant implements I_PersonMutant  {
 					return false;
 			} else if (!gender.equals(other.getGender()))
 				return false;
-			if (id == null) {
-				if (other.getId() != null)
-					return false;
-			} else if (!id.equals(other.getId()))
-				return false;
 			if (last_name == null) {
 				if (other.getLast_name() != null)
 					return false;
@@ -455,14 +433,6 @@ public class PersonMutant implements I_PersonMutant  {
 			return false;
 		}
 		return true;
-	}
-
-	public Integer getVersion() {
-		return version;
-	}
-
-	public void setVersion(Integer p) throws InvalidParameterException {
-		version = VersionValidator.validate(p);
 	}
 
 	public I_CustomInfo getCustomInfo() {
@@ -485,17 +455,6 @@ public class PersonMutant implements I_PersonMutant  {
 			}
 		}
 		customInfo = p;
-	}
-
-	public I_StorageInfo getStorageInfo() {
-		return storageInfo;
-	}
-
-	public void setStorageInfo(I_StorageInfo p) throws InvalidParameterException {
-		if (p == null) {
-			throw new InvalidParameterException(STORAGE_INFO_CAN_NOT_BE_SET_TO_NULL, SET_STORAGE_INFO);
-		}
-		this.storageInfo = p;
 	}
 
 	public Double getWeight() {
@@ -548,9 +507,5 @@ public class PersonMutant implements I_PersonMutant  {
 		} else {
 			this.deceased = p.getTime();
 		}
-	}
-	
-	public boolean isStored() throws ValidationException {
-		return StorableValidator.validate(this, I_Storable.IS_STORED);
 	}
 }

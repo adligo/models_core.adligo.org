@@ -8,7 +8,7 @@ import org.adligo.models.core.client.ids.VersionValidator;
 
 
 
-public class OrganizationMutant implements I_OrganizationMutant {
+public class OrganizationMutant extends ChangeableMutant implements I_OrganizationMutant {
 	/**
 	 * 
 	 */
@@ -17,8 +17,6 @@ public class OrganizationMutant implements I_OrganizationMutant {
 	public static final String SET_TYPE = "setType";
 	public static final String ORGANIZAITION = "Organization";
 	
-	private I_StorageIdentifier id;
-	private Integer version;
 	private String name;
 	/**
 	 * the type pertains to something like a School, Band, Company
@@ -29,10 +27,6 @@ public class OrganizationMutant implements I_OrganizationMutant {
 	 * custom info specific to your system
 	 */
 	private I_CustomInfo customInfo;
-	/**
-	 * detailed information about where this was stored 
-	 */
-	private I_StorageInfo storageInfo;
 	
 	/**
 	 * for gwt serialization
@@ -40,6 +34,7 @@ public class OrganizationMutant implements I_OrganizationMutant {
 	public OrganizationMutant() {}
 	
 	public OrganizationMutant(I_Organization p) throws InvalidParameterException {
+		super(p);
 		try {
 			if (p.getId() != null) {
 				setId(p.getId());
@@ -68,15 +63,6 @@ public class OrganizationMutant implements I_OrganizationMutant {
 		}
 	}
 
-	public void setId(I_StorageIdentifier p_id) throws InvalidParameterException {
-		StorageIdentifierValidator.validateId(p_id, this.getClass(), SET_ID);
-		id = p_id;
-	}
-
-	
-	public I_StorageIdentifier getId() {
-		return id;
-	}
 	public String getName() {
 		return name;
 	}
@@ -180,9 +166,9 @@ public class OrganizationMutant implements I_OrganizationMutant {
 		sb.append(",id=");
 		sb.append(p.getId());
 		sb.append(",customInfo=");
-		sb.append(customInfo);
+		sb.append(p.getCustomInfo());
 		sb.append(",storageInfo=");
-		sb.append(storageInfo);
+		sb.append(p.getStorageInfo());
 		sb.append("]");
 		return sb.toString();
 	}
@@ -199,26 +185,6 @@ public class OrganizationMutant implements I_OrganizationMutant {
 		}
 	}
 
-	public I_StorageInfo getStorageInfo() {
-		return storageInfo;
-	}
-
-	public void setStorageInfo(I_StorageInfo storageInfo) throws InvalidParameterException {
-		try {
-			this.storageInfo = (I_StorageInfo) storageInfo.toMutant();
-		} catch (ValidationException ve) {
-			throw new InvalidParameterException(ve);
-		}
-	}
-
-	public Integer getVersion() {
-		return version;
-	}
-
-	public void setVersion(Integer p) throws InvalidParameterException {
-		version = VersionValidator.validate(p);
-	}
-	
 	public I_Organization toImmutable() throws ValidationException {
 		try {
 			return new Organization(this);
