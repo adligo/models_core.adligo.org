@@ -25,12 +25,12 @@ public class DateRange implements I_DateRange, I_Immutable {
 
 	
 	
-	public Long getStarted() {
-		return mutant.getStarted();
+	public Long getStart() {
+		return mutant.getStart();
 	}
 
-	public Long getEnded() {
-		return mutant.getEnded();
+	public Long getEnd() {
+		return mutant.getEnd();
 	}
 
 	public int hashCode() {

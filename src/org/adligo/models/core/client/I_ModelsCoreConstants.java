@@ -63,4 +63,6 @@ public interface I_ModelsCoreConstants {
 	
 	public String getEndOfDateRangeMustBeAfterStart();
 	public String getStartOfDateRangeMustBeBeforeEnd();
+	public String getDateRangeRequiresStartValue();
+	public String getDateRangeRequiresEndValue();
 }

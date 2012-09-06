@@ -11,51 +11,52 @@ import org.adligo.models.core.client.ModelsCoreConstantsObtainer;
 import org.adligo.models.core.client.ValidationException;
 
 public class DateRangeMutant implements I_DateRange, I_DateRangeMutant {
+	public static final String IS_VALID_WITHOUT_NULLS = "isValidWithoutNulls";
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	public static final String SET_ENDED = "setEnded";
-	private Long started;
-	private Long ended;
+	private Long start;
+	private Long end;
 	
 	public DateRangeMutant() {}
 	
 	public DateRangeMutant(I_DateRange p) throws InvalidParameterException {
-		setStarted(p.getStarted());
-		setEnded(p.getEnded());
+		setStart(p.getStart());
+		setEnd(p.getEnd());
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.adligo.models.core.client.util.I_DateRange#getStarted()
 	 */
-	public Long getStarted() {
-		return started;
+	public Long getStart() {
+		return start;
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.adligo.models.core.client.util.I_DateRangeMutant#setStarted(java.lang.Long)
 	 */
-	public void setStarted(Long p) throws InvalidParameterException {
-		if (ended != null) {
+	public void setStart(Long p) throws InvalidParameterException {
+		if (end != null) {
 			if (p != null) {
-				if (p > ended) {
+				if (p > end) {
 					throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 							.getStartOfDateRangeMustBeBeforeEnd(), SET_ENDED);
 				}
 			}
 		}
-		started = p;
+		start = p;
 	}
 	/**
 	 * protected only for hibernate
 	 * @return
 	 */
 	protected Date getStartedDate() {
-		if (started == null) {
+		if (start == null) {
 			return null;
 		}
-		return new Date(started);
+		return new Date(start);
 	}
 	
 	protected void setStartedDate(Date p) {
@@ -63,41 +64,41 @@ public class DateRangeMutant implements I_DateRange, I_DateRangeMutant {
 			//allow null to come from the db
 			return;
 		}
-		started = p.getTime();
+		start = p.getTime();
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.adligo.models.core.client.util.I_DateRange#getEnded()
 	 */
 	@Override
-	public Long getEnded() {
-		return ended;
+	public Long getEnd() {
+		return end;
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.adligo.models.core.client.util.I_DateRangeMutant#setEnded(java.lang.Long)
 	 */
 	@Override
-	public void setEnded(Long p) throws InvalidParameterException {
-		if (started != null) {
+	public void setEnd(Long p) throws InvalidParameterException {
+		if (start != null) {
 			if (p != null) {
-				if (p < started) {
+				if (p < start) {
 					throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 							.getEndOfDateRangeMustBeAfterStart(), SET_ENDED);
 				}
 			}
 		}
-		ended = p;
+		end = p;
 	}
 	/**
 	 * protected only for hibernate
 	 * @return
 	 */
 	protected Date getEndedDate() {
-		if (ended == null) {
+		if (end == null) {
 			return null;
 		}
-		return new Date(ended);
+		return new Date(end);
 	}
 	
 	protected void setEndedDate(Date p) {
@@ -105,24 +106,48 @@ public class DateRangeMutant implements I_DateRange, I_DateRangeMutant {
 			//allow null to come from the db
 			return;
 		}
-		started = p.getTime();
+		start = p.getTime();
 	}
 
+	/**
+	 * note this only checks if the start is before the end
+	 * either value may be null,
+	 * use the method isValidWithoutNulls if values are required
+	 */
 	public void isValid() throws ValidationException {
 		try {
 			DateRangeMutant other = new DateRangeMutant();
-			other.setEnded(ended);
-			other.setStarted(started);
+			other.setEnd(end);
+			other.setStart(start);
 		} catch (InvalidParameterException ipe) {
 			throw new ValidationException(ipe);
 		}
 	}
 
+	public void isValidWithoutNulls() throws ValidationException {
+		try {
+			if (start == null) {
+				throw new ValidationException(ModelsCoreConstantsObtainer.getConstants()
+							.getDateRangeRequiresStartValue(),IS_VALID_WITHOUT_NULLS);
+			}
+			if (end == null) {
+				throw new ValidationException(ModelsCoreConstantsObtainer.getConstants()
+							.getDateRangeRequiresEndValue(),IS_VALID_WITHOUT_NULLS);
+			}
+			
+			DateRangeMutant other = new DateRangeMutant();
+			other.setEnd(end);
+			other.setStart(start);
+		} catch (InvalidParameterException ipe) {
+			throw new ValidationException(ipe);
+		}
+	}
+	
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((ended == null) ? 0 : ended.hashCode());
-		result = prime * result + ((started == null) ? 0 : started.hashCode());
+		result = prime * result + ((end == null) ? 0 : end.hashCode());
+		result = prime * result + ((start == null) ? 0 : start.hashCode());
 		return result;
 	}
 
@@ -134,15 +159,15 @@ public class DateRangeMutant implements I_DateRange, I_DateRangeMutant {
 		if (getClass() != obj.getClass())
 			return false;
 		DateRangeMutant other = (DateRangeMutant) obj;
-		if (ended == null) {
-			if (other.ended != null)
+		if (end == null) {
+			if (other.end != null)
 				return false;
-		} else if (!ended.equals(other.ended))
+		} else if (!end.equals(other.end))
 			return false;
-		if (started == null) {
-			if (other.started != null)
+		if (start == null) {
+			if (other.start != null)
 				return false;
-		} else if (!started.equals(other.started))
+		} else if (!start.equals(other.start))
 			return false;
 		return true;
 	}
@@ -154,8 +179,8 @@ public class DateRangeMutant implements I_DateRange, I_DateRangeMutant {
 	
 	public String toString(Class c) {
 		I_TextFormatter formatter = TextFormatter.getInstance();
-		String startedString = formatter.formatDate(DateTime.DEFAULT_DATE_TIME_FORMAT, started);
-		String endedString = formatter.formatDate(DateTime.DEFAULT_DATE_TIME_FORMAT, ended);
+		String startedString = formatter.formatDate(DateTime.DEFAULT_DATE_TIME_FORMAT, start);
+		String endedString = formatter.formatDate(DateTime.DEFAULT_DATE_TIME_FORMAT, end);
 		
 		return "" + ClassUtils.getClassShortName(c) + 
 				" [" + startedString + "-" + endedString + "]";

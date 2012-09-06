@@ -4,8 +4,8 @@ import org.adligo.models.core.client.InvalidParameterException;
 
 public interface I_DateRangeMutant {
 
-	public abstract void setStarted(Long p) throws InvalidParameterException;
+	public abstract void setStart(Long p) throws InvalidParameterException;
 
-	public abstract void setEnded(Long p) throws InvalidParameterException;
+	public abstract void setEnd(Long p) throws InvalidParameterException;
 
 }
