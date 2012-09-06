@@ -121,4 +121,7 @@ public class StringIdentifier implements I_StringIdentifier, I_Immutable {
 		return I_Cacheable.OBJECT + size;
 	}
 
+	public I_StorageIdentifier toImmutable() {
+		return this;
+	}
 }

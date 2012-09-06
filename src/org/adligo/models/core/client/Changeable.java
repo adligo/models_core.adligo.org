@@ -1,5 +1,6 @@
 package org.adligo.models.core.client;
 
+import org.adligo.i.util.client.I_Immutable;
 import org.adligo.models.core.client.ids.I_StorageIdentifier;
 import org.adligo.models.core.client.ids.StorageIdentifierValidator;
 import org.adligo.models.core.client.ids.VersionValidator;
@@ -11,7 +12,7 @@ import org.adligo.models.core.client.ids.VersionValidator;
  * @author scott
  *
  */
-public abstract class Changeable implements I_Changeable {
+public abstract class Changeable implements I_Changeable, I_Immutable {
 	public static final String STORAGE_INFO_IS_REQUIRED_FOR_CHANGEABLES_THAT_ARE_STORED = "StorageInfo is required for Changeables that are stored.";
 
 	/**
@@ -21,51 +22,52 @@ public abstract class Changeable implements I_Changeable {
 
 	public static final String CHANGEABLE = "Changeable";
 	
-	private I_StorageIdentifier id;
-	private Integer version;
-	private I_StorageInfo storageInfo;
+	private ChangeableMutant mutant;
 	
-	public Changeable() {}
+	/**
+	 * default constructor
+	 */
+	public Changeable() {
+		mutant = new ChangeableMutant();
+	}
 	
 	public Changeable(I_Changeable p) throws InvalidParameterException {
-		I_StorageIdentifier otherId = p.getId();
-		StorageIdentifierValidator.validateIdAllowingNull(otherId, Changeable.class, CHANGEABLE);
-		id = otherId;
-		if (id != null) {
-			//its stored so get the other storage info
-			version = p.getVersion();
-			VersionValidator.validate(version);
-			
-			try {
-				I_StorageInfo otherInfo = p.getStorageInfo();
-				if (otherInfo == null) {
-					throw new InvalidParameterException(STORAGE_INFO_IS_REQUIRED_FOR_CHANGEABLES_THAT_ARE_STORED, 
-							CHANGEABLE);
-				}
-				storageInfo = (I_StorageInfo) otherInfo.toImmutable();
-				storageInfo.isValid();
-			} catch (ValidationException ve) {
-				throw new InvalidParameterException(ve);
-			}
-		}
+		mutant = new ChangeableMutant(p);
+		
 	}
 
 	public I_StorageIdentifier getId() {
-		return id;
+		I_StorageIdentifier id = mutant.getId();
+		if (id == null) {
+			return null;
+		}
+		return id.toImmutable();
+	}
+
+	
+	
+	
+	public boolean isStored() throws ValidationException {
+		return mutant.isStored();
+	}
+	
+	public String getImmutableFieldName() {
+		return I_Immutable.MUTANT;
 	}
 
 	public Integer getVersion() {
-		return version;
+		return mutant.getVersion();
 	}
 
 	public I_StorageInfo getStorageInfo() {
-		return storageInfo;
-	}
-	
-	public boolean isStored() throws ValidationException {
-		if (id == null) {
-			return false;
+		I_StorageInfo info = mutant.getStorageInfo();
+		if (info == null) {
+			return null;
 		}
-		return true;
+		try {
+			return (I_StorageInfo) info.toImmutable();
+		} catch (ValidationException e) {
+			return null;
+		}
 	}
 }

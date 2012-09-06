@@ -3,7 +3,6 @@ package org.adligo.models.core.client.ids;
 import java.io.Serializable;
 
 import org.adligo.i.adi.client.I_Cacheable;
-import org.adligo.i.util.client.I_Immutable;
 
 /**
  * marker interfaces actual impls should also 
@@ -13,7 +12,7 @@ import org.adligo.i.util.client.I_Immutable;
  * @author scott
  *
  */
-public interface I_StorageIdentifier extends Serializable, I_Immutable, I_Cacheable {
+public interface I_StorageIdentifier extends Serializable,  I_Cacheable {
 
 	/**
 	 * should return true if the value has been used on the storage system
@@ -21,4 +20,9 @@ public interface I_StorageIdentifier extends Serializable, I_Immutable, I_Cachea
 	 * @return
 	 */
 	public boolean hasValue();
+	/**
+	 * clone a new immutable copy of this object
+	 * @return
+	 */
+	public I_StorageIdentifier toImmutable();
 }
