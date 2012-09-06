@@ -51,7 +51,7 @@ public class OrganizationMutant extends ChangeableMutant implements I_Organizati
 			setName(p.getName());
 			setType(p.getType());
 			
-			I_CustomInfo customInfo = p.getStorageInfo();
+			I_CustomInfo customInfo = p.getCustomInfo();
 			if (customInfo != null) {
 				setCustomInfo(customInfo);
 			}
