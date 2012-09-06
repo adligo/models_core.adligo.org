@@ -8,6 +8,8 @@ import org.adligo.models.core.client.ids.StorageIdentifierValidator;
 import org.adligo.models.core.client.ids.VersionValidator;
 
 public class ChangeableMutant implements I_ChangeableMutant {
+	public static final String CHANGEABLE_MUTANTS_WITH_IDS_ALSO_REQUIRE_STORAGE_INFO = "ChangeableMutants with ids also require storage info.";
+	public static final String CHANGEABLE_MUTANT_WITH_IDS_ALSO_REQUIRE_VERSIONS = "ChangeableMutant with ids also require versions.";
 	/**
 	 * 
 	 */
@@ -22,20 +24,21 @@ public class ChangeableMutant implements I_ChangeableMutant {
 		I_StorageIdentifier otherId = p.getId();
 		if (otherId != null) {
 			setId(otherId);
-		}
-		Integer otherVersion = p.getVersion();
-		if (otherVersion != null) {
-			setVersion(otherVersion);
-		}
-		I_StorageInfo si = p.getStorageInfo();
-		if (si != null) {
-			setStorageInfo(si);
+			Integer otherVersion = p.getVersion();
+			if (otherVersion != null) {
+				setVersion(otherVersion);
+			}
+			I_StorageInfo si = p.getStorageInfo();
+			if (si != null) {
+				setStorageInfo(si);
+			}
 		}
 		try {
 			isValid(this);
 		} catch (ValidationException ve) {
 			throw new InvalidParameterException(ve);
 		}
+		
 	}
 	
 	public I_StorageIdentifier getId() {
@@ -101,6 +104,18 @@ public class ChangeableMutant implements I_ChangeableMutant {
 	 */
 	void isValid(ChangeableMutant p) throws ValidationException {
 		StorableValidator.validate(p, I_Validateable.IS_VALID);
+		I_StorageIdentifier tid = p.getId();
+		if (tid != null) {
+			if (p.getVersion() == null) {
+				throw new ValidationException(CHANGEABLE_MUTANT_WITH_IDS_ALSO_REQUIRE_VERSIONS, I_Validateable.IS_VALID);
+			}
+			I_StorageInfo otherInfo = p.getStorageInfo();
+			if (otherInfo == null) {
+				throw new ValidationException(CHANGEABLE_MUTANTS_WITH_IDS_ALSO_REQUIRE_STORAGE_INFO, I_Validateable.IS_VALID);
+			} else {
+				otherInfo.isValid();
+			}
+		}
 	}
 	
 	public boolean isStored() throws ValidationException {

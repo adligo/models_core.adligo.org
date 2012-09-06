@@ -12,9 +12,7 @@ import org.adligo.models.core.client.ids.VersionValidator;
  * @author scott
  *
  */
-public abstract class Changeable implements I_Changeable, I_Immutable {
-	public static final String STORAGE_INFO_IS_REQUIRED_FOR_CHANGEABLES_THAT_ARE_STORED = "StorageInfo is required for Changeables that are stored.";
-
+public class Changeable implements I_Changeable, I_Immutable {
 	/**
 	 * 
 	 */
@@ -36,6 +34,10 @@ public abstract class Changeable implements I_Changeable, I_Immutable {
 		
 	}
 
+	/**
+	 * @see I_Identifiable#getId()
+	 * also this is immutable so it should return a immutable 
+	 */
 	public I_StorageIdentifier getId() {
 		I_StorageIdentifier id = mutant.getId();
 		if (id == null) {
@@ -55,10 +57,17 @@ public abstract class Changeable implements I_Changeable, I_Immutable {
 		return I_Immutable.MUTANT;
 	}
 
+	/**
+	 * @see I_Changeable#getVersion()
+	 * also this is immutable so it should return a immutable 
+	 */
 	public Integer getVersion() {
 		return mutant.getVersion();
 	}
-
+	/**
+	 * @see I_Storable#getStorageInfo()
+	 * also this is immutable so it should return a immutable 
+	 */
 	public I_StorageInfo getStorageInfo() {
 		I_StorageInfo info = mutant.getStorageInfo();
 		if (info == null) {
