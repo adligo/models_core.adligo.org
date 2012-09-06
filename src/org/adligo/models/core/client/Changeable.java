@@ -20,17 +20,17 @@ public class Changeable implements I_Changeable, I_Immutable {
 
 	public static final String CHANGEABLE = "Changeable";
 	
-	private ChangeableMutant mutant;
+	private ChangeableMutant changeable;
 	
 	/**
 	 * default constructor
 	 */
 	public Changeable() {
-		mutant = new ChangeableMutant();
+		changeable = new ChangeableMutant();
 	}
 	
 	public Changeable(I_Changeable p) throws InvalidParameterException {
-		mutant = new ChangeableMutant(p);
+		changeable = new ChangeableMutant(p);
 		
 	}
 
@@ -39,7 +39,7 @@ public class Changeable implements I_Changeable, I_Immutable {
 	 * also this is immutable so it should return a immutable 
 	 */
 	public I_StorageIdentifier getId() {
-		I_StorageIdentifier id = mutant.getId();
+		I_StorageIdentifier id = changeable.getId();
 		if (id == null) {
 			return null;
 		}
@@ -50,11 +50,11 @@ public class Changeable implements I_Changeable, I_Immutable {
 	
 	
 	public boolean isStored() throws ValidationException {
-		return mutant.isStored();
+		return changeable.isStored();
 	}
 	
 	public String getImmutableFieldName() {
-		return I_Immutable.MUTANT;
+		return  "changeable";
 	}
 
 	/**
@@ -62,14 +62,14 @@ public class Changeable implements I_Changeable, I_Immutable {
 	 * also this is immutable so it should return a immutable 
 	 */
 	public Integer getVersion() {
-		return mutant.getVersion();
+		return changeable.getVersion();
 	}
 	/**
 	 * @see I_Storable#getStorageInfo()
 	 * also this is immutable so it should return a immutable 
 	 */
 	public I_StorageInfo getStorageInfo() {
-		I_StorageInfo info = mutant.getStorageInfo();
+		I_StorageInfo info = changeable.getStorageInfo();
 		if (info == null) {
 			return null;
 		}

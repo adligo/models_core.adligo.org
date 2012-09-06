@@ -9,43 +9,43 @@ public class DateRange implements I_DateRange, I_Immutable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private DateRangeMutant mutant;
+	private DateRangeMutant dateRangeMutant;
 
 	public DateRange() {
-		mutant = new DateRangeMutant();
+		dateRangeMutant = new DateRangeMutant();
 	}
 	
 	public DateRange(I_DateRange p) throws InvalidParameterException {
-		mutant = new DateRangeMutant(p);
+		dateRangeMutant = new DateRangeMutant(p);
 	}
 	
 	public boolean equals(Object obj) {
-		return mutant.equals(obj);
+		return dateRangeMutant.equals(obj);
 	}
 
 	
 	
 	public Long getStart() {
-		return mutant.getStart();
+		return dateRangeMutant.getStart();
 	}
 
 	public Long getEnd() {
-		return mutant.getEnd();
+		return dateRangeMutant.getEnd();
 	}
 
 	public int hashCode() {
-		return mutant.hashCode();
+		return dateRangeMutant.hashCode();
 	}
 
 	public void isValid() throws ValidationException {
-		mutant.isValid();
+		dateRangeMutant.isValid();
 	}
 
 	public String toString() {
-		return mutant.toString(DateRange.class);
+		return dateRangeMutant.toString(DateRange.class);
 	}
 
 	public String getImmutableFieldName() {
-		return I_Immutable.MUTANT;
+		return "dateRangeMutant";
 	}
 }

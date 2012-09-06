@@ -10,10 +10,6 @@ public class Organization extends Changeable implements I_Organization, I_Valida
 	 */
 	private static final long serialVersionUID = 1L;
 	private OrganizationMutant mutant;
-	/**
-	 * keep type seperate from mutant for immutability
-	 */
-	private I_CustomInfo customInfo;
 	
 	public Organization() {
 		mutant = new OrganizationMutant();
@@ -22,15 +18,6 @@ public class Organization extends Changeable implements I_Organization, I_Valida
 	public Organization(I_Organization other) throws InvalidParameterException {
 		super(other);
 		mutant = new OrganizationMutant(other);
-		
-		I_CustomInfo p_customInfo = other.getCustomInfo();
-		if (p_customInfo != null) {
-			try {
-				customInfo = p_customInfo.toImmutable();
-			} catch (ValidationException ve) {
-				throw new InvalidParameterException(ve);
-			}
-		}
 	}
 
 	public I_StorageIdentifier getType() {
@@ -72,7 +59,15 @@ public class Organization extends Changeable implements I_Organization, I_Valida
 	}
 
 	public I_CustomInfo getCustomInfo() {
-		return customInfo;
+		I_CustomInfo customInfo = mutant.getCustomInfo();
+		if (customInfo != null) {
+			try {
+				return customInfo.toImmutable();
+			} catch (ValidationException ve) {
+				//do nothing
+			}
+		}
+		return null;
 	}
 
 	public I_Organization toImmutable() throws ValidationException {

@@ -1,36 +1,47 @@
 package org.adligo.models.core.client.ids;
 
 import org.adligo.i.adi.client.I_Cacheable;
+import org.adligo.i.util.client.I_Immutable;
+import org.adligo.models.core.client.I_Identifiable;
 import org.adligo.models.core.client.InvalidParameterException;
 
-public class VersionedLongIdentifier {
-	private VersionedLongIdentifierMutant mutant;
+public class VersionedLongIdentifier implements I_VersionedLongIdentifier, I_Immutable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private VersionedLongIdentifierMutant vim;
 	
 	public VersionedLongIdentifier() {
-		mutant = new VersionedLongIdentifierMutant();
+		vim = new VersionedLongIdentifierMutant();
 	}
 	
 	public VersionedLongIdentifier(I_VersionedLongIdentifier p) throws InvalidParameterException {
-		mutant = new VersionedLongIdentifierMutant(p);
+		vim = new VersionedLongIdentifierMutant(p);
 	}
 
 	public Long getId() {
-		return mutant.getId();
+		return vim.getId();
 	}
 
 	public Integer getVersion() {
-		return mutant.getVersion();
+		return vim.getVersion();
 	}
 
 	public int hashCode() {
-		return mutant.hashCode();
+		return vim.hashCode();
 	}
 
 	public String toString() {
-		return mutant.toString();
+		return vim.toString();
 	}
 
 	public int getMemsize() {
-		return mutant.getMemsize() + I_Cacheable.OBJECT;
+		return vim.getMemsize() + I_Cacheable.OBJECT;
+	}
+
+	@Override
+	public String getImmutableFieldName() {
+		return "vim";
 	}
 }
