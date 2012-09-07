@@ -21,7 +21,11 @@ public class Organization extends Changeable implements I_Organization, I_Valida
 	}
 
 	public I_StorageIdentifier getType() {
-		return mutant.getType();
+		I_StorageIdentifier toRet = mutant.getType();
+		if (toRet != null) {
+			return toRet.toImmutable();
+		}
+		return null;
 	}
 
 	public String getName() {

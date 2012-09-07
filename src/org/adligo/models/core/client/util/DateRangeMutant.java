@@ -52,14 +52,14 @@ public class DateRangeMutant implements I_DateRange, I_DateRangeMutant {
 	 * protected only for hibernate
 	 * @return
 	 */
-	protected Date getStartedDate() {
+	protected Date getStartDate() {
 		if (start == null) {
 			return null;
 		}
 		return new Date(start);
 	}
 	
-	protected void setStartedDate(Date p) {
+	protected void setStartDate(Date p) {
 		if (p == null) {
 			//allow null to come from the db
 			return;
@@ -94,14 +94,14 @@ public class DateRangeMutant implements I_DateRange, I_DateRangeMutant {
 	 * protected only for hibernate
 	 * @return
 	 */
-	protected Date getEndedDate() {
+	protected Date getEndDate() {
 		if (end == null) {
 			return null;
 		}
 		return new Date(end);
 	}
 	
-	protected void setEndedDate(Date p) {
+	protected void setEndDate(Date p) {
 		if (p == null) {
 			//allow null to come from the db
 			return;
