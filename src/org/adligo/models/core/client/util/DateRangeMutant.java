@@ -106,7 +106,7 @@ public class DateRangeMutant implements I_DateRange, I_DateRangeMutant {
 			//allow null to come from the db
 			return;
 		}
-		start = p.getTime();
+		end = p.getTime();
 	}
 
 	/**
