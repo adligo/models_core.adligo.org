@@ -53,6 +53,21 @@ public class SIDParamFactory {
 	}
 	
 
+	public static void addIdParameter(Params parent, String paramName, I_StorageIdentifier p) {
+		try {
+			addIdParameter(parent, paramName, (I_LongIdentifier) p);
+			return;
+		} catch (ClassCastException cce) {
+			//do nothing
+		}
+		try {
+			addIdParameter(parent, paramName, (I_LongIdentifier) p);
+			return;
+		} catch (ClassCastException cce) {
+			//do nothing
+		}
+		
+	}
 	/**
 	 * 
 	 * @param parent the parent parameters (whereParams usually)
