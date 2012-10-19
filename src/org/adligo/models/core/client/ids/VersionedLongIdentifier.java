@@ -44,4 +44,19 @@ public class VersionedLongIdentifier implements I_VersionedLongIdentifier, I_Imm
 	public String getImmutableFieldName() {
 		return "vim";
 	}
+
+	@Override
+	public boolean hasValue() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public I_StorageIdentifier toImmutable() {
+		try {
+			return new VersionedLongIdentifier(this);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
 }
