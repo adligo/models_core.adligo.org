@@ -48,4 +48,8 @@ public class DateRange implements I_DateRange, I_Immutable {
 	public String getImmutableFieldName() {
 		return "dateRangeMutant";
 	}
+
+	public boolean overlaps(I_DateRange dr) {
+		return dateRangeMutant.overlaps(dr);
+	}
 }

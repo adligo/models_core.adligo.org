@@ -172,6 +172,18 @@ public class DateRangeMutant implements I_DateRange, I_DateRangeMutant {
 		return true;
 	}
 
+	public boolean overlaps(I_DateRange dr) {
+		Long drEnd = dr.getEnd();
+		Long drStart = dr.getStart();
+		
+		if (drEnd >= start && drEnd <= end) {
+			return true;
+		}
+		if (drStart >= start && drStart <= end) {
+			return true;
+		}
+		return false;
+	}
 	@Override
 	public String toString() {
 		return toString(DateRangeMutant.class);
