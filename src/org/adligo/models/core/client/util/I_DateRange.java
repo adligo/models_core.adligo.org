@@ -11,4 +11,10 @@ public interface I_DateRange extends Serializable, I_Validateable {
 	public abstract Long getEnd();
 
 	public boolean overlaps(I_DateRange dr);
+	
+	/**
+	 * @return null if start or end is null
+	 *  otherwise end - start 
+	 */
+	public Long getDuration();
 }

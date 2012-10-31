@@ -197,4 +197,12 @@ public class DateRangeMutant implements I_DateRange, I_DateRangeMutant {
 		return "" + ClassUtils.getClassShortName(c) + 
 				" [" + startedString + "-" + endedString + "]";
 	}
+
+	@Override
+	public Long getDuration() {
+		if (start == null || end == null) {
+			return null;
+		}
+		return end - start;
+	}
 }
