@@ -1,6 +1,11 @@
 package org.adligo.models.core.client.ids;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import org.adligo.models.params.client.I_TemplateParams;
+import org.adligo.models.params.client.Param;
 import org.adligo.models.params.client.Params;
 import org.adligo.models.params.client.ParamsFactory;
 import org.adligo.models.params.client.SqlOperators;
@@ -61,12 +66,17 @@ public class SIDParamFactory {
 			//do nothing
 		}
 		try {
-			addIdParameter(parent, paramName, (I_LongIdentifier) p);
+			addIdParameter(parent, paramName, (I_StringIdentifier) p);
 			return;
 		} catch (ClassCastException cce) {
 			//do nothing
 		}
-		
+		try {
+			addIdParameter(parent, paramName, (I_VersionedLongIdentifier) p);
+			return;
+		} catch (ClassCastException cce) {
+			//do nothing
+		}
 	}
 	/**
 	 * 
@@ -95,5 +105,50 @@ public class SIDParamFactory {
 		parent.addParam(idParamName, SqlOperators.EQUALS, id);
 		Integer version = p.getVersion();
 		parent.addParam(valueParamName, SqlOperators.EQUALS, version);
+	}
+	
+	
+	public static Object getIdParameter(I_LongIdentifier p) {
+		return p.getId();
+	}
+	
+	/**
+	 * 
+	 * @param parent the parent parameters (whereParams usually)
+	 * @param paramName 
+	 * @param p
+	 */
+	public static Object getIdParameter(I_StringIdentifier p) {
+		return p.getKey();
+	}
+	
+	public static Object getIdParameter(I_StorageIdentifier p) {
+		try {
+			return getIdParameter((I_LongIdentifier) p);
+		} catch (ClassCastException cce) {
+			//do nothing
+		}
+		try {
+			return getIdParameter((I_StringIdentifier) p);
+		} catch (ClassCastException cce) {
+			//do nothing
+		}
+		throw new IllegalArgumentException("Unable to obtain a single object id for " + p);
+	}
+	
+	public static void addIdParametersInClauses(Params parent, String paramName, Collection<I_StorageIdentifier> p) {
+		Param childParam = parent.addParam(paramName,SqlOperators.IN);
+	    for (I_StorageIdentifier id: p) {
+			Object obj = getIdParameter(id);
+			try {
+				childParam.addValue((Long) obj);
+			} catch (ClassCastException x) {
+				try {
+					childParam.addValue((String) obj);
+				} catch (ClassCastException g) {
+					throw new RuntimeException(g);
+				}
+			}
+		}
 	}
 }
