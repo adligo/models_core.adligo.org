@@ -172,10 +172,20 @@ public class DateRangeMutant implements I_DateRange, I_DateRangeMutant {
 		return true;
 	}
 
+	/**
+	 * @return returns true if the this 
+	 * starts before and ends after the dr argument object
+	 * 
+	 */
 	public boolean overlaps(I_DateRange dr) {
-		Long drEnd = dr.getEnd();
-		Long drStart = dr.getStart();
-		
+		long drEnd = Long.MAX_VALUE;
+		long drStart = Long.MIN_VALUE;
+		if (dr.getEnd() != null) {
+			drEnd = dr.getEnd();
+		}
+		if (dr.getStart() != null) {
+			drStart = dr.getStart();
+		}
 		if (drEnd >= start && drEnd <= end) {
 			return true;
 		}
@@ -184,6 +194,27 @@ public class DateRangeMutant implements I_DateRange, I_DateRangeMutant {
 		}
 		return false;
 	}
+	
+	/**
+	 * returns 
+	 * @param dr
+	 * @return true if the date range passed in starts after this and ends before this.
+	 */
+	public boolean contains(I_DateRange dr) {
+		long drEnd = Long.MAX_VALUE;
+		long drStart = Long.MIN_VALUE;
+		if (dr.getEnd() != null) {
+			drEnd = dr.getEnd();
+		}
+		if (dr.getStart() != null) {
+			drStart = dr.getStart();
+		}
+		if (start <= drStart && end >= drEnd) {
+			return true;
+		}
+		return false;
+	}
+	
 	@Override
 	public String toString() {
 		return toString(DateRangeMutant.class);

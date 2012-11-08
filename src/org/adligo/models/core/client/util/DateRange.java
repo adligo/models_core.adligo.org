@@ -53,6 +53,10 @@ public class DateRange implements I_DateRange, I_Immutable {
 		return dateRangeMutant.overlaps(dr);
 	}
 
+	public boolean contains(I_DateRange dr) {
+		return dateRangeMutant.contains(dr);
+	}
+	
 	public Long getDuration() {
 		return dateRangeMutant.getDuration();
 	}
