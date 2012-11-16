@@ -120,27 +120,21 @@ public class DateRangeMutant implements I_DateRange, I_DateRangeMutant {
 			other.setEnd(end);
 			other.setStart(start);
 		} catch (InvalidParameterException ipe) {
+			//this code is unreachable but necessary for the conversion of possible exceptions
 			throw new ValidationException(ipe);
 		}
 	}
 
 	public void isValidWithoutNulls() throws ValidationException {
-		try {
-			if (start == null) {
-				throw new ValidationException(ModelsCoreConstantsObtainer.getConstants()
-							.getDateRangeRequiresStartValue(),IS_VALID_WITHOUT_NULLS);
-			}
-			if (end == null) {
-				throw new ValidationException(ModelsCoreConstantsObtainer.getConstants()
-							.getDateRangeRequiresEndValue(),IS_VALID_WITHOUT_NULLS);
-			}
-			
-			DateRangeMutant other = new DateRangeMutant();
-			other.setEnd(end);
-			other.setStart(start);
-		} catch (InvalidParameterException ipe) {
-			throw new ValidationException(ipe);
+		if (start == null) {
+			throw new ValidationException(ModelsCoreConstantsObtainer.getConstants()
+						.getDateRangeRequiresStartValue(),IS_VALID_WITHOUT_NULLS);
 		}
+		if (end == null) {
+			throw new ValidationException(ModelsCoreConstantsObtainer.getConstants()
+						.getDateRangeRequiresEndValue(),IS_VALID_WITHOUT_NULLS);
+		}
+		isValid();
 	}
 	
 	public int hashCode() {
@@ -156,20 +150,22 @@ public class DateRangeMutant implements I_DateRange, I_DateRangeMutant {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		DateRangeMutant other = (DateRangeMutant) obj;
-		if (end == null) {
-			if (other.end != null)
+		try {
+			I_DateRange other = (I_DateRange) obj;
+			if (end == null) {
+				if (other.getEnd() != null)
+					return false;
+			} else if (!end.equals(other.getEnd()))
 				return false;
-		} else if (!end.equals(other.end))
-			return false;
-		if (start == null) {
-			if (other.start != null)
+			if (start == null) {
+				if (other.getStart() != null)
+					return false;
+			} else if (!start.equals(other.getStart()))
 				return false;
-		} else if (!start.equals(other.start))
+			return true;
+		} catch (ClassCastException e) {
 			return false;
-		return true;
+		}
 	}
 
 	/**
@@ -235,5 +231,13 @@ public class DateRangeMutant implements I_DateRange, I_DateRangeMutant {
 			return null;
 		}
 		return end - start;
+	}
+
+	@Override
+	public boolean contains(Long time) {
+		if (time >= start && time <= end) {
+			return true;
+		}
+		return false;
 	}
 }

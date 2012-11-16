@@ -23,8 +23,6 @@ public class DateRange implements I_DateRange, I_Immutable {
 		return dateRangeMutant.equals(obj);
 	}
 
-	
-	
 	public Long getStart() {
 		return dateRangeMutant.getStart();
 	}
@@ -59,5 +57,9 @@ public class DateRange implements I_DateRange, I_Immutable {
 	
 	public Long getDuration() {
 		return dateRangeMutant.getDuration();
+	}
+
+	public boolean contains(Long time) {
+		return dateRangeMutant.contains(time);
 	}
 }

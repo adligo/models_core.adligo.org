@@ -14,6 +14,8 @@ public interface I_DateRange extends Serializable, I_Validateable {
 	
 	public boolean contains(I_DateRange dr);
 	
+	public boolean contains(Long time);
+	
 	/**
 	 * @return null if start or end is null
 	 *  otherwise end - start 
