@@ -114,7 +114,7 @@ public class SIDParamFactory {
 		Long id = p.getId();
 		Params params = new Params();
 		Param param = params.addParam(paramName);
-		param.setOperator(SqlOperators.EQUALS);
+		param.setOperators(SqlOperators.EQUALS);
 		param.setValue(id);
 		params.addParam(childParams);
 		parent.addParam(params);
@@ -134,7 +134,7 @@ public class SIDParamFactory {
 		String id = p.getKey();
 		Params params = new Params();
 		Param param = params.addParam(paramName);
-		param.setOperator(SqlOperators.EQUALS);
+		param.setOperators(SqlOperators.EQUALS);
 		param.setValue(id);
 		params.addParam(child);
 		parent.addParam(params);
@@ -151,7 +151,7 @@ public class SIDParamFactory {
 		Long id = p.getId();
 		Params params = new Params();
 		Param param = params.addParam(idParamName);
-		param.setOperator(SqlOperators.EQUALS);
+		param.setOperators(SqlOperators.EQUALS);
 		param.setValue(id);
 		params.addParam(child);
 		
@@ -160,7 +160,7 @@ public class SIDParamFactory {
 		Integer version = p.getVersion();
 		params = new Params();
 		param = params.addParam(valueParamName);
-		param.setOperator(SqlOperators.EQUALS);
+		param.setOperators(SqlOperators.EQUALS);
 		param.setValue(version);
 		params.addParam(child);
 		
