@@ -78,6 +78,27 @@ public class SIDParamFactory {
 			//do nothing
 		}
 	}
+	
+	public static void addIdParameter(Params parent, String paramName, I_StorageIdentifier p, I_TemplateParams child) {
+		try {
+			addIdParameter(parent, paramName, (I_LongIdentifier) p, child);
+			return;
+		} catch (ClassCastException cce) {
+			//do nothing
+		}
+		try {
+			addIdParameter(parent, paramName, (I_StringIdentifier) p, child);
+			return;
+		} catch (ClassCastException cce) {
+			//do nothing
+		}
+		try {
+			addIdParameter(parent, paramName, (I_VersionedLongIdentifier) p, child);
+			return;
+		} catch (ClassCastException cce) {
+			//do nothing
+		}
+	}
 	/**
 	 * 
 	 * @param parent the parent parameters (whereParams usually)
@@ -89,6 +110,15 @@ public class SIDParamFactory {
 		parent.addParam(paramName, SqlOperators.EQUALS, id);
 	}
 	
+	public static void addIdParameter(Params parent, String paramName, I_LongIdentifier p, I_TemplateParams childParams) {
+		Long id = p.getId();
+		Params params = new Params();
+		Param param = params.addParam(paramName);
+		param.setOperator(SqlOperators.EQUALS);
+		param.setValue(id);
+		params.addParam(childParams);
+		parent.addParam(params);
+	}
 	/**
 	 * 
 	 * @param parent the parent parameters (whereParams usually)
@@ -100,6 +130,16 @@ public class SIDParamFactory {
 		parent.addParam(paramName, SqlOperators.EQUALS, id);
 	}
 	
+	public static void addIdParameter(Params parent, String paramName, I_StringIdentifier p, I_TemplateParams child) {
+		String id = p.getKey();
+		Params params = new Params();
+		Param param = params.addParam(paramName);
+		param.setOperator(SqlOperators.EQUALS);
+		param.setValue(id);
+		params.addParam(child);
+		parent.addParam(params);
+	}
+	
 	public static void addIdParameter(Params parent, String idParamName, String valueParamName,  I_VersionedLongIdentifier p) {
 		Long id = p.getId();
 		parent.addParam(idParamName, SqlOperators.EQUALS, id);
@@ -107,6 +147,25 @@ public class SIDParamFactory {
 		parent.addParam(valueParamName, SqlOperators.EQUALS, version);
 	}
 	
+	public static void addIdParameter(Params parent, String idParamName, String valueParamName,  I_VersionedLongIdentifier p, I_TemplateParams child) {
+		Long id = p.getId();
+		Params params = new Params();
+		Param param = params.addParam(idParamName);
+		param.setOperator(SqlOperators.EQUALS);
+		param.setValue(id);
+		params.addParam(child);
+		
+		parent.addParam(params);
+		
+		Integer version = p.getVersion();
+		params = new Params();
+		param = params.addParam(valueParamName);
+		param.setOperator(SqlOperators.EQUALS);
+		param.setValue(version);
+		params.addParam(child);
+		
+		parent.addParam(params);
+	}
 	
 	public static Object getIdParameter(I_LongIdentifier p) {
 		return p.getId();
