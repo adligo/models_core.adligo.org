@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." default="deploy" name="models_core">
-    <import file="${user.home}/conf/adligo/build.xml"/>
+    <import file="${user.home}/conf/adligo/jse-build.xml"/>
 	
-	<target name="jar_j2me">
-		<ant antfile="j2me-build.xml" inheritAll="false" target="jar"/>
-	</target>
 </project>
