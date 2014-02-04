@@ -7,7 +7,7 @@ import org.adligo.i.log.client.LogFactory;
 import org.adligo.i.util.client.I_Immutable;
 import org.adligo.i.util.client.StringUtils;
 
-public class DomainName implements I_Validateable, I_Mutable, I_Immutable, Serializable {
+public class DomainName implements I_Validateable, I_Mutable, I_Immutable {
 	public static final String IS_VALID = "isValid";
 
 	/**

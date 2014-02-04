@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import org.adligo.i.util.client.I_Immutable;
 
-public class CommandToken implements Serializable, I_Immutable {
+public class CommandToken implements I_Immutable {
 	/**
 	 * 
 	 */

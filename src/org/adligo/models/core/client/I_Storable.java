@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @author scott
  *
  */
-public interface I_Storable extends Serializable, I_Identifiable {
+public interface I_Storable extends I_Identifiable {
 	/**
 	 * @see I_StorageInfo
 	 * @return

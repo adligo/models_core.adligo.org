@@ -108,7 +108,7 @@ public class VersionedLongIdentifierMutant implements I_VersionedLongIdentifier 
 		try{
 			return new VersionedLongIdentifier(this);
 		} catch (InvalidParameterException e) {
-			throw new RuntimeException(e);
+			throw new RuntimeException(e.getMessage());
 		}
 	}
 }

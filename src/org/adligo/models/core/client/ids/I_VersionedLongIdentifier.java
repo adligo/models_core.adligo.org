@@ -11,7 +11,7 @@ import org.adligo.i.adi.client.I_Cacheable;
  * @author scott
  *
  */
-public interface I_VersionedLongIdentifier extends Serializable, I_StorageIdentifier, I_Cacheable {
+public interface I_VersionedLongIdentifier extends I_StorageIdentifier, I_Cacheable {
 
 	public abstract Long getId();
 

@@ -1,9 +1,9 @@
 package org.adligo.models.core.client;
 
 public interface I_Person extends I_NamedId, I_Validateable, I_Changeable {
-	public static final Character GENDER_MALE = 'M';
-	public static final Character GENDER_FEMALE = 'F'; 
-	public static final Character GENDER_OTHER = 'O';
+	public static final Character GENDER_MALE = new Character('M');
+	public static final Character GENDER_FEMALE = new Character('F');
+	public static final Character GENDER_OTHER = new Character('O');
 	
 	public String getFirst_name();
 	public String getMiddle_name();
@@ -23,7 +23,7 @@ public interface I_Person extends I_NamedId, I_Validateable, I_Changeable {
 	 * 
 	 * @return
 	 */
-	public Boolean isAlive();
+	public boolean isAlive();
 	
 	/**
 	 * the gender of the person (use constants in this interface 

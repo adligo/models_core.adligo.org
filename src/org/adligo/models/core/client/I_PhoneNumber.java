@@ -1,7 +1,6 @@
 package org.adligo.models.core.client;
 
-import java.io.Serializable;
 
-public interface I_PhoneNumber extends I_Validateable, Serializable {
+public interface I_PhoneNumber extends I_Validateable {
 	public abstract String getNumber();
 }

@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @author scott
  *
  */
-public interface I_CustomInfo extends Serializable, I_Validateable {
+public interface I_CustomInfo extends I_Validateable {
 	/**
 	 * This method should provide the immutable/immutable interface class
 	 * which provides field specific information about this instance ie;

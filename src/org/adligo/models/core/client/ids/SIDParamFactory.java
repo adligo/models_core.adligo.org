@@ -1,9 +1,5 @@
 package org.adligo.models.core.client.ids;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
 
 import org.adligo.models.params.client.I_TemplateParams;
 import org.adligo.models.params.client.Param;
@@ -36,7 +32,7 @@ public class SIDParamFactory {
 	
 	private static I_TemplateParams byId(I_LongIdentifier p) {
 		Long id = p.getId();
-		return ParamsFactory.byId(id);
+		return ParamsFactory.byId(id.longValue());
 	}
 	
 	private static I_TemplateParams byId(I_StringIdentifier p) {
@@ -51,10 +47,18 @@ public class SIDParamFactory {
 		params.addParam(ParamsFactory.WHERE, whereParams);
 		
 		Long id = p.getId();
-		whereParams.addParam(ParamsFactory.ID, SqlOperators.EQUALS, id);
-		Integer version = p.getVersion();
-		whereParams.addParam(VERSION, SqlOperators.EQUALS, version);
+		if (id == null) {
+			whereParams.addParam(ParamsFactory.ID, SqlOperators.IS_NULL);
+		} else {
+			whereParams.addParam(ParamsFactory.ID, SqlOperators.EQUALS, id.longValue());
+		}
 		
+		Integer version = p.getVersion();
+		if (version == null) {
+			whereParams.addParam(VERSION, SqlOperators.IS_NULL);
+		} else {
+			whereParams.addParam(VERSION, SqlOperators.EQUALS, version.intValue());
+		}
 		return params;
 	}
 	
@@ -108,14 +112,22 @@ public class SIDParamFactory {
 	 */
 	public static void addIdParameter(Params parent, String paramName, I_LongIdentifier p) {
 		Long id = p.getId();
-		parent.addParam(paramName, SqlOperators.EQUALS, id);
+		if (id == null) {
+			parent.addParam(paramName, SqlOperators.IS_NULL);
+		} else {
+			parent.addParam(paramName, SqlOperators.EQUALS, id.longValue());
+		}
 	}
 	
 	public static void addIdParameter(Params parent, String paramName, I_LongIdentifier p, I_TemplateParams childParams) {
 		Long id = p.getId();
-		
-		Param param = parent.addParam(paramName, SqlOperators.EQUALS, id);
-		param.setParams(childParams);
+		if (id == null) {
+			Param param = parent.addParam(paramName, SqlOperators.IS_NULL);
+			param.setParams(childParams);
+		} else {
+			Param param = parent.addParam(paramName, SqlOperators.EQUALS, id.longValue());
+			param.setParams(childParams);
+		}
 	}
 	/**
 	 * 
@@ -125,31 +137,59 @@ public class SIDParamFactory {
 	 */
 	public static void addIdParameter(Params parent, String paramName, I_StringIdentifier p) {
 		String id = p.getKey();
-		parent.addParam(paramName, SqlOperators.EQUALS, id);
+		if (id == null) {
+			parent.addParam(paramName, SqlOperators.IS_NULL);
+		} else {
+			parent.addParam(paramName, SqlOperators.EQUALS, id);
+		}
 	}
 	
 	public static void addIdParameter(Params parent, String paramName, I_StringIdentifier p, I_TemplateParams child) {
 		String id = p.getKey();
+		if (id == null) {
+			Param param = parent.addParam(paramName, SqlOperators.IS_NULL);
+			param.setParams(child);
+		} else {
+			Param param = parent.addParam(paramName, SqlOperators.EQUALS, id);
+			param.setParams(child);
+		}
 		
-		Param param = parent.addParam(paramName, SqlOperators.EQUALS, id);
-		param.setParams(child);
 	}
 	
 	public static void addIdParameter(Params parent, String idParamName, String valueParamName,  I_VersionedLongIdentifier p) {
 		Long id = p.getId();
-		parent.addParam(idParamName, SqlOperators.EQUALS, id);
+		if (id == null) {
+			parent.addParam(idParamName, SqlOperators.IS_NULL);
+		} else {
+			parent.addParam(idParamName, SqlOperators.EQUALS, id.longValue());
+		}
+		
 		Integer version = p.getVersion();
-		parent.addParam(valueParamName, SqlOperators.EQUALS, version);
+		if (version == null) {
+			parent.addParam(valueParamName, SqlOperators.IS_NULL);
+		} else {
+			parent.addParam(valueParamName, SqlOperators.EQUALS, version.intValue());
+		}
 	}
 	
 	public static void addIdParameter(Params parent, String idParamName, String valueParamName,  I_VersionedLongIdentifier p, I_TemplateParams child) {
 		Long id = p.getId();
-		Param param = parent.addParam(idParamName, SqlOperators.EQUALS, id);
-		param.setParams(child);
+		if (id == null) {
+			Param param = parent.addParam(idParamName, SqlOperators.IS_NULL);
+			param.setParams(child);
+		} else {
+			Param param = parent.addParam(idParamName, SqlOperators.EQUALS, id.longValue());
+			param.setParams(child);
+		}
 		
 		Integer version = p.getVersion();
-		param = parent.addParam(valueParamName, SqlOperators.EQUALS, version);
-		param.setParams(child);
+		if (version == null) {
+			Param param = parent.addParam(valueParamName, SqlOperators.IS_NULL);
+			param.setParams(child);
+		} else {
+			Param param = parent.addParam(valueParamName, SqlOperators.EQUALS, version.intValue());
+			param.setParams(child);
+		}
 	}
 	
 	public static Object getIdParameter(I_LongIdentifier p) {
@@ -180,28 +220,4 @@ public class SIDParamFactory {
 		throw new IllegalArgumentException("Unable to obtain a single object id for " + p);
 	}
 	
-	/**
-	 * Note no generics or annotations for jme compatibility
-	 * @param parent
-	 * @param paramName
-	 * @param p a colletion of I_StorageIdentifier
-	 */
-	public static void addIdParametersInClauses(Params parent, String paramName, Collection p) {
-		Param childParam = parent.addParam(paramName,SqlOperators.IN);
-		
-		Iterator it = p.iterator();
-	    while (it.hasNext()) {
-	    	I_StorageIdentifier id = (I_StorageIdentifier) it.next();
-			Object obj = getIdParameter(id);
-			try {
-				childParam.addValue((Long) obj);
-			} catch (ClassCastException x) {
-				try {
-					childParam.addValue((String) obj);
-				} catch (ClassCastException g) {
-					throw new RuntimeException(g);
-				}
-			}
-		}
-	}
 }

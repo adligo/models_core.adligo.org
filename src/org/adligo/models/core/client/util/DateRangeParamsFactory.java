@@ -1,8 +1,6 @@
 package org.adligo.models.core.client.util;
 
-import java.util.Collection;
 import java.util.Date;
-import java.util.Iterator;
 
 import org.adligo.i.util.client.DateTime;
 import org.adligo.models.params.client.Params;
@@ -22,31 +20,15 @@ public class DateRangeParamsFactory {
 		addDateTimeRange(dr, fieldName, rangesParams);
 	}
 
-	/**
-	 * Note no generics or annotations for jme compaitibility
-	 * 
-	 * @param params
-	 * @param drs
-	 * @param fieldName
-	 */
-	public static void addDateTimeRangeParams(Params params, Collection drs, String fieldName) {
-		if (drs.size() > 0) {
-			Params rangesParams = new Params();
-			params.addParam(fieldName + "_ranges", rangesParams);
-			Iterator it = drs.iterator();
-			while (it.hasNext()) {
-				I_DateRange dr = (I_DateRange) it.next();
-				addDateTimeRange(dr, fieldName, rangesParams);
-			}
-		}
-	}
 	
 	protected static void addDateTimeRange(I_DateRange dr, String fieldName,
 			Params rangesParams) {
 		Params rangeParams = new Params();
 		rangesParams.addParam(fieldName + "_range", rangeParams);
-		rangeParams.addParam(fieldName, SqlOperators.GREATER_THAN_EQUALS, new Date(dr.getStart()));
-		rangeParams.addParam(fieldName, SqlOperators.LESS_THAN_EQUALS, new Date(dr.getEnd()));
+		Long start = dr.getStart();
+		rangeParams.addParam(fieldName, SqlOperators.GREATER_THAN_EQUALS, new Date(start.longValue()));
+		Long end = dr.getEnd();
+		rangeParams.addParam(fieldName, SqlOperators.LESS_THAN_EQUALS, new Date(end.longValue()));
 	}
 	
 	/**
@@ -64,25 +46,6 @@ public class DateRangeParamsFactory {
 		addDateRange(dr, fieldName, rangesParams);
 	}
 
-	/**
-	 * note no Generics or annotations for jme
-	 * 
-	 * @param params
-	 * @param drs
-	 * @param fieldName
-	 */
-	public static void addDateRangeParams(Params params, Collection drs, String fieldName) {
-		if (drs.size() > 0) {
-			Params rangesParams = new Params();
-			params.addParam(fieldName + "_ranges", rangesParams);
-			Iterator it = drs.iterator();
-			while (it.hasNext()) {
-				I_DateRange dr = (I_DateRange) it.next();
-				addDateRange(dr, fieldName, rangesParams);
-			}
-		}
-	}
-	
 	protected static void addDateRange(I_DateRange dr, String fieldName,
 			Params rangesParams) {
 		Params rangeParams = new Params();

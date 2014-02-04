@@ -5,7 +5,7 @@ import java.io.Serializable;
 import org.adligo.i.util.client.I_Immutable;
 import org.adligo.i.util.client.StringUtils;
 
-public class EMailAddress implements I_Immutable, Serializable {
+public class EMailAddress implements I_Immutable {
 	/**
 	 * 
 	 */

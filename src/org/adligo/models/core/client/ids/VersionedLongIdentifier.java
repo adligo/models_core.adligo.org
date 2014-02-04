@@ -51,8 +51,8 @@ public class VersionedLongIdentifier implements I_VersionedLongIdentifier, I_Imm
 	public I_StorageIdentifier toImmutable() {
 		try {
 			return new VersionedLongIdentifier(this);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
+		} catch (InvalidParameterException e) {
+			throw new RuntimeException(e.getMessage());
 		}
 	}
 }

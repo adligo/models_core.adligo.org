@@ -296,7 +296,7 @@ public class PersonMutant extends ChangeableMutant implements I_PersonMutant  {
 		return nickname;
 	}
 
-	public Boolean isAlive() {
+	public boolean isAlive() {
 		if (deceased != null) {
 			return false;
 		}
@@ -304,7 +304,10 @@ public class PersonMutant extends ChangeableMutant implements I_PersonMutant  {
 			//assume there alive
 			return true;
 		}
-		return alive;
+		if (alive.booleanValue()) {
+			return true;
+		}
+		return false;
 	}
 	
 	public void setAlive(Boolean p) throws InvalidParameterException  {
@@ -337,13 +340,13 @@ public class PersonMutant extends ChangeableMutant implements I_PersonMutant  {
 		
 		sb.append(",birthday=");
 		if (birthday != null) {
-			sb.append(new DateTime(birthday));
+			sb.append(new DateTime(birthday.longValue()));
 		} else {
 			sb.append("null");
 		}
 		sb.append(",deceased=");
 		if (deceased != null) {
-			sb.append(new DateTime(deceased));
+			sb.append(new DateTime(deceased.longValue()));
 		} else {
 			sb.append("null");
 		}
@@ -473,7 +476,7 @@ public class PersonMutant extends ChangeableMutant implements I_PersonMutant  {
 		if (birthday == null) {
 			return null;
 		}
-		return new Date(birthday);
+		return new Date(birthday.longValue());
 	}
 	/**
 	 * for db io only
@@ -483,7 +486,7 @@ public class PersonMutant extends ChangeableMutant implements I_PersonMutant  {
 		if (p == null) {
 			birthday = null;
 		} else {
-			this.birthday = p.getTime();
+			this.birthday = new Long(p.getTime());
 		}
 	}
 	
@@ -495,7 +498,7 @@ public class PersonMutant extends ChangeableMutant implements I_PersonMutant  {
 		if (deceased == null) {
 			return null;
 		}
-		return new Date(deceased);
+		return new Date(deceased.longValue());
 	}
 	/**
 	 * for db io only
@@ -505,7 +508,7 @@ public class PersonMutant extends ChangeableMutant implements I_PersonMutant  {
 		if (p == null) {
 			deceased = null;
 		} else {
-			this.deceased = p.getTime();
+			this.deceased = new Long(p.getTime());
 		}
 	}
 }

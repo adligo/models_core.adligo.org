@@ -2,7 +2,7 @@ package org.adligo.models.core.client;
 
 import java.io.Serializable;
 
-public class CommandTokenMutant implements Serializable, I_CommandToken {
+public class CommandTokenMutant implements I_CommandToken {
 	/**
 	 * 
 	 */

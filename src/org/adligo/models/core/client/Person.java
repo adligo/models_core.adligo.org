@@ -96,7 +96,7 @@ public class Person extends Changeable implements I_Validateable, I_Person, I_Im
 	}
 
 
-	public Boolean isAlive() {
+	public boolean isAlive() {
 		return mutant.isAlive();
 	}
 

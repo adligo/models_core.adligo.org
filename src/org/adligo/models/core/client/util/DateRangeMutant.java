@@ -40,7 +40,10 @@ public class DateRangeMutant implements I_DateRange, I_DateRangeMutant {
 	public void setStart(Long p) throws InvalidParameterException {
 		if (end != null) {
 			if (p != null) {
-				if (p > end) {
+				long el = end.longValue();
+				long pl = end.longValue();
+				
+				if (pl > el) {
 					throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 							.getStartOfDateRangeMustBeBeforeEnd(), SET_ENDED);
 				}
@@ -56,7 +59,7 @@ public class DateRangeMutant implements I_DateRange, I_DateRangeMutant {
 		if (start == null) {
 			return null;
 		}
-		return new Date(start);
+		return new Date(start.longValue());
 	}
 	
 	protected void setStartDate(Date p) {
@@ -64,7 +67,7 @@ public class DateRangeMutant implements I_DateRange, I_DateRangeMutant {
 			//allow null to come from the db
 			return;
 		}
-		start = p.getTime();
+		start = new Long(p.getTime());
 	}
 	
 	/* (non-Javadoc)
@@ -80,7 +83,10 @@ public class DateRangeMutant implements I_DateRange, I_DateRangeMutant {
 	public void setEnd(Long p) throws InvalidParameterException {
 		if (start != null) {
 			if (p != null) {
-				if (p < start) {
+				long pl = p.longValue();
+				long sl = start.longValue();
+				
+				if (pl < sl) {
 					throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
 							.getEndOfDateRangeMustBeAfterStart(), SET_ENDED);
 				}
@@ -96,7 +102,7 @@ public class DateRangeMutant implements I_DateRange, I_DateRangeMutant {
 		if (end == null) {
 			return null;
 		}
-		return new Date(end);
+		return new Date(end.longValue());
 	}
 	
 	protected void setEndDate(Date p) {
@@ -104,7 +110,8 @@ public class DateRangeMutant implements I_DateRange, I_DateRangeMutant {
 			//allow null to come from the db
 			return;
 		}
-		end = p.getTime();
+		long time = p.getTime();
+		end = new Long(time);
 	}
 
 	/**
@@ -174,16 +181,21 @@ public class DateRangeMutant implements I_DateRange, I_DateRangeMutant {
 	public boolean overlaps(I_DateRange dr) {
 		long drEnd = Long.MAX_VALUE;
 		long drStart = Long.MIN_VALUE;
-		if (dr.getEnd() != null) {
-			drEnd = dr.getEnd();
+		Long dre = dr.getEnd();
+		if (dre != null) {
+			drEnd = dre.longValue();
 		}
-		if (dr.getStart() != null) {
-			drStart = dr.getStart();
+		Long drs = dr.getStart();
+		if (drs!= null) {
+			drStart = drs.longValue();
 		}
-		if (drEnd >= start && drEnd <= end) {
+		long el = end.longValue();
+		long sl = start.longValue();
+		if (drEnd >= sl && drEnd <= el) {
 			return true;
 		}
-		if (drStart >= start && drStart <= end) {
+		
+		if (drStart >= sl && drStart <= el) {
 			return true;
 		}
 		return false;
@@ -197,13 +209,23 @@ public class DateRangeMutant implements I_DateRange, I_DateRangeMutant {
 	public boolean contains(I_DateRange dr) {
 		long drEnd = Long.MAX_VALUE;
 		long drStart = Long.MIN_VALUE;
-		if (dr.getEnd() != null) {
-			drEnd = dr.getEnd();
+		Long dre = dr.getEnd();
+		if (dre != null) {
+			drEnd = dre.longValue();
 		}
-		if (dr.getStart() != null) {
-			drStart = dr.getStart();
+		Long drs = dr.getStart();
+		if (drs != null) {
+			drStart = drs.longValue();
 		}
-		if (start <= drStart && end >= drEnd) {
+		if (start == null) {
+			return false;
+		}
+		if (end == null) {
+			return false;
+		}
+		long sl = start.longValue();
+		long el = end.longValue();
+		if (sl <= drStart && el >= drEnd) {
 			return true;
 		}
 		return false;
@@ -215,8 +237,14 @@ public class DateRangeMutant implements I_DateRange, I_DateRangeMutant {
 	
 	public String toString(Class c) {
 		I_TextFormatter formatter = TextFormatter.getInstance();
-		String startedString = formatter.formatDate(DateTime.DEFAULT_DATE_TIME_FORMAT, start);
-		String endedString = formatter.formatDate(DateTime.DEFAULT_DATE_TIME_FORMAT, end);
+		String startedString = null;
+		if (start != null) {
+			startedString = formatter.formatDate(DateTime.DEFAULT_DATE_TIME_FORMAT, start.longValue());
+		}
+		String endedString = null;
+		if (end != null) {
+			endedString = formatter.formatDate(DateTime.DEFAULT_DATE_TIME_FORMAT, end.longValue());
+		}
 		
 		return "" + ClassUtils.getClassShortName(c) + 
 				" [" + startedString + "-" + endedString + "]";
@@ -226,11 +254,18 @@ public class DateRangeMutant implements I_DateRange, I_DateRangeMutant {
 		if (start == null || end == null) {
 			return null;
 		}
-		return end - start;
+		long el = end.longValue();
+		long sl = start.longValue();
+		
+		return new Long(el - sl);
 	}
 
 	public boolean contains(Long time) {
-		if (time >= start && time <= end) {
+		long tl = time.longValue();
+		long el = end.longValue();
+		long sl = start.longValue();
+		
+		if (tl >= sl && tl <= el) {
 			return true;
 		}
 		return false;
