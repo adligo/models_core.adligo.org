@@ -2,7 +2,6 @@ package org.adligo.models.core.client.ids;
 
 import org.adligo.i.adi.client.I_Cacheable;
 import org.adligo.i.util.client.I_Immutable;
-import org.adligo.models.core.client.I_Identifiable;
 import org.adligo.models.core.client.InvalidParameterException;
 
 public class VersionedLongIdentifier implements I_VersionedLongIdentifier, I_Immutable{
@@ -40,18 +39,15 @@ public class VersionedLongIdentifier implements I_VersionedLongIdentifier, I_Imm
 		return vim.getMemsize() + I_Cacheable.OBJECT;
 	}
 
-	@Override
 	public String getImmutableFieldName() {
 		return "vim";
 	}
 
-	@Override
 	public boolean hasValue() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
 	public I_StorageIdentifier toImmutable() {
 		try {
 			return new VersionedLongIdentifier(this);

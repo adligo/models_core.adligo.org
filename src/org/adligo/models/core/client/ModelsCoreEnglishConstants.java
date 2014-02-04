@@ -224,7 +224,6 @@ public class ModelsCoreEnglishConstants implements I_ModelsCoreConstants {
 		return EMAIL_ATTACHMENT_MAY_NOT_BE_EMPTY;
 	}
 
-	@Override
 	public String getPersonNoFirstNameError() {
 		return PERSON_A_FIRST_NAME_IS_REQUIRED;
 	}

@@ -2,6 +2,7 @@ package org.adligo.models.core.client.ids;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import org.adligo.models.params.client.I_TemplateParams;
@@ -179,9 +180,18 @@ public class SIDParamFactory {
 		throw new IllegalArgumentException("Unable to obtain a single object id for " + p);
 	}
 	
-	public static void addIdParametersInClauses(Params parent, String paramName, Collection<I_StorageIdentifier> p) {
+	/**
+	 * Note no generics or annotations for jme compatibility
+	 * @param parent
+	 * @param paramName
+	 * @param p a colletion of I_StorageIdentifier
+	 */
+	public static void addIdParametersInClauses(Params parent, String paramName, Collection p) {
 		Param childParam = parent.addParam(paramName,SqlOperators.IN);
-	    for (I_StorageIdentifier id: p) {
+		
+		Iterator it = p.iterator();
+	    while (it.hasNext()) {
+	    	I_StorageIdentifier id = (I_StorageIdentifier) it.next();
 			Object obj = getIdParameter(id);
 			try {
 				childParam.addValue((Long) obj);

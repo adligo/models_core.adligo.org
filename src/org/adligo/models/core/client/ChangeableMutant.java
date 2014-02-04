@@ -85,10 +85,10 @@ public class ChangeableMutant implements I_ChangeableMutant {
 	/**
 	 * client calls must append their own square brace at the end ]
 	 * to allow for extension.
-	 * 
+	 * Note no generics or annotations for jme compatibility
 	 * @param app
 	 */
-	public void toString(Class<?> ic, I_Appender app) {
+	public void toString(Class ic, I_Appender app) {
 		app.append("" + ClassUtils.getClassShortName(ic) + " [id=" + id + ", version=" + version
 				+ ", storageInfo=" + storageInfo);
 	}

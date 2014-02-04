@@ -20,7 +20,6 @@ public class CommandTokenMutant implements Serializable, I_CommandToken {
 	/* (non-Javadoc)
 	 * @see org.adligo.models.core.client.I_CommandToken#getData()
 	 */
-	@Override
 	public Serializable getData() {
 		return data;
 	}
@@ -30,7 +29,6 @@ public class CommandTokenMutant implements Serializable, I_CommandToken {
 	/* (non-Javadoc)
 	 * @see org.adligo.models.core.client.I_CommandToken#getCommand()
 	 */
-	@Override
 	public String getCommand() {
 		return command;
 	}

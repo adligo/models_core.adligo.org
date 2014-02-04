@@ -247,8 +247,6 @@ public class DomainName implements I_Validateable, I_Mutable, I_Immutable, Seria
 		return components[whichOne];
 	}
 
-
-	@Override
 	public String getImmutableFieldName() {
 		return "name";
 	}

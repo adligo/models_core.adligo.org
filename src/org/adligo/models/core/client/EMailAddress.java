@@ -126,13 +126,10 @@ public class EMailAddress implements I_Immutable, Serializable {
 		this.email = email;
 	}
 
-
 	public String getEMail() {
 		return email;
 	}
 	
-
-	@Override
 	public String getImmutableFieldName() {
 		return "email";
 	}

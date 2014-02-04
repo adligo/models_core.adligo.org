@@ -62,12 +62,10 @@ public class Address implements I_Address, I_Immutable {
 		return false;
 	}
 
-	@Override
 	public String getImmutableFieldName() {
 		return "wrapped";
 	}
 
-	@Override
 	public boolean isStored() throws ValidationException {
 		return wrapped.isStored();
 	}

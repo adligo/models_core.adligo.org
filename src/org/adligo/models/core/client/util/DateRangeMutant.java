@@ -70,7 +70,6 @@ public class DateRangeMutant implements I_DateRange, I_DateRangeMutant {
 	/* (non-Javadoc)
 	 * @see org.adligo.models.core.client.util.I_DateRange#getEnded()
 	 */
-	@Override
 	public Long getEnd() {
 		return end;
 	}
@@ -78,7 +77,6 @@ public class DateRangeMutant implements I_DateRange, I_DateRangeMutant {
 	/* (non-Javadoc)
 	 * @see org.adligo.models.core.client.util.I_DateRangeMutant#setEnded(java.lang.Long)
 	 */
-	@Override
 	public void setEnd(Long p) throws InvalidParameterException {
 		if (start != null) {
 			if (p != null) {
@@ -211,7 +209,6 @@ public class DateRangeMutant implements I_DateRange, I_DateRangeMutant {
 		return false;
 	}
 	
-	@Override
 	public String toString() {
 		return toString(DateRangeMutant.class);
 	}
@@ -225,7 +222,6 @@ public class DateRangeMutant implements I_DateRange, I_DateRangeMutant {
 				" [" + startedString + "-" + endedString + "]";
 	}
 
-	@Override
 	public Long getDuration() {
 		if (start == null || end == null) {
 			return null;
@@ -233,7 +229,6 @@ public class DateRangeMutant implements I_DateRange, I_DateRangeMutant {
 		return end - start;
 	}
 
-	@Override
 	public boolean contains(Long time) {
 		if (time >= start && time <= end) {
 			return true;

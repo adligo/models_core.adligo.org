@@ -25,7 +25,6 @@ public class CommandToken implements Serializable, I_Immutable {
 		mutant.setData(other);
 	}
 	
-	@Override
 	public String getImmutableFieldName() {
 		return "mutant";
 	}

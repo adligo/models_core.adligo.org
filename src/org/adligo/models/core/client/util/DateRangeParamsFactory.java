@@ -2,6 +2,7 @@ package org.adligo.models.core.client.util;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 
 import org.adligo.i.util.client.DateTime;
 import org.adligo.models.params.client.Params;
@@ -21,11 +22,20 @@ public class DateRangeParamsFactory {
 		addDateTimeRange(dr, fieldName, rangesParams);
 	}
 
-	public static void addDateTimeRangeParams(Params params, Collection<? extends I_DateRange> drs, String fieldName) {
+	/**
+	 * Note no generics or annotations for jme compaitibility
+	 * 
+	 * @param params
+	 * @param drs
+	 * @param fieldName
+	 */
+	public static void addDateTimeRangeParams(Params params, Collection drs, String fieldName) {
 		if (drs.size() > 0) {
 			Params rangesParams = new Params();
 			params.addParam(fieldName + "_ranges", rangesParams);
-			for (I_DateRange dr: drs) {
+			Iterator it = drs.iterator();
+			while (it.hasNext()) {
+				I_DateRange dr = (I_DateRange) it.next();
 				addDateTimeRange(dr, fieldName, rangesParams);
 			}
 		}
@@ -54,11 +64,20 @@ public class DateRangeParamsFactory {
 		addDateRange(dr, fieldName, rangesParams);
 	}
 
-	public static void addDateRangeParams(Params params, Collection<? extends I_DateRange> drs, String fieldName) {
+	/**
+	 * note no Generics or annotations for jme
+	 * 
+	 * @param params
+	 * @param drs
+	 * @param fieldName
+	 */
+	public static void addDateRangeParams(Params params, Collection drs, String fieldName) {
 		if (drs.size() > 0) {
 			Params rangesParams = new Params();
 			params.addParam(fieldName + "_ranges", rangesParams);
-			for (I_DateRange dr: drs) {
+			Iterator it = drs.iterator();
+			while (it.hasNext()) {
+				I_DateRange dr = (I_DateRange) it.next();
 				addDateRange(dr, fieldName, rangesParams);
 			}
 		}

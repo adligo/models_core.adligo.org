@@ -105,7 +105,6 @@ public class User implements I_User, I_Immutable {
 		wrapped.isValid();
 	}
 
-	@Override
 	public String getImmutableFieldName() {
 		return "wrapped";
 	}

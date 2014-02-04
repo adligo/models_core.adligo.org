@@ -96,14 +96,14 @@ public class VersionedLongIdentifierMutant implements I_VersionedLongIdentifier 
 		}
 		return I_Cacheable.OBJECT + size;
 	}
-	@Override
+	
 	public boolean hasValue() {
 		if (id == null || version == null) {
 			return false;
 		}
 		return true;
 	}
-	@Override
+	
 	public I_StorageIdentifier toImmutable() {
 		try{
 			return new VersionedLongIdentifier(this);

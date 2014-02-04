@@ -42,7 +42,6 @@ public class SimpleStorageInfo implements I_StorageInfo, I_Immutable {
 		return "storeName";
 	}
 
-	@Override
 	public void isValid() throws ValidationException {
 		if (storeName == null) {
 			throw new ValidationException("SimpleStorageInfo requires a store name.",
