@@ -1,6 +1,5 @@
 package org.adligo.models.core.client;
 
-import java.io.Serializable;
 /**
  * This interface allows usage of the models in this
  * package to be extended to have custom information
