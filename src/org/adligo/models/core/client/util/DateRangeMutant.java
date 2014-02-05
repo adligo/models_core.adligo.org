@@ -41,7 +41,7 @@ public class DateRangeMutant implements I_DateRange, I_DateRangeMutant {
 		if (end != null) {
 			if (p != null) {
 				long el = end.longValue();
-				long pl = end.longValue();
+				long pl = p.longValue();
 				
 				if (pl > el) {
 					throw new InvalidParameterException(ModelsCoreConstantsObtainer.getConstants()
