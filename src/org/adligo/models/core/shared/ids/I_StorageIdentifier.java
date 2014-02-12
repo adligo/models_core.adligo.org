@@ -1,6 +1,6 @@
 package org.adligo.models.core.shared.ids;
 
-import org.adligo.i.adi.client.I_Cacheable;
+import org.adligo.i.adi.shared.I_Cacheable;
 
 /**
  * marker interfaces actual impls should also 

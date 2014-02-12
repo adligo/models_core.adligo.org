@@ -1,8 +1,6 @@
 package org.adligo.models.core.shared.ids;
 
-import java.io.Serializable;
-
-import org.adligo.i.adi.client.I_Cacheable;
+import org.adligo.i.adi.shared.I_Cacheable;
 
 /**
  * note 

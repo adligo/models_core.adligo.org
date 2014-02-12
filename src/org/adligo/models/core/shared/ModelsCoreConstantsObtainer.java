@@ -1,8 +1,8 @@
 package org.adligo.models.core.shared;
 
-import org.adligo.i.adi.client.I_Invoker;
-import org.adligo.i.adi.client.InvokerNames;
-import org.adligo.i.adi.client.Registry;
+import org.adligo.i.adi.shared.I_Invoker;
+import org.adligo.i.adi.shared.InvokerNames;
+import org.adligo.i.adi.shared.Registry;
 
 public class ModelsCoreConstantsObtainer {
 

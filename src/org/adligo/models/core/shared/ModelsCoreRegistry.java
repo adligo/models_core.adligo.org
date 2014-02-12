@@ -1,6 +1,6 @@
 package org.adligo.models.core.shared;
 
-import org.adligo.i.adi.client.I18nConstantsFactory;
+import org.adligo.i.adi.shared.I18nConstantsFactory;
 
 
 public class ModelsCoreRegistry {
