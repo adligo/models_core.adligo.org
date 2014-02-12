@@ -2,7 +2,7 @@ package org.adligo.models.core.shared;
 
 import java.io.Serializable;
 
-import org.adligo.i.util.client.I_Immutable;
+import org.adligo.i.util.shared.I_Immutable;
 
 public class CommandToken implements I_Immutable {
 	/**

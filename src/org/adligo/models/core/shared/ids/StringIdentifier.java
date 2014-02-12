@@ -1,9 +1,9 @@
 package org.adligo.models.core.shared.ids;
 
 import org.adligo.i.adi.client.I_Cacheable;
-import org.adligo.i.util.client.ClassUtils;
-import org.adligo.i.util.client.I_Immutable;
-import org.adligo.i.util.client.StringUtils;
+import org.adligo.i.util.shared.ClassUtils;
+import org.adligo.i.util.shared.I_Immutable;
+import org.adligo.i.util.shared.StringUtils;
 import org.adligo.models.core.shared.InvalidParameterException;
 
 

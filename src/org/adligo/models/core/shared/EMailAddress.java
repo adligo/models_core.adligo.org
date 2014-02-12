@@ -2,8 +2,8 @@ package org.adligo.models.core.shared;
 
 import java.io.Serializable;
 
-import org.adligo.i.util.client.I_Immutable;
-import org.adligo.i.util.client.StringUtils;
+import org.adligo.i.util.shared.I_Immutable;
+import org.adligo.i.util.shared.StringUtils;
 
 public class EMailAddress implements I_Immutable {
 	/**

@@ -1,8 +1,8 @@
 package org.adligo.models.core.shared;
 
-import org.adligo.i.util.client.ClassUtils;
-import org.adligo.i.util.client.I_Immutable;
-import org.adligo.i.util.client.StringUtils;
+import org.adligo.i.util.shared.ClassUtils;
+import org.adligo.i.util.shared.I_Immutable;
+import org.adligo.i.util.shared.StringUtils;
 
 public class PhoneNumber implements I_Validateable, I_PhoneNumber, I_Immutable
 {

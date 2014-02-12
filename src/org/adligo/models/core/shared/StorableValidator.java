@@ -1,6 +1,6 @@
 package org.adligo.models.core.shared;
 
-import org.adligo.i.util.client.ClassUtils;
+import org.adligo.i.util.shared.ClassUtils;
 import org.adligo.models.core.shared.ids.I_StorageIdentifier;
 import org.adligo.models.core.shared.ids.StorageIdentifierValidator;
 

@@ -1,6 +1,6 @@
 package org.adligo.models.core.shared;
 
-import org.adligo.i.util.client.I_Immutable;
+import org.adligo.i.util.shared.I_Immutable;
 
 public class SimpleStorageInfo implements I_StorageInfo, I_Immutable {
 

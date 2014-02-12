@@ -1,6 +1,6 @@
 package org.adligo.models.core.shared.util;
 
-import org.adligo.i.util.client.I_Immutable;
+import org.adligo.i.util.shared.I_Immutable;
 import org.adligo.models.core.shared.InvalidParameterException;
 import org.adligo.models.core.shared.ValidationException;
 

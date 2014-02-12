@@ -2,10 +2,10 @@ package org.adligo.models.core.shared.util;
 
 import java.util.Date;
 
-import org.adligo.i.util.client.ClassUtils;
-import org.adligo.i.util.client.DateTime;
-import org.adligo.i.util.client.TextFormatter;
-import org.adligo.i.util.client.I_TextFormatter;
+import org.adligo.i.util.shared.ClassUtils;
+import org.adligo.i.util.shared.DateTime;
+import org.adligo.i.util.shared.I_TextFormatter;
+import org.adligo.i.util.shared.TextFormatter;
 import org.adligo.models.core.shared.InvalidParameterException;
 import org.adligo.models.core.shared.ModelsCoreConstantsObtainer;
 import org.adligo.models.core.shared.ValidationException;
