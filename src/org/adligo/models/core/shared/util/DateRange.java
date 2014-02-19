@@ -5,10 +5,6 @@ import org.adligo.models.core.shared.InvalidParameterException;
 import org.adligo.models.core.shared.ValidationException;
 
 public class DateRange implements I_DateRange, I_Immutable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private DateRangeMutant dateRangeMutant;
 
 	public DateRange() {

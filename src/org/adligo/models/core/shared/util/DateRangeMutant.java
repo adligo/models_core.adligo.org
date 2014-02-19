@@ -12,10 +12,6 @@ import org.adligo.models.core.shared.ValidationException;
 
 public class DateRangeMutant implements I_DateRange, I_DateRangeMutant {
 	public static final String IS_VALID_WITHOUT_NULLS = "isValidWithoutNulls";
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	public static final String SET_ENDED = "setEnded";
 	private Long start;
 	private Long end;
