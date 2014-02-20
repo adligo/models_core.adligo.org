@@ -1,6 +1,7 @@
-package org.adligo.models.core.shared.ids;
+package org.adligo.models.core.shared.util;
 
 import org.adligo.i.util.shared.ClassUtils;
+import org.adligo.models.core.shared.I_StorageIdentifier;
 import org.adligo.models.core.shared.InvalidParameterException;
 
 /**

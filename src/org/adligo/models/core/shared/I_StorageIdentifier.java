@@ -1,11 +1,14 @@
-package org.adligo.models.core.shared.ids;
+package org.adligo.models.core.shared;
 
 import org.adligo.i.adi.shared.I_Cacheable;
 
 /**
- * marker interfaces actual impls should also 
- * be a I_StringIdentifier (for LDAP dns or Filesystem uris)
- * ,I_VersionedIdentifier (optimistic locking with values big enough for most databases)
+ * This is a marker interface that represents a pluggable id
+ * (ie from a database table)
+ * see the models_core_relations project for implementations
+ * which also implement Serilizable for hibernate.
+ * Serilizable is not implemented here so that
+ * this class can be compiled on JME.
  * 
  * @author scott
  *

@@ -1,13 +1,8 @@
 package org.adligo.models.core.shared;
 
 import org.adligo.i.util.shared.I_Immutable;
-import org.adligo.models.core.shared.ids.I_StorageIdentifier;
 
 public class Address implements I_Address, I_Immutable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private AddressMutant wrapped;
 	
 	public Address() {

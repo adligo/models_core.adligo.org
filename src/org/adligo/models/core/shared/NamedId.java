@@ -1,13 +1,8 @@
 package org.adligo.models.core.shared;
 
 import org.adligo.i.util.shared.I_Immutable;
-import org.adligo.models.core.shared.ids.I_StorageIdentifier;
 
 public class NamedId implements I_NamedId, I_Immutable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
 	
 	private NamedIdMutant mutant;

@@ -2,15 +2,9 @@ package org.adligo.models.core.shared;
 
 import org.adligo.i.util.shared.ClassUtils;
 import org.adligo.i.util.shared.StringUtils;
-import org.adligo.models.core.shared.ids.I_StorageIdentifier;
-import org.adligo.models.core.shared.ids.StorageIdentifierValidator;
-import org.adligo.models.core.shared.ids.StringIdentifier;
+import org.adligo.models.core.shared.util.StorageIdentifierValidator;
 
 public class UserMutant implements I_UserMutant, I_Mutable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	public static final String SET_ID = "setId";
 	public static final String SET_EMAIL = "setEmail";
 	public static final String SET_DOMAIN = "setDomain";
@@ -369,10 +363,6 @@ public class UserMutant implements I_UserMutant, I_Mutable {
 		return true;
 	}
 
-	public StringIdentifier generate() throws InvalidParameterException{
-		return new StringIdentifier(getDn());
-	}
-	
 	public I_StorageInfo getStorageInfo() {
 		return storageInfo;
 	}

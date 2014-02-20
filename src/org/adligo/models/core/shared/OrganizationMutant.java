@@ -2,17 +2,11 @@ package org.adligo.models.core.shared;
 
 import org.adligo.i.util.shared.ClassUtils;
 import org.adligo.i.util.shared.StringUtils;
-import org.adligo.models.core.shared.ids.I_StorageIdentifier;
-import org.adligo.models.core.shared.ids.StorageIdentifierValidator;
-import org.adligo.models.core.shared.ids.VersionValidator;
 
 
 
 public class OrganizationMutant extends ChangeableMutant implements I_OrganizationMutant {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
 	public static final String SET_NAME = "setName";
 	public static final String SET_TYPE = "setType";
 	public static final String ORGANIZAITION = "Organization";

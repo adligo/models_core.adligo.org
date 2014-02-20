@@ -5,9 +5,6 @@ import java.util.Date;
 import org.adligo.i.util.shared.ClassUtils;
 import org.adligo.i.util.shared.DateTime;
 import org.adligo.i.util.shared.StringUtils;
-import org.adligo.models.core.shared.ids.I_StorageIdentifier;
-import org.adligo.models.core.shared.ids.StorageIdentifierValidator;
-import org.adligo.models.core.shared.ids.VersionValidator;
 
 public class PersonMutant extends ChangeableMutant implements I_PersonMutant  {
 
@@ -26,10 +23,6 @@ public class PersonMutant extends ChangeableMutant implements I_PersonMutant  {
 	 */
 	public static final String SET_NAME = "setName";
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
 	/**
 	 * null is allowed

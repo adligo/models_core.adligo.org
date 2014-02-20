@@ -2,15 +2,11 @@ package org.adligo.models.core.shared;
 
 import org.adligo.i.util.shared.ClassUtils;
 import org.adligo.i.util.shared.StringUtils;
-import org.adligo.models.core.shared.ids.I_StorageIdentifier;
-import org.adligo.models.core.shared.ids.StorageIdentifierValidator;
+import org.adligo.models.core.shared.util.IdentifiableValidator;
+import org.adligo.models.core.shared.util.StorageIdentifierValidator;
 
 
 public class AddressMutant implements I_AddressMutant {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	public static final String ADDRESS = "Address";
 	public static final String SET_POSTAL_CODE = "setPostal_code";
 	public static final String SET_STREET_ADDRESS = "setStreet_address";

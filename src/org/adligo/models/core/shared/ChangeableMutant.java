@@ -3,17 +3,13 @@ package org.adligo.models.core.shared;
 import org.adligo.i.util.shared.AppenderFactory;
 import org.adligo.i.util.shared.ClassUtils;
 import org.adligo.i.util.shared.I_Appender;
-import org.adligo.models.core.shared.ids.I_StorageIdentifier;
-import org.adligo.models.core.shared.ids.StorageIdentifierValidator;
-import org.adligo.models.core.shared.ids.VersionValidator;
+import org.adligo.models.core.shared.util.StorageIdentifierValidator;
+import org.adligo.models.core.shared.util.VersionValidator;
 
 public class ChangeableMutant implements I_ChangeableMutant {
 	public static final String CHANGEABLE_MUTANTS_WITH_IDS_ALSO_REQUIRE_STORAGE_INFO = "ChangeableMutants with ids also require storage info.";
 	public static final String CHANGEABLE_MUTANT_WITH_IDS_ALSO_REQUIRE_VERSIONS = "ChangeableMutant with ids also require versions.";
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
 	private I_StorageIdentifier id;
 	private Integer version;
 	private I_StorageInfo storageInfo;

@@ -1,4 +1,4 @@
-package org.adligo.models.core.shared.ids;
+package org.adligo.models.core.shared.util;
 
 import org.adligo.models.core.shared.InvalidParameterException;
 

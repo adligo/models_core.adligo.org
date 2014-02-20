@@ -1,7 +1,6 @@
 package org.adligo.models.core.shared;
 
 import org.adligo.i.util.shared.I_Immutable;
-import org.adligo.models.core.shared.ids.I_StorageIdentifier;
 
 /**
  * Note this is a immutable class that represents something
@@ -11,10 +10,6 @@ import org.adligo.models.core.shared.ids.I_StorageIdentifier;
  *
  */
 public class Changeable implements I_Changeable, I_Immutable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
 	public static final String CHANGEABLE = "Changeable";
 	

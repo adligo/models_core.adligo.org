@@ -1,8 +1,8 @@
 package org.adligo.models.core.shared;
 
 import org.adligo.i.util.shared.ClassUtils;
-import org.adligo.models.core.shared.ids.I_StorageIdentifier;
-import org.adligo.models.core.shared.ids.StorageIdentifierValidator;
+import org.adligo.models.core.shared.util.IdentifiableValidator;
+import org.adligo.models.core.shared.util.StorageIdentifierValidator;
 
 /**
  * this class is intended to be used for selection lists, 
@@ -13,10 +13,7 @@ import org.adligo.models.core.shared.ids.StorageIdentifierValidator;
  */
 public class NamedIdMutant implements I_NamedIdMutant, I_Validateable {
 	public static final String NULL_TO_CONSTRUCTOR =  "a null was passed to the NamedIdMutant constructor ";
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
 	public static final String SET_NAME = "setName";
 	
 	private I_StorageIdentifier id;

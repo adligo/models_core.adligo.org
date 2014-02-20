@@ -1,7 +1,10 @@
-package org.adligo.models.core.shared;
+package org.adligo.models.core.shared.util;
 
-import org.adligo.models.core.shared.ids.I_StorageIdentifier;
-import org.adligo.models.core.shared.ids.StorageIdentifierValidator;
+import org.adligo.models.core.shared.I_Identifiable;
+import org.adligo.models.core.shared.I_StorageIdentifier;
+import org.adligo.models.core.shared.InvalidParameterException;
+import org.adligo.models.core.shared.ValidationException;
+
 
 public class IdentifiableValidator {
 	/**
