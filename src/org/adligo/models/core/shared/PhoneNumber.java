@@ -1,15 +1,11 @@
 package org.adligo.models.core.shared;
 
-import org.adligo.i.util.shared.ClassUtils;
 import org.adligo.i.util.shared.I_Immutable;
 import org.adligo.i.util.shared.StringUtils;
 
 public class PhoneNumber implements I_Validateable, I_PhoneNumber, I_Immutable
 {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
 	
 	public static final String PHONE_NUMBER = "PhoneNumber";
 	public static final String SET_NUMBER = "setNumber";

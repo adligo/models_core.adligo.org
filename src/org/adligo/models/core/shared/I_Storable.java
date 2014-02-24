@@ -1,6 +1,5 @@
 package org.adligo.models.core.shared;
 
-import java.io.Serializable;
 
 
 /**

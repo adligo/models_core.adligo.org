@@ -4,10 +4,6 @@ import org.adligo.i.util.shared.I_Immutable;
 
 public class SimpleStorageInfo implements I_StorageInfo, I_Immutable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private String storeName;
 	
 	public SimpleStorageInfo() {

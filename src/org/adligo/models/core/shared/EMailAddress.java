@@ -1,15 +1,9 @@
 package org.adligo.models.core.shared;
 
-import java.io.Serializable;
-
 import org.adligo.i.util.shared.I_Immutable;
 import org.adligo.i.util.shared.StringUtils;
 
 public class EMailAddress implements I_Immutable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	
 	public static final String EMAIL = "email";
 	private DomainName domainName;

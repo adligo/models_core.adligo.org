@@ -8,10 +8,6 @@ package org.adligo.models.core.shared;
  */
 public class ModifyEMailListMutant implements I_ModifyEMailListMutant {
 	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	/**
 	 * true for signup request
 	 * false for removal request
 	 */

@@ -11,10 +11,6 @@ import org.adligo.i.util.shared.I_Immutable;
  *
  */
 public class Person extends Changeable implements I_Validateable, I_Person, I_Immutable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	
 	private PersonMutant mutant = new PersonMutant();
 	private I_CustomInfo customInfo;

@@ -1,7 +1,5 @@
 package org.adligo.models.core.shared;
 
-import java.io.Serializable;
-
 import org.adligo.i.log.shared.Log;
 import org.adligo.i.log.shared.LogFactory;
 import org.adligo.i.util.shared.I_Immutable;
@@ -10,10 +8,6 @@ import org.adligo.i.util.shared.StringUtils;
 public class DomainName implements I_Validateable, I_Mutable, I_Immutable {
 	public static final String IS_VALID = "isValid";
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
 	private static final Log log = LogFactory.getLog(DomainName.class);
 	
