@@ -14,6 +14,32 @@ public class SimpleStorageInfo implements I_StorageInfo, I_Immutable {
 		storeName = name;
 	}
 	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((storeName == null) ? 0 : storeName.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SimpleStorageInfo other = (SimpleStorageInfo) obj;
+		if (storeName == null) {
+			if (other.storeName != null)
+				return false;
+		} else if (!storeName.equals(other.storeName))
+			return false;
+		return true;
+	}
+
 	public Class getDetailClass() {
 		return this.getClass();
 	}
