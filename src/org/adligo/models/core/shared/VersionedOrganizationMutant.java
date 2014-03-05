@@ -20,7 +20,8 @@ public class VersionedOrganizationMutant extends OrganizationMutant implements I
 		return version;
 	}
 
-	public void setVersion(Integer version) {
+	public void setVersion(Integer version) throws InvalidParameterException {
+		ChangeableValidator.validate(version,this.getClass());
 		this.version = version;
 	}
 

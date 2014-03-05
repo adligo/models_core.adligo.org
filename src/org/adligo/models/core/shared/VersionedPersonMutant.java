@@ -18,7 +18,7 @@ public class VersionedPersonMutant extends PersonMutant implements I_ChangeableM
 	}
 
 	public void setVersion(Integer version) throws InvalidParameterException {
-		
+		ChangeableValidator.validate(version,this.getClass());
 		this.version = version;
 	}
 
