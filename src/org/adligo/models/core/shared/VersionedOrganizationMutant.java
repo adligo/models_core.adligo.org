@@ -1,5 +1,8 @@
 package org.adligo.models.core.shared;
 
+import org.adligo.models.core.shared.util.ChangeableValidator;
+import org.adligo.models.core.shared.util.VersionValidator;
+
 public class VersionedOrganizationMutant extends OrganizationMutant implements I_ChangeableMutant {
 	private Integer version = 0;
 	
@@ -21,7 +24,7 @@ public class VersionedOrganizationMutant extends OrganizationMutant implements I
 	}
 
 	public void setVersion(Integer version) throws InvalidParameterException {
-		ChangeableValidator.validate(version,this.getClass());
+		VersionValidator.validate(version, this);
 		this.version = version;
 	}
 

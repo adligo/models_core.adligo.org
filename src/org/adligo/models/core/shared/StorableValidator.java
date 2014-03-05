@@ -1,6 +1,7 @@
 package org.adligo.models.core.shared;
 
 import org.adligo.i.util.shared.ClassUtils;
+import org.adligo.models.core.shared.util.ChangeableValidator;
 import org.adligo.models.core.shared.util.IdentifiableValidator;
 
 public class StorableValidator {
