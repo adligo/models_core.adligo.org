@@ -1,7 +1,7 @@
 package org.adligo.models.core.shared;
 
 public class VersionedPersonMutant extends PersonMutant implements I_ChangeableMutant {
-	private Integer version;
+	private Integer version = 0;
 
 	public VersionedPersonMutant() {}
 	
@@ -17,7 +17,8 @@ public class VersionedPersonMutant extends PersonMutant implements I_ChangeableM
 		return version;
 	}
 
-	public void setVersion(Integer version) {
+	public void setVersion(Integer version) throws InvalidParameterException {
+		
 		this.version = version;
 	}
 

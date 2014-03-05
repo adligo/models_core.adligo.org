@@ -31,12 +31,6 @@ public class StorableMutant implements I_StorageMutant {
 				setStorageInfo(si);
 			}
 		}
-		try {
-			isValid(this);
-		} catch (ValidationException ve) {
-			throw new InvalidParameterException(ve);
-		}
-		
 	}
 	
 	public I_StorageIdentifier getId() {

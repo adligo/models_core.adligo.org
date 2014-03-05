@@ -1,7 +1,7 @@
 package org.adligo.models.core.shared;
 
 public class VersionedOrganizationMutant extends OrganizationMutant implements I_ChangeableMutant {
-	private Integer version;
+	private Integer version = 0;
 	
 	public VersionedOrganizationMutant() {
 		

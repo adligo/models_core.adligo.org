@@ -73,12 +73,7 @@ public class PersonMutant extends StorableMutant implements I_PersonMutant  {
 	
 	public PersonMutant(I_Person p) throws InvalidParameterException {
 		super(p);
-		try {
-			p.isValid();
-			copy(this, p);
-		} catch (ValidationException x) {
-			throw new InvalidParameterException(x.getMessage(), PERSON, x);
-		}
+		copy(this, p);
 	}
 	
 	private I_ModelsCoreConstants getConstants() {

@@ -2,7 +2,7 @@ package org.adligo.models.core.shared;
 
 import org.adligo.i.util.shared.I_Immutable;
 
-public class VersionedPerson implements I_Person, I_Immutable {
+public class VersionedPerson implements I_Person, I_Immutable, I_Changeable {
 	private VersionedPersonMutant vpm;
 	
 	public VersionedPerson() {
