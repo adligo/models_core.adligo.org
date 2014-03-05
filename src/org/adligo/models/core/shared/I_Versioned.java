@@ -7,6 +7,6 @@ package org.adligo.models.core.shared;
  * @author scott
  *
  */
-public interface I_Changeable extends I_Storable {
+public interface I_Versioned extends I_Storable {
 	public Integer getVersion();
 }

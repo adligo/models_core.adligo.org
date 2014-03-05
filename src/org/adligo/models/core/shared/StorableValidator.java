@@ -1,7 +1,7 @@
 package org.adligo.models.core.shared;
 
 import org.adligo.i.util.shared.ClassUtils;
-import org.adligo.models.core.shared.util.ChangeableValidator;
+import org.adligo.models.core.shared.util.VersionedValidator;
 import org.adligo.models.core.shared.util.IdentifiableValidator;
 
 public class StorableValidator {
@@ -22,7 +22,7 @@ public class StorableValidator {
 
 		if (IdentifiableValidator.validate(storable,  methodName)) {
 			try {
-				if (!ChangeableValidator.validate((I_Changeable) storable, methodName)) {
+				if (!VersionedValidator.validate((I_Versioned) storable, methodName)) {
 					return false;
 				}
 			} catch (ClassCastException x) {

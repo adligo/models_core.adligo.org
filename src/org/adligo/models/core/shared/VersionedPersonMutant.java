@@ -1,9 +1,9 @@
 package org.adligo.models.core.shared;
 
-import org.adligo.models.core.shared.util.ChangeableValidator;
+import org.adligo.models.core.shared.util.VersionedValidator;
 import org.adligo.models.core.shared.util.VersionValidator;
 
-public class VersionedPersonMutant extends PersonMutant implements I_ChangeableMutant {
+public class VersionedPersonMutant extends PersonMutant implements I_VersionedMutant {
 	private Integer version = 0;
 
 	public VersionedPersonMutant() {}
@@ -11,7 +11,7 @@ public class VersionedPersonMutant extends PersonMutant implements I_ChangeableM
 	public VersionedPersonMutant(I_Person p) throws InvalidParameterException {
 		super(p);
 		try {
-			version = ((I_Changeable) p).getVersion();
+			version = ((I_Versioned) p).getVersion();
 		} catch (ClassCastException x) {
 			throw new InvalidParameterException(x.getMessage(), CONSTRUCTOR);
 		}
@@ -26,7 +26,7 @@ public class VersionedPersonMutant extends PersonMutant implements I_ChangeableM
 	}
 
 	public void isValid() throws ValidationException {
-		ChangeableValidator.validate(this);
+		VersionedValidator.validate(this);
 		super.isValid();
 	}
 	

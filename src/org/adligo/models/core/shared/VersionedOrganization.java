@@ -4,7 +4,7 @@ import org.adligo.i.util.shared.AppenderFactory;
 import org.adligo.i.util.shared.I_Appender;
 import org.adligo.i.util.shared.I_Immutable;
 
-public class VersionedOrganization implements I_Organization, I_Changeable, I_Immutable {
+public class VersionedOrganization implements I_Organization, I_Versioned, I_Immutable {
 	private VersionedOrganizationMutant mutant;
 
 	public VersionedOrganization() {
