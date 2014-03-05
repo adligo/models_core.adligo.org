@@ -10,7 +10,7 @@ public class VersionedPersonMutant extends PersonMutant implements I_ChangeableM
 		try {
 			version = ((I_Changeable) p).getVersion();
 		} catch (ClassCastException x) {
-			version = 0;
+			throw new InvalidParameterException(x.getMessage(), CONSTRUCTOR);
 		}
 	}
 	public Integer getVersion() {

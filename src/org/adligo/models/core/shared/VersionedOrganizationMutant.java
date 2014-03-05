@@ -12,7 +12,7 @@ public class VersionedOrganizationMutant extends OrganizationMutant implements I
 		try {
 			version = ((I_Changeable) p).getVersion();
 		} catch (ClassCastException x) {
-			version = 0;
+			throw new InvalidParameterException(x.getMessage(), CONSTRUCTOR);
 		}
 	}
 
