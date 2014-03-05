@@ -3,7 +3,7 @@ package org.adligo.models.core.shared;
 import org.adligo.i.util.shared.I_Immutable;
 
 
-public class Organization extends Changeable implements I_Organization, I_Validateable, I_Immutable {
+public class Organization implements I_Organization, I_Validateable, I_Immutable {
 
 	private OrganizationMutant mutant;
 	
@@ -12,7 +12,6 @@ public class Organization extends Changeable implements I_Organization, I_Valida
 	}
 	
 	public Organization(I_Organization other) throws InvalidParameterException {
-		super(other);
 		mutant = new OrganizationMutant(other);
 	}
 
@@ -84,5 +83,13 @@ public class Organization extends Changeable implements I_Organization, I_Valida
 
 	public boolean isStored() throws ValidationException {
 		return mutant.isStored();
+	}
+
+	public I_StorageIdentifier getId() {
+		return mutant.getId();
+	}
+
+	public I_StorageInfo getStorageInfo() {
+		return mutant.getStorageInfo();
 	}
 }

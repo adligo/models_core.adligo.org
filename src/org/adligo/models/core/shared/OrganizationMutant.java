@@ -5,7 +5,7 @@ import org.adligo.i.util.shared.StringUtils;
 
 
 
-public class OrganizationMutant extends ChangeableMutant implements I_OrganizationMutant {
+public class OrganizationMutant extends StorableMutant implements I_OrganizationMutant {
 
 	public static final String SET_NAME = "setName";
 	public static final String SET_TYPE = "setType";
@@ -32,11 +32,6 @@ public class OrganizationMutant extends ChangeableMutant implements I_Organizati
 		try {
 			if (p.getId() != null) {
 				setId(p.getId());
-			}
-			//this may come from a unversioned system
-			Integer version = p.getVersion();
-			if (version != null) {
-				setVersion(version);
 			}
 			I_StorageInfo storageInfo = p.getStorageInfo();
 			if (storageInfo != null) {

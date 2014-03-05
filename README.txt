@@ -1,8 +1,6 @@
-This is where i am going to put the core models for my web 2.0 stuff
-mostly to be opensourced
-
-The models will each have a Mutible variant (with setters) so that 
-most of the time the models will be nonmutable
+The models in this project are usable with JME, GWT, JSE, LDAP and RDBs 
+also each have a Mutible variant (with setters) so that 
+most of the time the models will be nonmutable.
 
 Please follow the NamedId (NamedIdMutant) examples
 
@@ -23,3 +21,7 @@ instead may be calculated two or three times if multiple threads call
 for a hash code on a object at the same time.  Since this is only on 'immutable'
 objects the hash code should always be calculated the same 
 (even if its calculated multiple times).
+
+Note the I_StorageIdentifier impl classes are in the models_core_relations
+project due to hibernate requireing Serlizable for id classes, and Serlizable not
+being available on JME.  

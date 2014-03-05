@@ -7,31 +7,25 @@ import org.adligo.models.core.shared.util.StorageIdentifierValidator;
 import org.adligo.models.core.shared.util.VersionValidator;
 
 /**
- * @deprecated
- * use base class StorageMutant
- * and read the TODO.txt
  * 
  * @author scott
  *
  */
-public class ChangeableMutant implements I_ChangeableMutant {
-	public static final String CHANGEABLE_MUTANTS_WITH_IDS_ALSO_REQUIRE_STORAGE_INFO = "ChangeableMutants with ids also require storage info.";
-	public static final String CHANGEABLE_MUTANT_WITH_IDS_ALSO_REQUIRE_VERSIONS = "ChangeableMutant with ids also require versions.";
-
+public class StorableMutant implements I_StorageMutant {
+	public static final String STORAGE_MUTANTS_WITH_IDS_ALSO_REQUIRE_STORAGE_INFO = "StorageMutants with ids also require storage info.";
+	
 	private I_StorageIdentifier id;
-	private Integer version;
 	private I_StorageInfo storageInfo;
 	
-	public ChangeableMutant() {}
+	public StorableMutant() {}
 	
-	public ChangeableMutant(I_Changeable p) throws InvalidParameterException {
+	public StorableMutant(I_Storable p) throws InvalidParameterException {
+		if (p == null) {
+			throw new InvalidParameterException("","Constructor");
+		}
 		I_StorageIdentifier otherId = p.getId();
 		if (otherId != null) {
 			setId(otherId);
-			Integer otherVersion = p.getVersion();
-			if (otherVersion != null) {
-				setVersion(otherVersion);
-			}
 			I_StorageInfo si = p.getStorageInfo();
 			if (si != null) {
 				setStorageInfo(si);
@@ -52,13 +46,6 @@ public class ChangeableMutant implements I_ChangeableMutant {
 	public void setId(I_StorageIdentifier p) throws InvalidParameterException {
 		StorageIdentifierValidator.validateId(p, this.getClass(), I_IdentifiableMutant.SET_ID);
 		id = p;
-	}
-	public Integer getVersion() {
-		return version;
-	}
-	
-	public void setVersion(Integer p) throws InvalidParameterException {
-		this.version = VersionValidator.validate(p);
 	}
 	
 	/* (non-Javadoc)
@@ -83,7 +70,7 @@ public class ChangeableMutant implements I_ChangeableMutant {
 	
 	public String toString() {
 		I_Appender app = AppenderFactory.create();
-		toString(ChangeableMutant.class, app);
+		toString(StorableMutant.class, app);
 		return app.toString();
 	}
 	/**
@@ -93,8 +80,8 @@ public class ChangeableMutant implements I_ChangeableMutant {
 	 * @param app
 	 */
 	public void toString(Class ic, I_Appender app) {
-		app.append("" + ClassUtils.getClassShortName(ic) + " [id=" + id + ", version=" + version
-				+ ", storageInfo=" + storageInfo);
+		app.append("" + ClassUtils.getClassShortName(ic) + " [id=" + id + 
+				", storageInfo=" + storageInfo);
 	}
 	
 	public void isValid() throws ValidationException {
@@ -106,16 +93,13 @@ public class ChangeableMutant implements I_ChangeableMutant {
 	 * @param p
 	 * @throws ValidationException
 	 */
-	void isValid(ChangeableMutant p) throws ValidationException {
+	void isValid(StorableMutant p) throws ValidationException {
 		StorableValidator.validate(p, I_Validateable.IS_VALID);
 		I_StorageIdentifier tid = p.getId();
 		if (tid != null) {
-			if (p.getVersion() == null) {
-				throw new ValidationException(CHANGEABLE_MUTANT_WITH_IDS_ALSO_REQUIRE_VERSIONS, I_Validateable.IS_VALID);
-			}
 			I_StorageInfo otherInfo = p.getStorageInfo();
 			if (otherInfo == null) {
-				throw new ValidationException(CHANGEABLE_MUTANTS_WITH_IDS_ALSO_REQUIRE_STORAGE_INFO, I_Validateable.IS_VALID);
+				throw new ValidationException(STORAGE_MUTANTS_WITH_IDS_ALSO_REQUIRE_STORAGE_INFO, I_Validateable.IS_VALID);
 			} else {
 				otherInfo.isValid();
 			}
@@ -132,7 +116,6 @@ public class ChangeableMutant implements I_ChangeableMutant {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result
 				+ ((storageInfo == null) ? 0 : storageInfo.hashCode());
-		result = prime * result + ((version == null) ? 0 : version.hashCode());
 		return result;
 	}
 
@@ -143,7 +126,7 @@ public class ChangeableMutant implements I_ChangeableMutant {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ChangeableMutant other = (ChangeableMutant) obj;
+		StorableMutant other = (StorableMutant) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -153,11 +136,6 @@ public class ChangeableMutant implements I_ChangeableMutant {
 			if (other.storageInfo != null)
 				return false;
 		} else if (!storageInfo.equals(other.storageInfo))
-			return false;
-		if (version == null) {
-			if (other.version != null)
-				return false;
-		} else if (!version.equals(other.version))
 			return false;
 		return true;
 	}
