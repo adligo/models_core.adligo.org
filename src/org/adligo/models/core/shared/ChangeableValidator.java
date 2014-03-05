@@ -22,19 +22,23 @@ public class ChangeableValidator {
 		if (IdentifiableValidator.validate((I_Identifiable) changeable, methodName)) {
 			Integer version = changeable.getVersion();
 			Class clazz = changeable.getClass();
-			validate(version, clazz, methodName);
+			try {
+				validate(version, clazz, methodName);
+			} catch (InvalidParameterException ipe) {
+				throw new ValidationException(ipe);
+			}
 			return true;
 		} 
 		return false;
 	}
 	
-	public static boolean validate(Integer version, Class clazz) throws ValidationException {
+	public static boolean validate(Integer version, Class clazz) throws InvalidParameterException {
 		return validate(version, clazz, SET_VERSION);
 	}
 	
-	public static boolean validate(Integer version, Class clazz, String methodName) throws ValidationException {
+	public static boolean validate(Integer version, Class clazz, String methodName) throws InvalidParameterException {
 		if (version == null) {
-				throw new ValidationException(ClassUtils.getClassShortName(clazz) + 
+				throw new InvalidParameterException(ClassUtils.getClassShortName(clazz) + 
 							REQUIRES_A_NON_NULL_VERSION, methodName);
 		}
 		return true;
