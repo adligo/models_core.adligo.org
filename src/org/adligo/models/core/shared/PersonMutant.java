@@ -6,7 +6,7 @@ import org.adligo.i.util.shared.ClassUtils;
 import org.adligo.i.util.shared.DateTime;
 import org.adligo.i.util.shared.StringUtils;
 
-public class PersonMutant extends ChangeableMutant implements I_PersonMutant  {
+public class PersonMutant extends StorableMutant implements I_PersonMutant  {
 
 	public static final String STORAGE_INFO_CAN_NOT_BE_SET_TO_NULL = "StorageInfo can NOT be set to null";
 	public static final String SET_STORAGE_INFO = "setStorageInfo";
@@ -89,11 +89,6 @@ public class PersonMutant extends ChangeableMutant implements I_PersonMutant  {
 		I_StorageIdentifier idCopy = source.getId();
 		if (idCopy != null) {
 			dest.setId(idCopy);
-		}
-		//this may come from a unversioned system
-		Integer version = source.getVersion();
-		if (version != null) {
-			dest.setVersion(version);
 		}
 		
 		String firstNameCopy = source.getFirst_name();
@@ -328,8 +323,6 @@ public class PersonMutant extends ChangeableMutant implements I_PersonMutant  {
 		sb.append(nickname);
 		sb.append(",id=");
 		sb.append(super.getId());
-		sb.append(",version=");
-		sb.append(super.getVersion());
 		
 		sb.append(",birthday=");
 		if (birthday != null) {

@@ -10,7 +10,7 @@ import org.adligo.i.util.shared.I_Immutable;
  * @author scott
  *
  */
-public class Person extends Changeable implements I_Validateable, I_Person, I_Immutable {
+public class Person extends Storable implements I_Validateable, I_Person, I_Immutable {
 	
 	private PersonMutant mutant = new PersonMutant();
 	private I_CustomInfo customInfo;
@@ -101,10 +101,6 @@ public class Person extends Changeable implements I_Validateable, I_Person, I_Im
 	
 	public boolean equals(Object obj) {
 		return mutant.equals(obj);
-	}
-
-	public Integer getVersion() {
-		return mutant.getVersion();
 	}
 
 	public I_CustomInfo getCustomInfo() {

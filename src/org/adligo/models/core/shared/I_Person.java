@@ -1,6 +1,6 @@
 package org.adligo.models.core.shared;
 
-public interface I_Person extends I_NamedId, I_Validateable, I_Changeable {
+public interface I_Person extends I_NamedId, I_Validateable, I_Storable {
 	public static final Character GENDER_MALE = new Character('M');
 	public static final Character GENDER_FEMALE = new Character('F');
 	public static final Character GENDER_OTHER = new Character('O');

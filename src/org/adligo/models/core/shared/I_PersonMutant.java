@@ -1,6 +1,6 @@
 package org.adligo.models.core.shared;
 
-public interface I_PersonMutant extends I_Person, I_ChangeableMutant {
+public interface I_PersonMutant extends I_Person, I_StorageMutant {
 	public void setFirst_name(String p) throws InvalidParameterException;
 	public void setMiddle_name(String p) throws InvalidParameterException;
 	public void setLast_name(String p) throws InvalidParameterException;

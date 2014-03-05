@@ -6,6 +6,10 @@ import org.adligo.models.core.shared.util.IdentifiableValidator;
 public class ChangeableValidator {
 
 	public static final String REQUIRES_A_NON_NULL_VERSION = "Requires a non null version.";
+	
+	public static boolean validate(I_Changeable changeable) throws ValidationException {
+		return validate(changeable, I_Validateable.IS_VALID);
+	}
 	/**
 	 * 
 	 * @param changeable

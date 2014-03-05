@@ -1,13 +1,11 @@
 package org.adligo.models.core.shared;
 
-public class VersionedOrganizationMutant extends OrganizationMutant implements I_ChangeableMutant {
+public class VersionedPersonMutant extends PersonMutant implements I_ChangeableMutant {
 	private Integer version;
+
+	public VersionedPersonMutant() {}
 	
-	public VersionedOrganizationMutant() {
-		
-	}
-	
-	public VersionedOrganizationMutant(I_Organization p) throws InvalidParameterException {
+	public VersionedPersonMutant(I_Person p) throws InvalidParameterException {
 		super(p);
 		try {
 			version = ((I_Changeable) p).getVersion();
@@ -15,7 +13,6 @@ public class VersionedOrganizationMutant extends OrganizationMutant implements I
 			throw new InvalidParameterException(x.getMessage(), CONSTRUCTOR);
 		}
 	}
-
 	public Integer getVersion() {
 		return version;
 	}
@@ -24,9 +21,9 @@ public class VersionedOrganizationMutant extends OrganizationMutant implements I
 		this.version = version;
 	}
 
-	@Override
 	public void isValid() throws ValidationException {
 		ChangeableValidator.validate(this);
 		super.isValid();
 	}
+	
 }
