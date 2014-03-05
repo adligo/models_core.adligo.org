@@ -44,7 +44,7 @@ public class StorableMutant implements I_StorageMutant {
 	}
 	
 	public void setId(I_StorageIdentifier p) throws InvalidParameterException {
-		StorageIdentifierValidator.validateId(p, this.getClass(), I_IdentifiableMutant.SET_ID);
+		StorageIdentifierValidator.validateId(p, this.getClass(), SET_ID);
 		id = p;
 	}
 	
