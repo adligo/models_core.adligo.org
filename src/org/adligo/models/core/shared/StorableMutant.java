@@ -120,19 +120,21 @@ public class StorableMutant implements I_StorageMutant {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		StorableMutant other = (StorableMutant) obj;
-		if (id == null) {
-			if (other.id != null)
+		try {
+			I_Storable other = (I_Storable) obj;
+			if (id == null) {
+				if (other.getId() != null)
+					return false;
+			} else if (!id.equals(other.getId()))
 				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (storageInfo == null) {
-			if (other.storageInfo != null)
+			if (storageInfo == null) {
+				if (other.getStorageInfo() != null)
+					return false;
+			} else if (!storageInfo.equals(other.getStorageInfo()))
 				return false;
-		} else if (!storageInfo.equals(other.storageInfo))
+		} catch (ClassCastException x) {
 			return false;
+		}
 		return true;
 	}
 }
