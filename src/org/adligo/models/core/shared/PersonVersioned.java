@@ -2,7 +2,7 @@ package org.adligo.models.core.shared;
 
 import org.adligo.i.util.shared.I_Immutable;
 
-public class PersonVersioned implements I_Person, I_Immutable, I_Versioned {
+public class PersonVersioned implements I_PersonVersioned, I_Immutable {
 	private PersonVersionedMutant vpm;
 	
 	public PersonVersioned() {
@@ -13,6 +13,10 @@ public class PersonVersioned implements I_Person, I_Immutable, I_Versioned {
 		vpm = new PersonVersionedMutant(p);
 	}
 
+	public PersonVersioned(I_PersonVersioned p) throws InvalidParameterException {
+		vpm = new PersonVersionedMutant(p);
+	}
+	
 	public Integer getVersion() {
 		return vpm.getVersion();
 	}
