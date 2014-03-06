@@ -54,7 +54,6 @@ public class Storable implements I_Storable, I_Immutable {
 		return sm.equals(obj);
 	}
 
-	@Override
 	public String getImmutableFieldName() {
 		return "sm";
 	}

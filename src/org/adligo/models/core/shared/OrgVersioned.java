@@ -65,7 +65,6 @@ public class OrgVersioned implements I_OrgVersioned, I_Immutable {
 		return mutant.isStored();
 	}
 
-	@Override
 	public String getImmutableFieldName() {
 		return "mutant";
 	}
