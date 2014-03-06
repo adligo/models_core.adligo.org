@@ -3,16 +3,16 @@ package org.adligo.models.core.shared;
 import org.adligo.i.util.shared.I_Immutable;
 
 
-public class Organization implements I_Organization, I_Validateable, I_Immutable {
+public class Org implements I_Organization, I_Validateable, I_Immutable {
 
-	private OrganizationMutant mutant;
+	private OrgMutant mutant;
 	
-	public Organization() {
-		mutant = new OrganizationMutant();
+	public Org() {
+		mutant = new OrgMutant();
 	}
 	
-	public Organization(I_Organization other) throws InvalidParameterException {
-		mutant = new OrganizationMutant(other);
+	public Org(I_Organization other) throws InvalidParameterException {
+		mutant = new OrgMutant(other);
 	}
 
 	public I_StorageIdentifier getType() {
@@ -34,7 +34,7 @@ public class Organization implements I_Organization, I_Validateable, I_Immutable
 		if (obj == null)
 			return false;
 		try {
-			return OrganizationMutant.equals(this, (I_Organization) obj);
+			return OrgMutant.equals(this, (I_Organization) obj);
 		} catch (ClassCastException x) {
 			//eat gwt doesn't impl instance of
 		}
@@ -42,7 +42,7 @@ public class Organization implements I_Organization, I_Validateable, I_Immutable
 	}
 
 	public int hashCode() {
-		return OrganizationMutant.genHashCode(this);
+		return OrgMutant.genHashCode(this);
 	}
 
 	public void isValid() throws ValidationException {
@@ -75,7 +75,7 @@ public class Organization implements I_Organization, I_Validateable, I_Immutable
 
 	public I_OrganizationMutant toMutant() throws ValidationException {
 		try {
-			return new OrganizationMutant(this);
+			return new OrgMutant(this);
 		} catch (InvalidParameterException ipe) {
 			throw new ValidationException(ipe);
 		}

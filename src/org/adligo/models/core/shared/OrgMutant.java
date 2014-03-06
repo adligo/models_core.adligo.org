@@ -5,7 +5,7 @@ import org.adligo.i.util.shared.StringUtils;
 
 
 
-public class OrganizationMutant extends StorableMutant implements I_OrganizationMutant {
+public class OrgMutant extends StorableMutant implements I_OrganizationMutant {
 
 	public static final String SET_NAME = "setName";
 	public static final String SET_TYPE = "setType";
@@ -25,9 +25,9 @@ public class OrganizationMutant extends StorableMutant implements I_Organization
 	/**
 	 * for gwt serialization
 	 */
-	public OrganizationMutant() {}
+	public OrgMutant() {}
 	
-	public OrganizationMutant(I_Organization p) throws InvalidParameterException {
+	public OrgMutant(I_Organization p) throws InvalidParameterException {
 		super(p);
 		try {
 			if (p.getId() != null) {
@@ -86,7 +86,7 @@ public class OrganizationMutant extends StorableMutant implements I_Organization
 	public void isValid() throws ValidationException {
 		StorableValidator.validate(this, I_Validateable.IS_VALID);
 		try {
-			OrganizationMutant other = new OrganizationMutant();
+			OrgMutant other = new OrgMutant();
 			other.setName(getName());
 			other.setType(getType());
 			if (customInfo != null) {
@@ -176,7 +176,7 @@ public class OrganizationMutant extends StorableMutant implements I_Organization
 
 	public I_Organization toImmutable() throws ValidationException {
 		try {
-			return new Organization(this);
+			return new Org(this);
 		} catch (InvalidParameterException ipe) {
 			throw new ValidationException(ipe);
 		}

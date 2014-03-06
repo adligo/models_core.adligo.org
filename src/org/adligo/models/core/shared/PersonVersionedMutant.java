@@ -3,12 +3,12 @@ package org.adligo.models.core.shared;
 import org.adligo.models.core.shared.util.VersionedValidator;
 import org.adligo.models.core.shared.util.VersionValidator;
 
-public class VersionedPersonMutant extends PersonMutant implements I_VersionedMutant {
+public class PersonVersionedMutant extends PersonMutant implements I_VersionedMutant {
 	private Integer version = 0;
 
-	public VersionedPersonMutant() {}
+	public PersonVersionedMutant() {}
 	
-	public VersionedPersonMutant(I_Person p) throws InvalidParameterException {
+	public PersonVersionedMutant(I_Person p) throws InvalidParameterException {
 		super(p);
 		try {
 			version = ((I_Versioned) p).getVersion();

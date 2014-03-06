@@ -3,14 +3,14 @@ package org.adligo.models.core.shared;
 import org.adligo.models.core.shared.util.VersionedValidator;
 import org.adligo.models.core.shared.util.VersionValidator;
 
-public class VersionedOrganizationMutant extends OrganizationMutant implements I_VersionedMutant {
+public class OrgVersionedMutant extends OrgMutant implements I_VersionedMutant {
 	private Integer version = 0;
 	
-	public VersionedOrganizationMutant() {
+	public OrgVersionedMutant() {
 		
 	}
 	
-	public VersionedOrganizationMutant(I_Organization p) throws InvalidParameterException {
+	public OrgVersionedMutant(I_Organization p) throws InvalidParameterException {
 		super(p);
 		try {
 			version = ((I_Versioned) p).getVersion();
