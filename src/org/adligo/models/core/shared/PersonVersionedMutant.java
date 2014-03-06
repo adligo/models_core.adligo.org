@@ -11,7 +11,7 @@ public class PersonVersionedMutant extends PersonMutant implements
 	
 	public PersonVersionedMutant(I_Person p) throws InvalidParameterException {
 		super(p);
-		version = 0;
+		version = new Integer(0);
 	}
 	
 	public PersonVersionedMutant(I_PersonVersioned p) throws InvalidParameterException {

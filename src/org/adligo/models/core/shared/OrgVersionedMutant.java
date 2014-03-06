@@ -12,7 +12,7 @@ public class OrgVersionedMutant extends OrgMutant implements I_OrgVersionedMutan
 	
 	public OrgVersionedMutant(I_Org p) throws InvalidParameterException {
 		super(p);
-		version = 0;
+		version = new Integer(0);
 	}
 
 	public OrgVersionedMutant(I_OrgVersioned p) throws InvalidParameterException {
