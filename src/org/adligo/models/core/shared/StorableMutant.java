@@ -12,7 +12,9 @@ import org.adligo.models.core.shared.util.VersionValidator;
  *
  */
 public class StorableMutant implements I_StorageMutant {
-	public static final String STORAGE_MUTANTS_WITH_IDS_ALSO_REQUIRE_STORAGE_INFO = "StorageMutants with ids also require storage info.";
+	private static final String STORABLE_MUTANT_DOES_NOT_ALLOW_NULL_STORAGE_INFO = "StorableMutant does NOT allow null storage info.";
+
+	public static final String STORAGE_MUTANTS_WITH_IDS_ALSO_REQUIRE_STORAGE_INFO = "StorageMutant with ids also require storage info.";
 	
 	private I_StorageIdentifier id;
 	private I_StorageInfo storageInfo;
@@ -55,7 +57,7 @@ public class StorableMutant implements I_StorageMutant {
 	
 	public void setStorageInfo(I_StorageInfo p) throws InvalidParameterException {
 		if (p == null) {
-			throw new InvalidParameterException("ChangeableMutant does NOT allow null storage info.",
+			throw new InvalidParameterException(STORABLE_MUTANT_DOES_NOT_ALLOW_NULL_STORAGE_INFO,
 					SET_STORAGE_INFO);
 		}
 		storageInfo = p;
