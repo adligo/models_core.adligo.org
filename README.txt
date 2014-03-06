@@ -22,6 +22,22 @@ for a hash code on a object at the same time.  Since this is only on 'immutable'
 objects the hash code should always be calculated the same 
 (even if its calculated multiple times).
 
+Notes
+1) LDAP entities do not generally have a version number,
+so optimistic locking is generally accomplished by comparing all the fields
+in the LDAP entity.  However it is still slightly confusing to have a null Version
+number in a object which doesn't have a version number on disk.
+Also this creates a issue with history classes as the version is in the 
+VersionedLongIdentifier AND the class it self.
+  I have solved this by splintering the classes as follows;
+  
+  Org  (no version number)
+  			OrgVersioned (wraps VersionedOrganizationMutant)
+  OrgMutant (no version number)
+    		OrgVersionedMutant (extends OrganizationMutant adds version)
+    		
+
+
 Note the I_StorageIdentifier impl classes are in the models_core_relations
 project due to hibernate requireing Serlizable for id classes, and Serlizable not
 being available on JME.  
