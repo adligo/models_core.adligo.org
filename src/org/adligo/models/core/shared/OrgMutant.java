@@ -5,7 +5,7 @@ import org.adligo.i.util.shared.StringUtils;
 
 
 
-public class OrgMutant extends StorableMutant implements I_OrganizationMutant {
+public class OrgMutant extends StorableMutant implements I_OrgMutant {
 
 	public static final String SET_NAME = "setName";
 	public static final String SET_TYPE = "setType";
@@ -27,7 +27,7 @@ public class OrgMutant extends StorableMutant implements I_OrganizationMutant {
 	 */
 	public OrgMutant() {}
 	
-	public OrgMutant(I_Organization p) throws InvalidParameterException {
+	public OrgMutant(I_Org p) throws InvalidParameterException {
 		super(p);
 		try {
 			if (p.getId() != null) {
@@ -104,7 +104,7 @@ public class OrgMutant extends StorableMutant implements I_OrganizationMutant {
 		return genHashCode(this);
 	}
 
-	public static int genHashCode(I_Organization me) {
+	public static int genHashCode(I_Org me) {
 		final int prime = 31;
 		int result = 1;
 		String name = me.getName();
@@ -120,14 +120,14 @@ public class OrgMutant extends StorableMutant implements I_OrganizationMutant {
 		if (obj == null)
 			return false;
 		try {
-			return equals(this, (I_Organization) obj);
+			return equals(this, (I_Org) obj);
 		} catch (ClassCastException x) {
 			//eat gwt doesn't impl instance of
 		}
 		return false;
 	}
 	
-	public static boolean equals(I_Organization me, I_Organization other) {
+	public static boolean equals(I_Org me, I_Org other) {
 		if (me.getName() == null) {
 			if (other.getName() != null)
 				return false;
@@ -145,7 +145,7 @@ public class OrgMutant extends StorableMutant implements I_OrganizationMutant {
 		return toString(this.getClass(),this);
 	}
 	
-	public String toString(Class c, I_Organization p) {
+	public String toString(Class c, I_Org p) {
 		StringBuffer sb = new StringBuffer();
 		sb.append(ClassUtils.getClassShortName(c));
 		sb.append(" [name=");
@@ -174,7 +174,7 @@ public class OrgMutant extends StorableMutant implements I_OrganizationMutant {
 		}
 	}
 
-	public I_Organization toImmutable() throws ValidationException {
+	public I_Org toImmutable() throws ValidationException {
 		try {
 			return new Org(this);
 		} catch (InvalidParameterException ipe) {
@@ -182,7 +182,7 @@ public class OrgMutant extends StorableMutant implements I_OrganizationMutant {
 		}
 	}
 
-	public I_OrganizationMutant toMutant() throws ValidationException {
+	public I_OrgMutant toMutant() throws ValidationException {
 		return this;
 	}
 	

@@ -3,7 +3,7 @@ package org.adligo.models.core.shared;
 import org.adligo.i.util.shared.I_Immutable;
 
 
-public class Org implements I_Organization, I_Validateable, I_Immutable {
+public class Org implements I_Org, I_Validateable, I_Immutable {
 
 	private OrgMutant mutant;
 	
@@ -11,7 +11,7 @@ public class Org implements I_Organization, I_Validateable, I_Immutable {
 		mutant = new OrgMutant();
 	}
 	
-	public Org(I_Organization other) throws InvalidParameterException {
+	public Org(I_Org other) throws InvalidParameterException {
 		mutant = new OrgMutant(other);
 	}
 
@@ -34,7 +34,7 @@ public class Org implements I_Organization, I_Validateable, I_Immutable {
 		if (obj == null)
 			return false;
 		try {
-			return OrgMutant.equals(this, (I_Organization) obj);
+			return OrgMutant.equals(this, (I_Org) obj);
 		} catch (ClassCastException x) {
 			//eat gwt doesn't impl instance of
 		}
@@ -69,11 +69,11 @@ public class Org implements I_Organization, I_Validateable, I_Immutable {
 		return null;
 	}
 
-	public I_Organization toImmutable() throws ValidationException {
+	public I_Org toImmutable() throws ValidationException {
 		return this;
 	}
 
-	public I_OrganizationMutant toMutant() throws ValidationException {
+	public I_OrgMutant toMutant() throws ValidationException {
 		try {
 			return new OrgMutant(this);
 		} catch (InvalidParameterException ipe) {

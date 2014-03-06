@@ -4,14 +4,14 @@ import org.adligo.i.util.shared.AppenderFactory;
 import org.adligo.i.util.shared.I_Appender;
 import org.adligo.i.util.shared.I_Immutable;
 
-public class OrgVersioned implements I_Organization, I_Versioned, I_Immutable {
+public class OrgVersioned implements I_Org, I_Versioned, I_Immutable {
 	private OrgVersionedMutant mutant;
 
 	public OrgVersioned() {
 		mutant = new OrgVersionedMutant();
 	}
 	
-	public OrgVersioned(I_Organization p) throws InvalidParameterException {
+	public OrgVersioned(I_Org p) throws InvalidParameterException {
 		mutant = new OrgVersionedMutant(p);
 	}
 	

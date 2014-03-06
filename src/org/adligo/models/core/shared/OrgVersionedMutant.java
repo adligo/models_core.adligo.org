@@ -10,7 +10,7 @@ public class OrgVersionedMutant extends OrgMutant implements I_VersionedMutant {
 		
 	}
 	
-	public OrgVersionedMutant(I_Organization p) throws InvalidParameterException {
+	public OrgVersionedMutant(I_Org p) throws InvalidParameterException {
 		super(p);
 		try {
 			version = ((I_Versioned) p).getVersion();
