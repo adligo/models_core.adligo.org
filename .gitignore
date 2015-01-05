@@ -1,6 +1,8 @@
-classes/
-classes_e/
-bin/
+/bin/
+/build/
+/classes/
+/classes_e/
+
 models_core.jad
 models_core.jar
 tmp*/
